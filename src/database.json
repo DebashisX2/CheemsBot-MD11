@@ -117,6 +117,50 @@
       "badword": 0,
       "afkReason": "",
       "nick": "~ ATIF😎(N C A A F A A T )",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919339619072@s.whatsapp.net": {
+      "serialNumber": "8dbb039484997ec61d72f8b4002687fa",
+      "title": "Premium",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "╚»★ 𝓓𝓮𝓫𝓪𝓼𝓱𝓲𝓼 ★«╝",
+      "premium": "true",
+      "limit": 1000,
+      "totalLimit": 0
+    },
+    "916294627538@s.whatsapp.net": {
+      "serialNumber": "ca735a28b7a3941a124541171c6e61e8",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Raj",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918116945233@s.whatsapp.net": {
+      "serialNumber": "5e10b78038aadc0dd69179bc61c2426b",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "~♥️😇✨RITAM✨😇♥️",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919749336002@s.whatsapp.net": {
+      "serialNumber": "7c6b5a95f6bbfad5134f35dc96641389",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Ankita(MIMI)",
       "premium": "false",
       "limit": 100,
       "totalLimit": 0
@@ -339,6 +383,24 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false
+    },
+    "919339619072@s.whatsapp.net": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
     }
   },
   "game": {
@@ -406,7 +468,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 94,
+      "totalhit": 131,
       "totalError": 0,
       "online": false,
       "autosticker": false,

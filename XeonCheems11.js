@@ -297,7 +297,7 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
                             body: ownername,
                             previewType: "PHOTO",
                             thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                            sourceUrl: wagc
+                            sourceUrl: websitex
                         }
                     },
                     text: teks
@@ -1872,7 +1872,7 @@ case 'block': case 'ban': {
                                 title: botname,
                                 body: `Sent in ${i.length} Group`,
                                 thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -2894,7 +2894,7 @@ break
                             title: botname,
                             body: ownername,
                             thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
-                            sourceUrl: wagc,
+                            sourceUrl: websitex,
                             mediaType: 1,
                             renderLargerThumbnail: true
                         }
@@ -2932,7 +2932,7 @@ break
                                 title: botname,
                                 body: ownername,
                                 thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -2948,7 +2948,7 @@ break
                                 title: botname,
                                 body: ownername,
                                 thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -2969,7 +2969,7 @@ break
                             title: botname,
                             body: ownername,
                             thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
-                            sourceUrl: wagc,
+                            sourceUrl: websitex,
                             mediaType: 1,
                             renderLargerThumbnail: true
                         }
@@ -2980,7 +2980,7 @@ break
                 break
 case 'sc': case 'script': case 'donate': case 'donate': case 'cekupdate': case 'updatebot': case 'cekbot': case 'sourcecode': {
 let me = m.sender
-let teks = `*「  ${global.botname} Script 」*\n\nYouTube: ${global.websitex}\nGitHub: ${global.botscript}\n\nHi @${me.split('@')[0]} 👋\nDont forget to donate yeah🍜 👇 https://i.ibb.co/y6XmZ2b/donate.png`
+let teks = `*「  ${global.botname} Script 」*\n\nYouTube: ${global.websitex}\nGitHub: ${global.botscript}\n\nHi @${me.split('@')[0]} 👋\nDont forget to donate yeah🍜 👇 https://telegra.ph/file/810b13ff39277018142ea.jpg`
 sendXeonBotIncMessage(from, { 
 text: teks,
 mentions:[sender],
@@ -2995,8 +2995,8 @@ mentionedJid:[sender],
 "containsAutoReply": true,
 "mediaType": 1, 
 "thumbnail": fs.readFileSync("./XeonMedia/theme/cheemspic.jpg"),
-"mediaUrl": `${wagc}`,
-"sourceUrl": `${wagc}`
+"mediaUrl": `${websitex}`,
+"sourceUrl": `${websitex}`
 }
 }
 })
@@ -4943,7 +4943,7 @@ const okebnh1 =['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15
 const xeonkak = okebnh1[Math.floor(Math.random() * okebnh1.length)]
 XeonBotInc.sendMessage(m.chat, { text: xeonkak }, { quoted: m })
 break
-            case 'soulmate': {
+            case 'soulmate': case 'mysoulmate': case 'ship': {
             if (!m.isGroup) return XeonStickGroup()
             let member = participants.map(u => u.id)
             let me = m.sender
@@ -4951,7 +4951,9 @@ break
 XeonBotInc.sendMessage(m.chat,
 { text: `👫Your Soulmate Is
 
-@${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}`,
+@${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
+
+> Checked by @${me.split('@')[0]} `,
 contextInfo:{
 mentionedJid:[me, jodoh],
 forwardingScore: 9999999,
@@ -4964,20 +4966,24 @@ isForwarded: true,
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
 "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
-"sourceUrl": `${wagc}`}}},
+"sourceUrl": `${websitex}`}}},
 { quoted: m})        
             }
             break
- case 'couple': {
+ case 'couple': case 'vatar': case 'vatari': {
             if (!m.isGroup) return XeonStickGroup()
             let member = participants.map(u => u.id)
             let orang = member[Math.floor(Math.random() * member.length)]
             let jodoh = member[Math.floor(Math.random() * member.length)]
+            let me = m.sender
 XeonBotInc.sendMessage(m.chat,
-{ text: `@${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
-Cieeee, What's Going On❤️💖👀`,
+{ text: `Our new Couples are 
+         @${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
+He he he, কি রে শালা, খবর কি তোদের?😜😁👀
+
+> _Checked by @${me.split('@')[0]}_ `,
 contextInfo:{
-mentionedJid:[orang, jodoh],
+mentionedJid:[orang, jodoh, me],
 forwardingScore: 9999999,
 isForwarded: true, 
 "externalAdReply": {
@@ -4988,7 +4994,7 @@ isForwarded: true,
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
 "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
-"sourceUrl": `${wagc}`}}},
+"sourceUrl": `${websitex}`}}},
 { quoted: m})        
             }
             break
@@ -5178,7 +5184,7 @@ mentionedJid:[xeonshimts],
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
 "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
-"sourceUrl": `${wagc}`
+"sourceUrl": `${websitex}`
 }
 }
 }, { quoted: m })
@@ -6662,7 +6668,7 @@ case 'blur':
             let latensie = speed() - timestampe
             let a = db.data.users[sender]
             let me = m.sender
-            let xmenu_oh = `┌─❖
+            let xmenu_oh = `┌────────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖───────────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
 ┌┤✑  ${xeonytimewisher} 😄${readmore} 
@@ -6680,6 +6686,7 @@ case 'blur':
 │𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.data.users).length} User
 │𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${global.db.data.settings[botNumber].totalhit} Hit
 │𝗧𝗼𝘁𝗮𝗹 𝗖𝗵𝗮𝘁 : ${Object.keys(global.db.data.chats).length} Chat/Gc
+|*Menu Type* : ${typemenu}
 │
 └─ 𝙐𝙎𝙀𝙍 𝙄𝙉𝙁𝙊
 │𝗡𝗮𝗺𝗲 : ${pushname}
@@ -6689,7 +6696,7 @@ case 'blur':
 │𝗦𝗲𝗿𝗶𝗮𝗹: ${a.serialNumber}
 │
 └─ 𝙏𝙄𝙈𝙀 𝙄𝙉𝙁𝙊 
-│??𝗶𝗺𝗲 : ${xtime}
+││𝗧𝗶𝗺𝗲 : ${xtime}
 │𝗗𝗮𝘁𝗲 : ${xdate}
 └┬───────────────── ⳹
    │✑  Please Type The *MENU*
@@ -6713,7 +6720,9 @@ case 'blur':
 │❏${xprefix}stalkermenu
 │❏${xprefix}bugmenu
 │❏${xprefix}othermenu
-└─────────────────┈ ⳹`
+└─────────────────┈ ⳹
+
+> ░▒▓█►─═ ℭ𝔯𝔢𝔞𝔱𝔢𝔡 𝔅𝔶 𝔇𝔢𝔟𝔞𝔰𝔥𝔦𝔰 𝔇𝔢𝔶 ═─◄█▓▒░`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -6730,7 +6739,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -6756,7 +6765,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v5') {
                     XeonBotInc.relayMessage(m.chat, {
                         scheduledCallCreationMessage: {
-                            callType: "AUDIO",
+                            callType: "VIDEO",
                             scheduledTimestampMs: 1200,
                             title: xmenu_oh
                         }
@@ -6765,7 +6774,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '123456789',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -6794,7 +6803,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -6811,7 +6820,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/523ffab349881f907099a.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -6841,7 +6850,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -6905,7 +6914,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -6952,7 +6961,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7016,7 +7025,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7063,7 +7072,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7127,7 +7136,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7174,7 +7183,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7238,7 +7247,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7285,7 +7294,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7349,7 +7358,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7396,7 +7405,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7460,7 +7469,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7507,7 +7516,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7571,7 +7580,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7618,7 +7627,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7682,7 +7691,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7729,7 +7738,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7793,7 +7802,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7840,7 +7849,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7904,7 +7913,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -7951,7 +7960,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8015,7 +8024,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8062,7 +8071,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8126,7 +8135,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8173,7 +8182,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8237,7 +8246,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8284,7 +8293,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8348,7 +8357,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8395,7 +8404,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8459,7 +8468,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8506,7 +8515,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8570,7 +8579,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8617,7 +8626,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8681,7 +8690,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8728,7 +8737,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -8792,7 +8801,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
