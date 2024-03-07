@@ -353,17 +353,19 @@ ppgroup = await XeonBotInc.profilePictureUrl(anu.id, 'image')
 ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 }
  if (anu.action == 'promote') {
-const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
-let a = db.data.users[sender]
-xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* on 
-Time ${xeontime.split("@")[0]} 
-Date ${xeondate.split("@")[0]}   @${a.split("@")[0]}🥳`
+let promoter = anu.author
+xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin * 
+*Promoted by* ${promoter}
+
+> Time:  ${xeontime.split("@")[0]} 
+> Date:  ${xeondate.split("@")[0]}`
    XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
- mentionedJid:[num, xeondate, xeontime],
+ mentionedJid:[num, xeontime, xeondate, promoter],
  "externalAdReply": {"showAdAttribution": true,
  "containsAutoReply": true,
  "title": ` ${global.botname}`,
@@ -373,16 +375,19 @@ Date ${xeondate.split("@")[0]}   @${a.split("@")[0]}🥳`
 "thumbnail": XeonWlcm,
 "sourceUrl": `${websitex}`}}})
 } else if (anu.action == 'demote') {
-const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
-xeonbody = `𝗢𝗼𝗽𝘀‼️ @${xeonName.split("@")[0]}, you have been *demoted* from *admin*  on 
-Time ${xeontime.split("@")[0]} 
-Date ${xeondate.split("@")[0]}😬`
+let demoter = anu.author
+xeonbody = `𝗢𝗼𝗽𝘀‼️ @${xeonName.split("@")[0]}, you have been *demoted* from *admin*  
+*Demoted by* ${demoter}
+
+> Time ${xeontime.split("@")[0]} 
+> Date ${xeondate.split("@")[0]}😬`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
- mentionedJid:[num, xeondate, xeontime],
+ mentionedJid:[num, xeondate, xeontime, demoter],
  "externalAdReply": {"showAdAttribution": true,
  "containsAutoReply": true,
  "title": ` ${global.botname}`,
