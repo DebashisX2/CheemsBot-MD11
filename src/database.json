@@ -1,12 +1,4 @@
 {
-  "sticker": {},
-  "database": {},
-  "game": {
-    "math": []
-  },
-  "others": {
-    "vote": []
-  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -183,8 +175,20 @@
       "premium": "false",
       "limit": 100,
       "totalLimit": 0
+    },
+    "919907106071@s.whatsapp.net": {
+      "serialNumber": "ef488c1a8f5c362cf27c307e5de97fcc",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "SARASWATI JANA",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
+  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -439,6 +443,9 @@
       "antilinkgc": false
     }
   },
+  "game": {
+    "math": []
+  },
   "settings": {
     "918798308154@s.whatsapp.net": {
       "totalhit": 432,
@@ -501,7 +508,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 144,
+      "totalhit": 168,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -531,5 +538,9 @@
       }
     }
   },
-  "message": {}
+  "message": {},
+  "sticker": {},
+  "others": {
+    "vote": []
+  }
 }
