@@ -1,4 +1,12 @@
 {
+  "sticker": {},
+  "database": {},
+  "game": {
+    "math": []
+  },
+  "others": {
+    "vote": []
+  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -164,9 +172,19 @@
       "premium": "false",
       "limit": 100,
       "totalLimit": 0
+    },
+    "919734151558@s.whatsapp.net": {
+      "serialNumber": "9203f20977db69757f155d4ef8467735",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Nice",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
     }
   },
-  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -401,10 +419,25 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false
+    },
+    "120363020574277935@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
     }
-  },
-  "game": {
-    "math": []
   },
   "settings": {
     "918798308154@s.whatsapp.net": {
@@ -468,7 +501,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 131,
+      "totalhit": 144,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -498,9 +531,5 @@
       }
     }
   },
-  "message": {},
-  "sticker": {},
-  "others": {
-    "vote": []
-  }
+  "message": {}
 }

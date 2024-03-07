@@ -1856,7 +1856,7 @@ case 'block': case 'ban': {
             case 'bcgc':
             case 'bcgroup': {
                 if (!XeonTheCreator) return XeonStickOwner()
-                if (!text) return replygcxeon(`Text mana?\n\nExample : ${prefix + command} Besok Libur `)
+                if (!text) return replygcxeon(`Text mana?\n\nExample : ${prefix + command} Enter the text`)
                 let getGroups = await XeonBotInc.groupFetchAllParticipating()
                 let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
                 let anu = groups.map(v => v.id)
@@ -1871,7 +1871,7 @@ case 'block': case 'ban': {
                                 showAdAttribution: true,
                                 title: botname,
                                 body: `Sent in ${i.length} Group`,
-                                thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
                                 sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -2885,7 +2885,7 @@ ${themeemoji} URL: ${repoData.html_url}
 break
             case 'buypremium':
             case 'premiumuser': {
-                let teks = `Hi ${pushname}👋\nWant to Buy Premium?Just chat with the owner😉`
+                let teks = `Hi ${pushname}👋\nWant to Buy Premium? call ${ownernumber} 😉`
                 await XeonBotInc.sendMessage(m.chat, {
                     text: teks,
                     contextInfo: {
@@ -2893,7 +2893,7 @@ break
                             showAdAttribution: true,
                             title: botname,
                             body: ownername,
-                            thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                            thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
                             sourceUrl: websitex,
                             mediaType: 1,
                             renderLargerThumbnail: true
@@ -2905,7 +2905,7 @@ break
             }
             break
             case 'rentbot':
-                replygcxeon(`Type ${prefix}owner and chat him`)
+                replygcxeon(`Type ${prefix}${ownernumber}owner and chat him`)
                 break
             case 'speedtest': {
                 replygcxeon('Testing Speed...')
@@ -2931,7 +2931,7 @@ break
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
                                 sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -2947,7 +2947,7 @@ break
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
                                 sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -2968,7 +2968,7 @@ break
                             showAdAttribution: true,
                             title: botname,
                             body: ownername,
-                            thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                            thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
                             sourceUrl: websitex,
                             mediaType: 1,
                             renderLargerThumbnail: true
@@ -6668,36 +6668,37 @@ case 'blur':
             let latensie = speed() - timestampe
             let a = db.data.users[sender]
             let me = m.sender
-            let xmenu_oh = `┌─────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
+            let xmenu_oh = `┌────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-┌┤✑  ${xeonytimewisher} 😄${readmore} 
+ │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │
-└─ 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 
-│𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
-│𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}
-│𝗕𝗼𝘁 : ${botname}
-│𝗢𝘄𝗻𝗲𝗿 𝗡𝗼: +${ownernumber}
-│𝗣𝗿𝗲𝗳𝗶𝘅 :  [ ${xprefix} ]
-│𝗠𝗼𝗱𝗲 : ${XeonBotInc.public ? 'Public' : `Self`}
-│𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
-│𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
-│𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.data.users).length} User
-│𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${global.db.data.settings[botNumber].totalhit} Hit
-│𝗧𝗼𝘁𝗮𝗹 𝗖𝗵𝗮𝘁 : ${Object.keys(global.db.data.chats).length} Chat/Gc
-|*Menu Type* : ${typemenu}
+└─ 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎
+│sᴘᴇᴇᴅ      : ${latensie.toFixed(4)} miliseconds
+│ʀᴜɴᴛɪᴍᴇ    : ${runtime(process.uptime())}
+│ʙᴏᴛ‌: ${botname}
+│ᴏᴡɴᴇʀ ɴᴏ.  : ${ownernumber}
+│ᴘʀᴇғɪx‌     : ${xprefix} 
+│ᴍᴏᴅᴇ   : ${XeonBotInc.public ? 'Public' : `Self`}
+│ʜᴏsᴛ ɴᴀᴍᴇ : ${os.hostname()}
+│ᴘʟᴀᴛғᴏʀᴍ‌    : ${os.platform()}
+│‌ᴛᴏᴛᴀʟ ᴜsᴇʀ : ${Object.keys(global.db.data.users).length} User
+│ᴛᴏᴛᴀʟ ʜɪᴛ  : ${global.db.data.settings[botNumber].totalhit} Hit
+│ᴛᴏᴛᴀʟ ᴄʜᴀᴛ‌ : ${Object.keys(global.db.data.chats).length} Chat/Gc
 │
-└─ 𝙐𝙎𝙀𝙍 𝙄𝙉𝙁𝙊
-│𝗡𝗮𝗺𝗲 : ${pushname}
-│𝗡𝘂𝗺𝗯𝗲𝗿 : +${me.split('@')[0]}
-│𝗟𝗶𝗺𝗶𝘁 : ${a.limit}
-│𝗧𝗶𝘁𝗹𝗲 : ${a.title ? a.title : '-'}
-│𝗦𝗲𝗿𝗶𝗮𝗹: ${a.serialNumber}
 │
-└─ 𝙏𝙄𝙈𝙀 𝙄𝙉𝙁𝙊 
-││𝗧𝗶𝗺𝗲 : ${xtime}
-│𝗗𝗮𝘁𝗲 : ${xdate}
+└─ 𝐔𝐒𝐄𝐑 𝐈𝐍𝐅𝐎
+│ɴᴀᴍᴇ   ‌  : ${pushname}
+│ɴᴜᴍʙᴇʀ   : +${me.split('@')[0]}
+│ʟɪᴍɪᴛ    : ${a.limit}
+│ᴛɪᴛʟᴇ    : ${a.title ? a.title : '-'}
+│sᴇʀɪᴀʟ: ${a.serialNumber}
+│
+└─ 𝐓𝐈𝐌𝐄 𝐈𝐍𝐅𝐎
+│ᴛɪᴍᴇ : ${xtime}
+│ᴅᴀᴛᴇ : ${xdate}
 └┬───────────────── ⳹
    │✑  Please Type The *MENU*
    │✑  Given *BELOW*
@@ -6774,7 +6775,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '123456789',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -6885,7 +6886,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -6931,7 +6932,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -6944,7 +6945,13 @@ if (typemenu === 'v1') {
 }
 break
             case 'ownermenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${ownermenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│ ${ownermenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -6996,7 +7003,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7042,7 +7049,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7055,7 +7062,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'othermenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${othermenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${othermenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7107,7 +7120,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7153,7 +7166,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7166,7 +7179,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'downloadmenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${downloadmenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+ │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${downloadmenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7218,7 +7237,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7264,7 +7283,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7277,7 +7296,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'groupmenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${groupmenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${groupmenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7329,7 +7354,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7375,7 +7400,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7388,7 +7413,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'funmenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${funmenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${funmenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7440,7 +7471,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '123456789000000',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7486,7 +7517,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7499,7 +7530,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'stalkermenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${stalkermenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${stalkermenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7551,7 +7588,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '1234567890000',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7597,7 +7634,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7610,7 +7647,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'randomphotomenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${randphotomenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${randphotomenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7662,7 +7705,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7708,7 +7751,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7721,7 +7764,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'randomvideomenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${randvideomenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${randvideomenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7773,7 +7822,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7819,7 +7868,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7832,7 +7881,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'photooxymenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${photooxymenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${photooxymenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7884,7 +7939,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7930,7 +7985,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7943,7 +7998,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'ephoto360menu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${ephoto360menu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${ephoto360menu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7995,7 +8056,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8041,7 +8102,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8054,7 +8115,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'makermenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${makermenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${makermenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -8106,7 +8173,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8152,7 +8219,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8165,7 +8232,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'nsfwmenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${nsfwmenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${nsfwmenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -8217,7 +8290,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8263,7 +8336,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8276,7 +8349,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'animemenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${animemenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${animemenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -8328,7 +8407,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8374,7 +8453,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8387,7 +8466,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'stickermenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${stickermenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${stickermenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -8439,7 +8524,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8485,7 +8570,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8498,7 +8583,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'databasemenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${databasemenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${databasemenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -8550,7 +8641,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8596,7 +8687,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8609,7 +8700,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'aimenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${aimenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${aimenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -8661,7 +8758,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8707,7 +8804,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8720,7 +8817,13 @@ if (typemenu === 'v1') {
 }
 break
 case 'bugmenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${bugmenu(prefix, hituet)}`
+let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+  │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│${bugmenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -8772,7 +8875,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '9999999900',
+                          amount1000: '12345678900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8818,7 +8921,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
