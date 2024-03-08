@@ -358,7 +358,7 @@ let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
 let promoter = anu.author
 xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* 
-*Promoted by* ${promoter}
+*Promoted by* @${promoter}
 
 
 > Time:  ${xeontime.split("@")[0]} 
@@ -381,7 +381,7 @@ let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
 let demoter = anu.author
 xeonbody = `𝗢𝗼𝗽𝘀‼️ @${xeonName.split("@")[0]}, you have been *demoted* from *admin*  
-*Demoted by* ${demoter}
+*Demoted by* @${demoter}
 
 > Time ${xeontime.split("@")[0]} 
 > Date ${xeondate.split("@")[0]}😬`
@@ -416,32 +416,32 @@ ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 			console.log(json)
 			const res = json[0]
 			if (res.announce == true) {
-				await sleep(2000)
+				await sleep(1000)
 				XeonBotInc.sendMessage(res.id, {
 					text: `「 Group Settings Change 」\n\nGroup has been closed by admin, Now only admins can send messages !`,
 				})
 			} else if (res.announce == false) {
-				await sleep(2000)
+				await sleep(1000)
 				XeonBotInc.sendMessage(res.id, {
 					text: `「 Group Settings Change 」\n\nThe group has been opened by admin, Now participants can send messages !`,
 				})
 			} else if (res.restrict == true) {
-				await sleep(2000)
+				await sleep(1000)
 				XeonBotInc.sendMessage(res.id, {
 					text: `「 Group Settings Change 」\n\nGroup info has been restricted, Now only admin can edit group info !`,
 				})
 			} else if (res.restrict == false) {
-				await sleep(2000)
+				await sleep(1000)
 				XeonBotInc.sendMessage(res.id, {
 					text: `「 Group Settings Change 」\n\nGroup info has been opened, Now participants can edit group info !`,
 				})
 			} else if(!res.desc == ''){
-				await sleep(2000)
+				await sleep(1000)
 				XeonBotInc.sendMessage(res.id, { 
 					text: `「 Group Settings Change 」\n\n*Group description has been changed to*\n\n${res.desc}`,
 				})
       } else {
-				await sleep(2000)
+				await sleep(1000)
 				XeonBotInc.sendMessage(res.id, {
 					text: `「 Group Settings Change 」\n\n*Group name has been changed to*\n\n*${res.subject}*`,
 				})
