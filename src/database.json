@@ -241,6 +241,50 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "916297542371@s.whatsapp.net": {
+      "serialNumber": "ffd255a2c04c741ca72e4826fe196da3",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "𝗞𝗔𝗟𝗞𝗜",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919883388192@s.whatsapp.net": {
+      "serialNumber": "21619174af3e6275863ebd0247ecffe8",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "সুলোচনা ✨❤️",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918293435272@s.whatsapp.net": {
+      "serialNumber": "ecaa27ff9b7fa7a8b1fc634823ced058",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "~মিষ্টি 🍫",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "917501074328@s.whatsapp.net": {
+      "serialNumber": "c04dc74d0da82143c1c6554a7f357ae7",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Mouli  Chakraborty",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -599,7 +643,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 277,
+      "totalhit": 292,
       "totalError": 0,
       "online": false,
       "autosticker": false,

@@ -4976,6 +4976,7 @@ isForwarded: true,
             let orang = member[Math.floor(Math.random() * member.length)]
             let jodoh = member[Math.floor(Math.random() * member.length)]
             let me = m.sender
+            me!=jodoh!=orang
 XeonBotInc.sendMessage(m.chat,
 { text: `Our new Couples are 
          @${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
