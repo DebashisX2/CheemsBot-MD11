@@ -161,7 +161,7 @@
       "badword": 0,
       "afkReason": "",
       "nick": "Ankita(MIMI)",
-      "premium": "false",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     },
@@ -514,6 +514,24 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false
+    },
+    "120363236965220457@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
     }
   },
   "game": {
@@ -581,7 +599,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 236,
+      "totalhit": 276,
       "totalError": 0,
       "online": false,
       "autosticker": false,
