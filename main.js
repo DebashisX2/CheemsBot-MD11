@@ -359,7 +359,7 @@ let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
 let promoter = anu.author
 xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* 
-*Promoted by* @${promoter.split("@")[0]}}
+*Promoted by* @${promoter.split("@")[0]}
 
 > Time:  ${xeontime.split("@")[0]} 
 > Date:  ${xeondate.split("@")[0]}`
@@ -404,7 +404,7 @@ let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
 let demoter = anu.author
 xeonbody = ` *Oops!!* @${xeonName.split("@")[0]}, you have been *Demoted* from *Admin* 
-*Demoted by* @${demoter.split("@")[0]}}
+*Demoted by* @${demoter.split("@")[0]}
 
 
 > Time:  ${xeontime.split("@")[0]} 
