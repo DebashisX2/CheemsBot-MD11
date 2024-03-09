@@ -2848,12 +2848,12 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 	
 	break
     case 'debashis':
-       
+       let message = q ? q : ''
         XeonBotInc.relayMessage(m.chat, {
             scheduledCallCreationMessage: {
-                callType: "AUDIO",
+                callType: "VIDEO",
                 scheduledTimestampMs: 1200,
-                title: "hello everyone it's Debashis Dey"
+                title: message
             }
         }, {})
           break

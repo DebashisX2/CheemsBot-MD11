@@ -307,6 +307,17 @@
       "premium": "false",
       "limit": 100,
       "totalLimit": 0
+    },
+    "917449401660@s.whatsapp.net": {
+      "serialNumber": "19e0ad9c1521a5e06f88fe5f1ff900ab",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "__its_abhra__",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -683,7 +694,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 325,
+      "totalhit": 349,
       "totalError": 0,
       "online": false,
       "autosticker": false,
