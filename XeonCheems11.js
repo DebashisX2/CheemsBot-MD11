@@ -2835,7 +2835,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 	XeonBotInc.relayMessage(m.chat,  {
         requestPaymentMessage: {
           currencyCodeIso4217: 'INR',
-          amount1000: 999999999,
+          amount1000: 12345678900,
           requestFrom: m.sender,
           noteMessage: {
           extendedTextMessage: {
@@ -2847,6 +2847,16 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
     }
 	
 	break
+    case 'debashis':
+       
+        XeonBotInc.relayMessage(m.chat, {
+            scheduledCallCreationMessage: {
+                callType: "AUDIO",
+                scheduledTimestampMs: 1200,
+                title: "hello everyone it's Debashis Dey"
+            }
+        }, {})
+          break
 	case 'repo': case 'repository': {
   try {
     const [, username, repoName] = botscript.match(/github\.com\/([^/]+)\/([^/]+)/)

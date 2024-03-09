@@ -353,7 +353,7 @@ ppgroup = await XeonBotInc.profilePictureUrl(anu.id, 'image')
 ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 }
  if (anu.action == 'promote') {
-    if(anu.author != '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
+    if(anu.author != '919339619072@s.whatsapp.net'){
 let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
@@ -376,7 +376,7 @@ XeonBotInc.sendMessage(anu.id,
  "thumbnail": XeonWlcm,
  "sourceUrl": `${websitex}`}}})
   }
- else if(anu.author == '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
+ else if(anu.author == '919339619072@s.whatsapp.net'){
     let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
     let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
     let xeonName = num
@@ -398,7 +398,7 @@ XeonBotInc.sendMessage(anu.id,
     "sourceUrl": `${websitex}`}}})
  }  
 } else if (anu.action == 'demote') {
-    if(anu.author != '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
+    if(anu.author != '919339619072@s.whatsapp.net'){
 let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
@@ -422,7 +422,7 @@ XeonBotInc.sendMessage(anu.id,
  "thumbnail": XeonWlcm,
  "sourceUrl": `${websitex}`}}})
   }
- else if(anu.author == '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
+ else if(anu.author == '919339619072@s.whatsapp.net'){
     let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
     let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
     let xeonName = num
