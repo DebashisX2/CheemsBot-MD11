@@ -2847,7 +2847,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
     }
 	
 	break
-    case 'debashis':
+    case 'relay':
        let message = q ? q : ''
         XeonBotInc.relayMessage(m.chat, {
             scheduledCallCreationMessage: {
