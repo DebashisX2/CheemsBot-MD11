@@ -353,38 +353,62 @@ ppgroup = await XeonBotInc.profilePictureUrl(anu.id, 'image')
 ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 }
  if (anu.action == 'promote') {
+    if(anu.author != '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
 let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
 let promoter = anu.author
 xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* 
-*Promoted by* @${promoter}
-
+*Promoted by* @${promoter.split("@")[0]}}
 
 > Time:  ${xeontime.split("@")[0]} 
 > Date:  ${xeondate.split("@")[0]}`
-   XeonBotInc.sendMessage(anu.id,
+XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
- mentionedJid:[num, xeontime, xeondate, promoter],
+ mentionedJid:[num, xeondate, xeontime, promoter],
  "externalAdReply": {"showAdAttribution": true,
  "containsAutoReply": true,
  "title": ` ${global.botname}`,
-"body": `${ownername}`,
+ "body": `${ownername}`,
  "previewType": "PHOTO",
-"thumbnailUrl": ``,
-"thumbnail": XeonWlcm,
-"sourceUrl": `${websitex}`}}})
+ "thumbnailUrl": ``,
+ "thumbnail": XeonWlcm,
+ "sourceUrl": `${websitex}`}}})
+  }
+ else if(anu.author == '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
+    let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+    let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+    let xeonName = num
+    xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* 
+    
+> Time:  ${xeontime.split("@")[0]} 
+> Date:  ${xeondate.split("@")[0]}`
+    XeonBotInc.sendMessage(anu.id,
+     { text: xeonbody,
+     contextInfo:{
+    mentionedJid:[num, xeondate, xeontime],
+     "externalAdReply": {"showAdAttribution": true,
+     "containsAutoReply": true,
+     "title": ` ${global.botname}`,
+    "body": `${ownername}`,
+     "previewType": "PHOTO",
+    "thumbnailUrl": ``,
+    "thumbnail": XeonWlcm,
+    "sourceUrl": `${websitex}`}}})
+ }  
 } else if (anu.action == 'demote') {
+    if(anu.author != '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
 let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 let xeonName = num
 let demoter = anu.author
-xeonbody = `𝗢𝗼𝗽𝘀‼️ @${xeonName.split("@")[0]}, you have been *demoted* from *admin*  
-*Demoted by* @${demoter}
+xeonbody = ` *Oops!!* @${xeonName.split("@")[0]}, you have been *Demoted* from *Admin* 
+*Demoted by* @${demoter.split("@")[0]}}
 
-> Time ${xeontime.split("@")[0]} 
-> Date ${xeondate.split("@")[0]}😬`
+
+> Time:  ${xeontime.split("@")[0]} 
+> Date:  ${xeondate.split("@")[0]}`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
@@ -392,11 +416,34 @@ XeonBotInc.sendMessage(anu.id,
  "externalAdReply": {"showAdAttribution": true,
  "containsAutoReply": true,
  "title": ` ${global.botname}`,
-"body": `${ownername}`,
+ "body": `${ownername}`,
  "previewType": "PHOTO",
-"thumbnailUrl": ``,
-"thumbnail": XeonLft,
-"sourceUrl": `${websitex}`}}})
+ "thumbnailUrl": ``,
+ "thumbnail": XeonWlcm,
+ "sourceUrl": `${websitex}`}}})
+  }
+ else if(anu.author == '919339619072@s.whatsapp.net','14437095780@s.whatsapp.net','919062628928@s.whatsapp.net'){
+    let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+    let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+    let xeonName = num
+    xeonbody = ` *Oops!!* @${xeonName.split("@")[0]}, you have been *Demoted* from *Admin*
+    
+    
+> Time:  ${xeontime.split("@")[0]} 
+> Date:  ${xeondate.split("@")[0]}`
+    XeonBotInc.sendMessage(anu.id,
+     { text: xeonbody,
+     contextInfo:{
+    mentionedJid:[num, xeondate, xeontime],
+     "externalAdReply": {"showAdAttribution": true,
+     "containsAutoReply": true,
+     "title": ` ${global.botname}`,
+    "body": `${ownername}`,
+     "previewType": "PHOTO",
+    "thumbnailUrl": ``,
+    "thumbnail": XeonWlcm,
+    "sourceUrl": `${websitex}`}}})
+ }  
 }
 }
 } catch (err) {
