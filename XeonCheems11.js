@@ -6945,7 +6945,7 @@ if (typemenu === 'v1') {
 }
 break
             case 'ownermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7062,7 +7062,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'othermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7296,7 +7296,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'groupmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7413,7 +7413,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'funmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7530,7 +7530,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'stalkermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7647,7 +7647,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'randomphotomenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7764,7 +7764,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'randomvideomenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7881,7 +7881,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'photooxymenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -7998,7 +7998,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'ephoto360menu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -8115,7 +8115,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'makermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -8232,7 +8232,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'nsfwmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -8349,7 +8349,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'animemenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -8466,7 +8466,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'stickermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -8583,7 +8583,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'databasemenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -8700,7 +8700,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'aimenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
@@ -8817,7 +8817,7 @@ if (typemenu === 'v1') {
 }
 break
 case 'bugmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
   │✑  ${xeonytimewisher} 😄
