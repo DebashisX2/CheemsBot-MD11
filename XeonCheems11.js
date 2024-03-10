@@ -2846,7 +2846,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 	
 	break
     case 'relay':
-        if (!m.isPremium) return replygcxeon(mess.premium)
+       
        let message = q ? q : ''
         XeonBotInc.relayMessage(m.chat, {
             scheduledCallCreationMessage: {
@@ -4344,9 +4344,9 @@ if (!text) return replygcxeon('What location?')
            }
            break
            case 'fb':
-           case 'facebook': {
+           case 'facebook': case 'fb' : case 'fbvid' : {
            if (!args[0]) {
-    return replygcxeon(`Please send the link of a Facebook video\n\nEXAMPLE :\n*${prefix + command}* https://fb.watch/pLLTM4AFrO/?mibextid=Nif5oz`)
+    return replygcxeon(` @${m.sender.split("@")[0]} Please send the link of a Facebook video`)
   }
   const urlRegex = /^(?:https?:\/\/)?(?:www\.)?(?:facebook\.com|fb\.watch)\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
   if (!urlRegex.test(args[0])) {
@@ -4355,7 +4355,7 @@ if (!text) return replygcxeon('What location?')
   try {
     const result = await fg.fbdl(args[0]);
     const tex = `
-        [ FACEBOOK DL ]
+    @${m.sender.split("@")[0]} Here is your video 
 ${themeemoji} Title: ${result.title}`;
     const response = await fetch(result.videoUrl)
     const arrayBuffer = await response.arrayBuffer()
@@ -6446,7 +6446,7 @@ ${listAdmin}
     XeonBotInc.sendMessage(m.chat, {text : text, mentions: [...groupAdmins.map(v => v.id), owner] }, {quoted: m})
 }
 break
-case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg': {
+case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg' : case 'insta' : case 'ig' : {
 	  if (!text) return replygcxeon(`You need to give the URL of Any Instagram video, post, reel, image`)
   let res
   try {
@@ -6462,7 +6462,7 @@ case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg': {
   for (const mediaData of mediaArray) {
     const mediaType = mediaData.type
     const mediaURL = mediaData.url_download
-    let cap = `HERE IS THE ${mediaType.toUpperCase()}`
+    let cap = ` ${themeemoji} @${m.sender.split("@")[0]} HERE IS THE ${mediaType.toUpperCase()}`
     if (mediaType === 'video') {
       XeonBotInc.sendMessage(m.chat, {video: {url: mediaURL}, caption: cap}, {quoted: m})
     } else if (mediaType === 'image') {
@@ -6681,11 +6681,11 @@ case 'blur':
             let xmenu_oh = `┌────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
- │✑  ${xeonytimewisher} 😄
+     │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │
-└─ 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎
+└───❖ 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎
 │sᴘᴇᴇᴅ      : ${latensie.toFixed(4)} miliseconds
 │ʀᴜɴᴛɪᴍᴇ    : ${runtime(process.uptime())}
 │ʙᴏᴛ‌: ${botname}
@@ -6699,38 +6699,38 @@ case 'blur':
 │ᴛᴏᴛᴀʟ ᴄʜᴀᴛ‌ : ${Object.keys(global.db.data.chats).length} Chat/Gc
 │
 │
-└─ 𝐔𝐒𝐄𝐑 𝐈𝐍𝐅𝐎
+└──❖ 𝐔𝐒𝐄𝐑 𝐈𝐍𝐅𝐎
 │ɴᴀᴍᴇ   ‌  : ${pushname}
 │ɴᴜᴍʙᴇʀ   : +${me.split('@')[0]}
 │ʟɪᴍɪᴛ    : ${a.limit}
 │ᴛɪᴛʟᴇ    : ${a.title ? a.title : '-'}
 │sᴇʀɪᴀʟ: ${a.serialNumber}
 │
-└─ 𝐓𝐈𝐌𝐄 𝐈𝐍𝐅𝐎
+└──❖ 𝐓𝐈𝐌𝐄 𝐈𝐍𝐅𝐎
 │ᴛɪᴍᴇ : ${xtime}
 │ᴅᴀᴛᴇ : ${xdate}
 └┬───────────────── ⳹
    │✑  Please Type The *MENU*
    │✑  Given *BELOW*
 ┌└─────────────┈ ⳹
-│❏${xprefix}allmenu
-│❏${xprefix}downloadmenu
-│❏${xprefix}funmenu
-│❏${xprefix}aimenu
-│❏${xprefix}groupmenu
-│❏${xprefix}ownermenu
-│❏${xprefix}photooxymenu
-│❏${xprefix}ephoto360menu
-│❏${xprefix}makermenu
-│❏${xprefix}animemenu
-│❏${xprefix}nsfwmenu
-│❏${xprefix}randomphotomenu
-│❏${xprefix}randomvideomenu
-│❏${xprefix}stickermenu
-│❏${xprefix}databasemenu
-│❏${xprefix}stalkermenu
-│❏${xprefix}bugmenu
-│❏${xprefix}othermenu
+│❏${xprefix}𝐀𝐋𝐋𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐅𝐔𝐍𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐀𝐈𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐆𝐑𝐎𝐔𝐏𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐎𝐖𝐍𝐄𝐑𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐏𝐇𝐎𝐓𝐎𝐎𝐗𝐘𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐄𝐏𝐇𝐎𝐓𝐎𝟑𝟔𝟎𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐌𝐀𝐊𝐄𝐑𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐀𝐍𝐈𝐌𝐄𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐍𝐒𝐅𝐖𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐏𝐇𝐎𝐓𝐎𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐕𝐈𝐃𝐄𝐎𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐒𝐓𝐈𝐂𝐊𝐄𝐑𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐃𝐀𝐓𝐀𝐁𝐀𝐒𝐄𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐒𝐓𝐀𝐋𝐊𝐄𝐑𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐁𝐔𝐆𝐌𝐄𝐍𝐔
+│❏${xprefix}𝐎𝐓𝐇𝐄𝐑𝐌𝐄𝐍𝐔
 └─────────────────┈ ⳹
 
 > ░▒▓█►─═ ℭ𝔯𝔢𝔞𝔱𝔢𝔡 𝔅𝔶 𝔇𝔢𝔟𝔞𝔰𝔥𝔦𝔰 𝔇𝔢𝔶 ═─◄█▓▒░`
@@ -6958,7 +6958,7 @@ break
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │ ${ownermenu(prefix, hituet)}`
@@ -7075,7 +7075,7 @@ case 'othermenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${othermenu(prefix, hituet)}`
@@ -7192,7 +7192,7 @@ case 'downloadmenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
- │✑  ${xeonytimewisher} 😄
+   │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${downloadmenu(prefix, hituet)}`
@@ -7309,7 +7309,7 @@ case 'groupmenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${groupmenu(prefix, hituet)}`
@@ -7426,7 +7426,7 @@ case 'funmenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${funmenu(prefix, hituet)}`
@@ -7543,7 +7543,7 @@ case 'stalkermenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${stalkermenu(prefix, hituet)}`
@@ -7660,7 +7660,7 @@ case 'randomphotomenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${randphotomenu(prefix, hituet)}`
@@ -7777,7 +7777,7 @@ case 'randomvideomenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${randvideomenu(prefix, hituet)}`
@@ -7894,7 +7894,7 @@ case 'photooxymenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${photooxymenu(prefix, hituet)}`
@@ -8011,7 +8011,7 @@ case 'ephoto360menu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${ephoto360menu(prefix, hituet)}`
@@ -8128,7 +8128,7 @@ case 'makermenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${makermenu(prefix, hituet)}`
@@ -8245,7 +8245,7 @@ case 'nsfwmenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${nsfwmenu(prefix, hituet)}`
@@ -8362,7 +8362,7 @@ case 'animemenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${animemenu(prefix, hituet)}`
@@ -8479,7 +8479,7 @@ case 'stickermenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${stickermenu(prefix, hituet)}`
@@ -8596,7 +8596,7 @@ case 'databasemenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${databasemenu(prefix, hituet)}`
@@ -8713,7 +8713,7 @@ case 'aimenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${aimenu(prefix, hituet)}`
@@ -8830,7 +8830,7 @@ case 'bugmenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-  │✑  ${xeonytimewisher} 😄
+   │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${bugmenu(prefix, hituet)}`

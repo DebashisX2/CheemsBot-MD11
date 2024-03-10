@@ -1,4 +1,12 @@
 {
+  "sticker": {},
+  "database": {},
+  "game": {
+    "math": []
+  },
+  "others": {
+    "vote": []
+  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -337,12 +345,33 @@
       "badword": 0,
       "afkReason": "",
       "nick": "P..(⁠*⁠❛⁠‿⁠❛⁠)⁠→👀🔥",
-      "premium": "false",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919907564719@s.whatsapp.net": {
+      "serialNumber": "30cb49eb2795827822e91c523abff41d",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "~ Shiuli shit",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919883484686@s.whatsapp.net": {
+      "serialNumber": "8ea82592816de1bbd069a784e7f367ae",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "@Avinandan Singha",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     }
   },
-  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -669,9 +698,6 @@
       "antilinkgc": false
     }
   },
-  "game": {
-    "math": []
-  },
   "settings": {
     "918798308154@s.whatsapp.net": {
       "totalhit": 432,
@@ -734,7 +760,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 372,
+      "totalhit": 436,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -764,9 +790,5 @@
       }
     }
   },
-  "message": {},
-  "sticker": {},
-  "others": {
-    "vote": []
-  }
+  "message": {}
 }
