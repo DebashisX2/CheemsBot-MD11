@@ -2545,9 +2545,7 @@ if (!XeonTheCreator) return XeonStickOwner()
                 break
             case 'tagall':
             case 'tag':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
-                if (!isBotAdmins) return XeonStickBotAdmin()
+                
                 let me = m.sender
                 let teks = `╚»˙·٠${themeemoji}●♥ Tag All ♥●${themeemoji}٠·˙«╝\n😶 *Tagger :*  @${me.split('@')[0]}\n🌿 *Message : ${q ? q : 'no message'}*\n\n`
                 for (let mem of participants) {
@@ -2848,6 +2846,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 	
 	break
     case 'relay':
+        if (!m.isPremium) return replygcxeon(mess.premium)
        let message = q ? q : ''
         XeonBotInc.relayMessage(m.chat, {
             scheduledCallCreationMessage: {

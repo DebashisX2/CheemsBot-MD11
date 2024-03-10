@@ -336,6 +336,7 @@ console.log(err)
             }
     })
     //admin event
+    
     XeonBotInc.ev.on('group-participants.update', async (anu) => {
     	if (global.adminevent){
 console.log(anu)
