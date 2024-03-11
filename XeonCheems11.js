@@ -2786,67 +2786,23 @@ break
                     })
             break
                 //bot status
-            case 'ping': case 'botstatus': case 'statusbot': case 'p': {
-	const used = process.memoryUsage()
-                const cpus = os.cpus().map(cpu => {
-                    cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
-			        return cpu
-                })
-                const cpu = cpus.reduce((last, cpu, _, { length }) => {
-                    last.total += cpu.total
-                    last.speed += cpu.speed / length
-                    last.times.user += cpu.times.user
-                    last.times.nice += cpu.times.nice
-                    last.times.sys += cpu.times.sys
-                    last.times.idle += cpu.times.idle
-                    last.times.irq += cpu.times.irq
-                    return last
+            case 'ping': case 'botstatus': case 'statusbot': case 'p':
+                let timestampe = speed()
+                let latensie = speed() - timestampe
+                 let ping = `> Hey there, 
+> ${botname} 
+> is online 📡🛰️
+> ʀᴇsᴘᴏɴsᴇ sᴘᴇᴇᴅ :  ${latensie.toFixed(4)} ms
+> ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}
+> ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} `
+                XeonBotInc.sendMessage(m.chat, {
+                    text: ping,
                 }, {
-                    speed: 0,
-                    total: 0,
-                    times: {
-			            user: 0,
-			            nice: 0,
-			            sys: 0,
-			            idle: 0,
-			            irq: 0
-                }
+                    quoted: m
                 })
-                let timestamp = speed()
-                let latensi = speed() - timestamp
-                neww = performance.now()
-                oldd = performance.now()
-                respon = `
-Response Speed ${latensi.toFixed(4)} _Second_ \n ${oldd - neww} _miliseconds_\n\nRuntime : ${runtime(process.uptime())}
-
-💻 Info Server
-RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}
-
-_NodeJS Memory Usaage_
-${Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v=>v.length)),' ')}: ${formatp(used[key])}`).join('\n')}
-
-${cpus[0] ? `_Total CPU Usage_
-${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}
-_CPU Core(s) Usage (${cpus.length} Core CPU)_
-${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
-                `.trim()
-	XeonBotInc.relayMessage(m.chat,  {
-        requestPaymentMessage: {
-          currencyCodeIso4217: 'INR',
-          amount1000: 12345678900,
-          requestFrom: m.sender,
-          noteMessage: {
-          extendedTextMessage: {
-          text: respon,
-          contextInfo: {
-          externalAdReply: {
-          showAdAttribution: true
-          }}}}}}, {})
-    }
-	
-	break
+                break
     case 'relay':
-       
+    if (!isPremium) return replygcxeon(mess.premium)
        let message = q ? q : ''
         XeonBotInc.relayMessage(m.chat, {
             scheduledCallCreationMessage: {
@@ -2914,7 +2870,7 @@ break
             }
             break
             case 'rentbot':
-                replygcxeon(`Type ${prefix}${ownernumber}owner and chat him`)
+                replygcxeon(`Type ${prefix}${ownernumber} owner and chat him`)
                 break
             case 'speedtest': {
                 replygcxeon('Testing Speed...')
@@ -6686,6 +6642,7 @@ case 'blur':
 │└────────────┈ ⳹
 │
 └───❖ 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎
+│ᴍᴇɴᴜᴛʏᴘᴇ : ${typemenu}
 │sᴘᴇᴇᴅ      : ${latensie.toFixed(4)} miliseconds
 │ʀᴜɴᴛɪᴍᴇ    : ${runtime(process.uptime())}
 │ʙᴏᴛ‌: ${botname}
@@ -6693,11 +6650,14 @@ case 'blur':
 │ᴘʀᴇғɪx‌     : ${xprefix} 
 │ᴍᴏᴅᴇ   : ${XeonBotInc.public ? 'Public' : `Self`}
 │ʜᴏsᴛ ɴᴀᴍᴇ : ${os.hostname()}
+│ᴏᴡɴᴇʀ ɴᴀᴍᴇ : ${ownername}
 │ᴘʟᴀᴛғᴏʀᴍ‌    : ${os.platform()}
 │‌ᴛᴏᴛᴀʟ ᴜsᴇʀ : ${Object.keys(global.db.data.users).length} User
 │ᴛᴏᴛᴀʟ ʜɪᴛ  : ${global.db.data.settings[botNumber].totalhit} Hit
 │ᴛᴏᴛᴀʟ ᴄʜᴀᴛ‌ : ${Object.keys(global.db.data.chats).length} Chat/Gc
-│
+│ᴀᴜᴛᴏsᴛᴀᴛᴜs ᴠɪᴇᴡ : ${autoswview} 
+│ᴡᴇʟᴄᴏᴍᴇ sᴛᴀᴛᴜs : ${welcome}
+│ᴛᴏᴛᴀʟ ғᴇᴀᴛᴜʀᴇs : ${xeonfeature()}
 │
 └──❖ 𝐔𝐒𝐄𝐑 𝐈𝐍𝐅𝐎
 │ɴᴀᴍᴇ   ‌  : ${pushname}
@@ -6709,10 +6669,10 @@ case 'blur':
 └──❖ 𝐓𝐈𝐌𝐄 𝐈𝐍𝐅𝐎
 │ᴛɪᴍᴇ : ${xtime}
 │ᴅᴀᴛᴇ : ${xdate}
-└┬───────────────── ⳹
+└┬──────────────────────────── ⳹
    │✑  Please Type The *MENU*
    │✑  Given *BELOW*
-┌└─────────────┈ ⳹
+┌└─────────────────────────┈ ⳹
 │❏${xprefix}𝐀𝐋𝐋𝐌𝐄𝐍𝐔
 │❏${xprefix}𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐌𝐄𝐍𝐔
 │❏${xprefix}𝐅𝐔𝐍𝐌𝐄𝐍𝐔
@@ -6731,7 +6691,7 @@ case 'blur':
 │❏${xprefix}𝐒𝐓𝐀𝐋𝐊𝐄𝐑𝐌𝐄𝐍𝐔
 │❏${xprefix}𝐁𝐔𝐆𝐌𝐄𝐍𝐔
 │❏${xprefix}𝐎𝐓𝐇𝐄𝐑𝐌𝐄𝐍𝐔
-└─────────────────┈ ⳹
+└─────────────────────────────┈ ⳹
 
 > ░▒▓█►─═ ℭ𝔯𝔢𝔞𝔱𝔢𝔡 𝔅𝔶 𝔇𝔢𝔟𝔞𝔰𝔥𝔦𝔰 𝔇𝔢𝔶 ═─◄█▓▒░`
 if (typemenu === 'v1') {
