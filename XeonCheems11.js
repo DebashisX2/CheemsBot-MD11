@@ -4938,6 +4938,7 @@ const xeonkak = okebnh1[Math.floor(Math.random() * okebnh1.length)]
 XeonBotInc.sendMessage(m.chat, { text: xeonkak }, { quoted: m })
 break
             case 'soulmate': case 'mysoulmate': case 'ship': {
+		    if (!m.isGroup) return XeonStickGroup()
             if (!m.isGroup) return XeonStickGroup()
             let member = participants.map(u => u.id)
             let me = m.sender
@@ -4965,6 +4966,7 @@ isForwarded: true,
             }
             break
  case 'couple': case 'vatar': case 'vatari': {
+	  if (!m.isGroup) return XeonStickGroup()
             if (!m.isGroup) return XeonStickGroup()
             let member = participants.map(u => u.id)
             let orang = member[Math.floor(Math.random() * member.length)]
