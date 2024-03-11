@@ -1783,7 +1783,7 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             case 'out':
                 if (!XeonTheCreator) return XeonStickOwner()
                 if (!m.isGroup) return XeonStickGroup()
-                replygcxeon('Bye Everyone 🥺')
+                replygcxeon('Bye Everyone, I will come back later 🥺')
                 await XeonBotInc.groupLeave(m.chat)
             break
             case 'bc':
