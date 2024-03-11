@@ -1998,6 +1998,34 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             })
         }
         break
+        case 'antipromote':{
+		         if (!m.isGroup) return XeonStickGroup()
+if (!isBotAdmins) return XeonStickBotAdmin()
+if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
+               if (args.length < 1) return replygcxeon('on/off?')
+               if (args[0] === 'on') {
+                  db.data.chats[from].antipromote = true
+                  replygcxeon(`${command} is enabled`)
+               } else if (args[0] === 'off') {
+                  db.data.chats[from].antipromote = false
+                  replygcxeon(`${command} is disabled`)
+               }
+               }
+            break
+	   case 'antidemote':{
+		         if (!m.isGroup) return XeonStickGroup()
+if (!isBotAdmins) return XeonStickBotAdmin()
+if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
+               if (args.length < 1) return replygcxeon('on/off?')
+               if (args[0] === 'on') {
+                  db.data.chats[from].antidemote = true
+                  replygcxeon(`${command} is enabled`)
+               } else if (args[0] === 'off') {
+                  db.data.chats[from].antidemote = false
+                  replygcxeon(`${command} is disabled`)
+               }
+               }
+            break
             case 'antipoll':{
             	if (!m.isGroup) return XeonStickGroup()
 if (!isBotAdmins) return XeonStickBotAdmin()
