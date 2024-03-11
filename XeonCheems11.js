@@ -2794,6 +2794,7 @@ break
 > is online 📡🛰️
 > ʀᴇsᴘᴏɴsᴇ sᴘᴇᴇᴅ :  ${latensie.toFixed(4)} ms
 > ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}
+> \n\n
 > ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} `
                 XeonBotInc.sendMessage(m.chat, {
                     text: ping,
