@@ -2000,8 +2000,7 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
         break
         case 'antipromote':{
 		         if (!m.isGroup) return XeonStickGroup()
-if (!isBotAdmins) return XeonStickBotAdmin()
-if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
+                 if (!XeonTheCreator) return XeonStickOwner()
                if (args.length < 1) return replygcxeon('on/off?')
                if (args[0] === 'on') {
                   db.data.chats[from].antipromote = true

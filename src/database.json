@@ -373,6 +373,28 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "919547666138@s.whatsapp.net": {
+      "serialNumber": "253438b480022e9df10c4ed3ca77e0a4",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Radhe Radhe ❤️🙌💙",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918972482687@s.whatsapp.net": {
+      "serialNumber": "bff553f3aa12a4efd0dbeea99505ff67",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "𝓹𝓸𝓼𝓲𝓽𝓲𝓿𝓮 𝓪𝓽𝓽𝓲𝓽𝓾𝓭𝓮",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -752,7 +774,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 515,
+      "totalhit": 569,
       "totalError": 0,
       "online": false,
       "autosticker": false,
