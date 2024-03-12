@@ -1,12 +1,4 @@
 {
-  "sticker": {},
-  "database": {},
-  "game": {
-    "math": []
-  },
-  "others": {
-    "vote": []
-  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -30,13 +22,13 @@
       "limit": 1000,
       "totalLimit": 0
     },
-    "916909137213@s.whatsapp.net": {
-      "serialNumber": "dd4b94deaf5a6b8f70159e605070b604",
+    "919339619072@s.whatsapp.net": {
+      "serialNumber": "8dbb039484997ec61d72f8b4002687fa",
       "title": "Premium",
       "afkTime": -1,
       "badword": 0,
       "afkReason": "",
-      "nick": "🦄드림 가이 Xeon",
+      "nick": "╚»★ 𝓓𝓮𝓫𝓪𝓼𝓱𝓲𝓼 ★«╝",
       "premium": "true",
       "limit": 1000,
       "totalLimit": 0
@@ -127,17 +119,6 @@
       "nick": "~ ATIF😎(N C A A F A A T )",
       "premium": false,
       "limit": 100,
-      "totalLimit": 0
-    },
-    "919339619072@s.whatsapp.net": {
-      "serialNumber": "8dbb039484997ec61d72f8b4002687fa",
-      "title": "Premium",
-      "afkTime": -1,
-      "badword": 0,
-      "afkReason": "",
-      "nick": "╚»★ 𝓓𝓮𝓫𝓪𝓼𝓱𝓲𝓼 ★«╝",
-      "premium": "true",
-      "limit": 1000,
       "totalLimit": 0
     },
     "916294627538@s.whatsapp.net": {
@@ -370,8 +351,20 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "917063004264@s.whatsapp.net": {
+      "serialNumber": "b29b7b29748f11a5c19ce3d567fa71db",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "༒ ✿ 𝐀𝐧𝐤𝐢𝐭𝐚 ✿ ༒🍁❣️",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
+  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -427,7 +420,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "916909137213@s.whatsapp.net": {
+    "919339619072@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -569,28 +562,12 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": true
     },
     "120363167586531796@g.us": {
       "badword": false,
-      "antiforeignnum": false,
-      "antibot": false,
-      "antiviewonce": false,
-      "antivirtex": false,
-      "antimedia": false,
-      "antiimage": false,
-      "antivideo": false,
-      "antiaudio": false,
-      "antipoll": false,
-      "antisticker": false,
-      "antilocation": false,
-      "antidocument": false,
-      "anticontact": false,
-      "antilink": false,
-      "antilinkgc": false
-    },
-    "919339619072@s.whatsapp.net": {
-      "badword": false,
+      "antipromote": true,
       "antiforeignnum": false,
       "antibot": false,
       "antiviewonce": false,
@@ -659,7 +636,8 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": true
     },
     "120363156369169899@g.us": {
       "badword": false,
@@ -698,6 +676,9 @@
       "antilinkgc": false
     }
   },
+  "game": {
+    "math": []
+  },
   "settings": {
     "918798308154@s.whatsapp.net": {
       "totalhit": 432,
@@ -716,7 +697,7 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "🦄드림 가이 Xeon\n\n+916909137213"
+        "author": "🦄드림 가이 Xeon\n\n+919339619072"
       },
       "about": {
         "bot": {
@@ -725,7 +706,7 @@
         },
         "owner": {
           "nick": "+91 69091 37213",
-          "alias": "916909137213"
+          "alias": "919339619072"
         }
       }
     },
@@ -746,7 +727,7 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "🦄드림 가이 Xeon\n\n+916909137213"
+        "author": "🦄드림 가이 Xeon\n\n+919339619072"
       },
       "about": {
         "bot": {
@@ -755,12 +736,12 @@
         },
         "owner": {
           "nick": "Joseph Son",
-          "alias": "916909137213"
+          "alias": "919339619072"
         }
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 450,
+      "totalhit": 541,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -790,5 +771,9 @@
       }
     }
   },
-  "message": {}
+  "message": {},
+  "sticker": {},
+  "others": {
+    "vote": []
+  }
 }
