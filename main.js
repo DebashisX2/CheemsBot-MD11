@@ -400,9 +400,9 @@ XeonBotInc.sendMessage(anu.id,
     "thumbnail": XeonWlcm,
     "sourceUrl": `${websitex}`}}})
  }}
+ 
  else if(db.data.chats[m.chat].antipromote = true) 
                 {
-                    let promotee = num
                     let promoter = anu.author
         
                     await XeonBotInc.groupParticipantsUpdate(m.chat, [num], 'demote')
