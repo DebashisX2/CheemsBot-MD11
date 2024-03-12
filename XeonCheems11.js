@@ -2315,6 +2315,20 @@ break
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwww], 'remove')
                 replygcxeon(mess.done)
                 break
+                 case 'kickall':
+                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+                if (!m.isGroup) return XeonStickGroup()
+                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+                if (!isBotAdmins) return XeonStickBotAdmin()
+                let mem = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
+                let teksii = mem.id
+                for ( mem of participants) {
+                   
+                    teksii += teksii
+                    }   
+                await XeonBotInc.groupParticipantsUpdate(m.chat, [teksii], 'remove')             
+                
+                break
                 case "idgroup": case "groupid": {
 if (!XeonTheCreator) return XeonStickOwner()
 let getGroups = await XeonBotInc.groupFetchAllParticipating()
@@ -4942,7 +4956,6 @@ const xeonkak = okebnh1[Math.floor(Math.random() * okebnh1.length)]
 XeonBotInc.sendMessage(m.chat, { text: xeonkak }, { quoted: m })
 break
             case 'soulmate': case 'mysoulmate': case 'ship': {
-            if (!isPremium) return replygcxeon(mess.premium)
             if (!m.isGroup) return XeonStickGroup()
             let member = participants.map(u => u.id)
             let me = m.sender
@@ -4970,6 +4983,7 @@ isForwarded: true,
             }
             break
  case 'couple': case 'vatar': case 'vatari': {
+	  if (!m.isGroup) return XeonStickGroup()
             if (!m.isGroup) return XeonStickGroup()
             let member = participants.map(u => u.id)
             let orang = member[Math.floor(Math.random() * member.length)]

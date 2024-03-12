@@ -304,7 +304,7 @@
       "badword": 0,
       "afkReason": "",
       "nick": "__its_abhra__",
-      "premium": "false",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     },
@@ -352,8 +352,19 @@
       "limit": 100,
       "totalLimit": 0
     },
+    "918293294093@s.whatsapp.net": {
+      "serialNumber": "7fe8f39c73433eaf8673d9b06a69f0fa",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "MYSELF SHREYA 🍂",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
     "917063004264@s.whatsapp.net": {
-      "serialNumber": "b29b7b29748f11a5c19ce3d567fa71db",
+      "serialNumber": "26ad71a9df9ab676798b7d1130bc4a64",
       "title": "User",
       "afkTime": -1,
       "badword": 0,
@@ -741,7 +752,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 541,
+      "totalhit": 513,
       "totalError": 0,
       "online": false,
       "autosticker": false,
