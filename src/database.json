@@ -596,7 +596,7 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false,
-      "antipromote": true
+      "antipromote": false
     },
     "120363167586531796@g.us": {
       "badword": false,
@@ -774,7 +774,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 569,
+      "totalhit": 591,
       "totalError": 0,
       "online": false,
       "autosticker": false,

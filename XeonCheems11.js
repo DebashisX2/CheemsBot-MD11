@@ -2315,17 +2315,14 @@ break
                 replygcxeon(mess.done)
                 break
                  case 'kickall':
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+                if (!isAdmins && !isGroupOwner) return XeonStickAdmin()
                 if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
                 if (!isBotAdmins) return XeonStickBotAdmin()
-                let mem = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
-                let teksii = mem.id
-                for ( mem of participants) {
-                   
-                    teksii += teksii
-                    }   
-                await XeonBotInc.groupParticipantsUpdate(m.chat, [teksii], 'remove')             
+                participants.map(jid => ({
+                    tag: 'participant',
+                    attrs: { jid }
+                }))
+                await XeonBotInc.groupParticipantsUpdate(participants.map(a => a.id), 'remove')             
                 
                 break
                 case "idgroup": case "groupid": {

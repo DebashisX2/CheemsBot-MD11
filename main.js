@@ -413,7 +413,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                let promotee = num
                await XeonBotInc.groupParticipantsUpdate(m.chat, [num], 'demote')
                await XeonBotInc.groupParticipantsUpdate(m.chat, [promoter], 'demote')
-               let message = `${promoter.split("@")[0]} Tried to promote ${promotee.split("@")[0]} \nBro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n\n\n`
+               let message = `~ @${promoter.split("@")[0]} Tried to promote @${promotee.split("@")[0]} \nBro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n\n\n`
                XeonBotInc.relayMessage(m.chat, {
                
                scheduledCallCreationMessage: {
