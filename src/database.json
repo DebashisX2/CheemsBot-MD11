@@ -600,7 +600,7 @@
     },
     "120363167586531796@g.us": {
       "badword": false,
-      "antipromote": true,
+      "antipromote": false,
       "antiforeignnum": false,
       "antibot": false,
       "antiviewonce": false,
@@ -792,7 +792,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 629,
+      "totalhit": 647,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -823,6 +823,7 @@
     }
   },
   "message": {},
+  "antipromote": {},
   "sticker": {},
   "others": {
     "vote": []

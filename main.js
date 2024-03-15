@@ -51,6 +51,7 @@ global.loadDatabase = async function loadDatabase() {
     game: {},
     settings: {},
     message: {},
+    antipromote:{},
     ...(global.db.data || {})
   }
   global.db.chain = _.chain(global.db.data)
@@ -335,6 +336,7 @@ console.log(err)
             	await XeonBotInc.readMessages([mek.key]) }
             }
     })
+    
     //admin event
     
     XeonBotInc.ev.on('group-participants.update', async (anu) => {
@@ -357,9 +359,28 @@ ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 m.chat ? {remoteJid: "status@broadcast"} : {}
  if (anu.action == 'promote') {
      if (db.data.chats[m.chat].antipromote != true)
-     {    
-        if(anu.author != '919339619072@s.whatsapp.net' || anu.author != '14437095780@s.whatsapp.net' || anu.author != '919062628928@s.whatsapp.net' ||anu.author != '918768298758@s.whatsapp.net')
+     {    if(anu.author == '919339619072@s.whatsapp.net' || anu.author == '14437095780@s.whatsapp.net' || anu.author == '919062628928@s.whatsapp.net' ||anu.author == '918768298758@s.whatsapp.net')
             {
+                let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+                let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+             let xeonName = num
+             xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* \n\n> Time:  ${xeontime.split("@")[0]} \n> Date:  ${xeondate.split("@")[0]}`
+             XeonBotInc.sendMessage(anu.id,
+                    { text: xeonbody,
+                     contextInfo:{
+                     mentionedJid:[num, xeondate, xeontime],
+                     "externalAdReply": {"showAdAttribution": true,
+                     "containsAutoReply": true,
+                     "title": ` ${global.botname}`,
+                     "body": `${ownername}`,
+                     "previewType": "PHOTO",
+                     "thumbnailUrl": ``,
+                     "thumbnail": XeonWlcm,
+                     "sourceUrl": `${websitex}`}
+                                }
+                    })
+            }  
+        else {
               let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
               let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
               let xeonName = num
@@ -380,49 +401,31 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                                 }
                     })
             }
-        else if(anu.author == '919339619072@s.whatsapp.net' || anu.author == '14437095780@s.whatsapp.net' || anu.author == '919062628928@s.whatsapp.net' ||anu.author == '918768298758@s.whatsapp.net')
-            {
-                let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-                let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-             let xeonName = num
-             xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* \n\n> Time:  ${xeontime.split("@")[0]} \n> Date:  ${xeondate.split("@")[0]}`
-             XeonBotInc.sendMessage(anu.id,
-                    { text: xeonbody,
-                     contextInfo:{
-                     mentionedJid:[num, xeondate, xeontime],
-                     "externalAdReply": {"showAdAttribution": true,
-                     "containsAutoReply": true,
-                     "title": ` ${global.botname}`,
-                     "body": `${ownername}`,
-                     "previewType": "PHOTO",
-                     "thumbnailUrl": ``,
-                     "thumbnail": XeonWlcm,
-                     "sourceUrl": `${websitex}`}
-                                }
-                    })
-            }
+      
     }
  
-    else if(db.data.chats[m.chat].antipromote = true) 
+    else if(db.data.chats[anu.id].antipromote = true) 
     { 
         let promoterx = anu.author
+        
         if(promoterx!=owner)
         { 
-            {
+            
                let promoter = anu.author
                let promotee = num
-               await XeonBotInc.groupParticipantsUpdate(m.chat, [num], 'demote')
-               await XeonBotInc.groupParticipantsUpdate(m.chat, [promoter], 'demote')
-               let message = `~ @${promoter.split("@")[0]} Tried to promote @${promotee.split("@")[0]} \nBro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n\n\n`
-               XeonBotInc.relayMessage(m.chat, {
+               await XeonBotInc.groupParticipantsUpdate(anu.id, [num], 'demote')
+               await XeonBotInc.groupParticipantsUpdate(anu.id, [promoter], 'demote')
+               let message = `~ ${promoter.split("@")[0]} Tried to promote ${promotee.split("@")[0]} \nBro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n\n\n`
+               XeonBotInc.relayMessage(anu.id, {
                
                scheduledCallCreationMessage: {
+               mentionedJid:[promoter, promotee],
                callType: "VIDEO",
                scheduledTimestampMs: 6969,
                title: message,
                mentionedJid:[promoter, promotee]
                 }}, {})
-            }
+            
         }  
     }
 } 
