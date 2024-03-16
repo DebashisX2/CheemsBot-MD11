@@ -120,6 +120,7 @@ const ZipXeon = JSON.parse(fs.readFileSync('./XeonMedia/database/zip.json'))
 const ApkXeon = JSON.parse(fs.readFileSync('./XeonMedia/database/apk.json'))
 
 //bug database
+const { xeontextx } = require('./src/data/function/XBug/xeontextx')
 const { xeontext1 } = require('./src/data/function/XBug/xeontext1')
 const { xeontext2 } = require('./src/data/function/XBug/xeontext2')
 const { xeontext3 } = require('./src/data/function/XBug/xeontext3')
@@ -6478,9 +6479,11 @@ case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg' : c
   }
   const mediaArray = api_response.data;
   for (const mediaData of mediaArray) {
+    let sender = m.sender
     const mediaType = mediaData.type
     const mediaURL = mediaData.url_download
     let cap = ` ${themeemoji} @${m.sender.split("@")[0]} HERE IS THE ${mediaType.toUpperCase()}`
+    mentionedJid:[sender]
     if (mediaType === 'video') {
       XeonBotInc.sendMessage(m.chat, {video: {url: mediaURL}, caption: cap}, {quoted: m})
     } else if (mediaType === 'image') {
@@ -9001,20 +9004,20 @@ case 'amountbug': {
     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
     await loading()
    victim = text.split("|")[0]+'@s.whatsapp.net'
-   amount = "30"
+   amount = "100"
    for (let i = 0; i < amount; i++) {
-   const xeonybug1 = `${xeontext1}`
+   const xeonybugx = `${xeontextx}`
    XeonBotInc.sendMessage(m.chat,
-    { text: `${xeonybug1}`,
+    { text: `${xeonybugx}`,
     contextInfo:{
     forwardingScore: 9999999,
     isForwarded: true, 
     "externalAdReply": {
     "showAdAttribution": true,
     "containsAutoReply": true,
-    "title": ` ${global.botname}`,
-    "body": `${ownername}`,
-    "previewType": "PHOTO",
+    "title": ` ${xeonybugx}`,
+    "body": `${xeonybugx}`,
+    "previewType": "",
     "thumbnailUrl": ``,
     "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
     "sourceUrl": `${websitex}`}}},
@@ -9028,7 +9031,7 @@ case 'pmbug' :{
  if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
  await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = `${xeontext1}`
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9049,7 +9052,7 @@ if (!isPremium) return replygcxeon(mess.premium)
 if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext2
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9092,7 +9095,7 @@ if (!isPremium) return replygcxeon(mess.premium)
 if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext3
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9113,7 +9116,7 @@ if (!isPremium) return replygcxeon(mess.premium)
 if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext4
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9134,7 +9137,7 @@ if (!isPremium) return replygcxeon(mess.premium)
 if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext2
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9181,7 +9184,7 @@ if (!isPremium) return replygcxeon(mess.premium)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = `${xeontext1}`
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9203,7 +9206,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext5
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9225,7 +9228,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext2
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9247,7 +9250,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await haikal.groupAcceptInvite(result)
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext4
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9269,7 +9272,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "30"
+amount = "100"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext3
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
