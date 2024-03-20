@@ -474,6 +474,24 @@ else if (anu.action == 'demote') {
     "sourceUrl": `${websitex}`}}})
  }  
 }
+    else 
+    {    
+        let promoter = anu.author
+        let promotee = num
+        xeonbody = `@${promoter} & @${promotee} lol 😂😂 `
+        XeonBotInc.sendMessage(anu.id,
+            { text: xeonbody,
+                contextInfo:{
+                mentionedJid:[promoter, promotee],
+                "externalAdReply": {"showAdAttribution": true,
+                "containsAutoReply": true,
+                "title": ` ${global.botname}`,
+                "body": `${ownername}`,
+                "previewType": "PHOTO",
+                "thumbnailUrl": ``,
+                "thumbnail": XeonWlcm,
+                "sourceUrl": `${websitex}`}}})
+    }
 }
 }
 } catch (err) {

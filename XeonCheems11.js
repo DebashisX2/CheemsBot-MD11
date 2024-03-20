@@ -2475,6 +2475,18 @@ break
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwwwwa], 'demote')
                 replygcxeon(mess.done)
                 break
+            case 'demoteall':
+                if (!m.isGroup) return XeonStickGroup()
+                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+                if (!isBotAdmins) return XeonStickBotAdmin()
+                let dtall = groupAdmins + '@s.whatsapp.net'
+                for (let mem of groupAdmins)
+                    {
+                    await XeonBotInc.groupParticipantsUpdate(m.chat, [dtall], 'demote')
+                     dtall += `${mem.id.split('@')[0]}`
+                    }
+                replygcxeon(mess.done)
+                break
             case 'setnamegc':
             case 'setsubject':
                 if (!m.isGroup) return XeonStickGroup()
