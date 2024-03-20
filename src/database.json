@@ -22,15 +22,15 @@
       "limit": 1000,
       "totalLimit": 0
     },
-    "919339619072@s.whatsapp.net": {
-      "serialNumber": "8dbb039484997ec61d72f8b4002687fa",
-      "title": "Premium",
+    "918116945233@s.whatsapp.net": {
+      "serialNumber": "5e10b78038aadc0dd69179bc61c2426b",
+      "title": "User",
       "afkTime": -1,
       "badword": 0,
       "afkReason": "",
-      "nick": "╚»★ 𝓓𝓮𝓫𝓪𝓼𝓱𝓲𝓼 ★«╝",
-      "premium": "true",
-      "limit": 1000,
+      "nick": "~♥️😇✨RITAM✨😇♥️",
+      "premium": false,
+      "limit": 100,
       "totalLimit": 0
     },
     "916909433995@s.whatsapp.net": {
@@ -128,17 +128,6 @@
       "badword": 0,
       "afkReason": "",
       "nick": "Raj",
-      "premium": false,
-      "limit": 100,
-      "totalLimit": 0
-    },
-    "918116945233@s.whatsapp.net": {
-      "serialNumber": "5e10b78038aadc0dd69179bc61c2426b",
-      "title": "User",
-      "afkTime": -1,
-      "badword": 0,
-      "afkReason": "",
-      "nick": "~♥️😇✨RITAM✨😇♥️",
       "premium": false,
       "limit": 100,
       "totalLimit": 0
@@ -417,6 +406,17 @@
       "premium": "true",
       "limit": 1000,
       "totalLimit": 0
+    },
+    "919339619072@s.whatsapp.net": {
+      "serialNumber": "48b0363eb83ee846f35fa9d92757a23a",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "╚»★ 𝓓𝓮𝓫𝓪𝓼𝓱𝓲𝓼 ★«╝",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -475,7 +475,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "919339619072@s.whatsapp.net": {
+    "918116945233@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -837,6 +837,24 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false
+    },
+    "919339619072@s.whatsapp.net": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
     }
   },
   "game": {
@@ -860,7 +878,7 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "🦄드림 가이 Xeon\n\n+919339619072"
+        "author": "🦄드림 가이 Xeon\n\n+918116945233"
       },
       "about": {
         "bot": {
@@ -869,7 +887,7 @@
         },
         "owner": {
           "nick": "+91 69091 37213",
-          "alias": "919339619072"
+          "alias": "918116945233"
         }
       }
     },
@@ -890,7 +908,7 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "🦄드림 가이 Xeon\n\n+919339619072"
+        "author": "🦄드림 가이 Xeon\n\n+918116945233"
       },
       "about": {
         "bot": {
@@ -899,7 +917,7 @@
         },
         "owner": {
           "nick": "Joseph Son",
-          "alias": "919339619072"
+          "alias": "918116945233"
         }
       }
     },
@@ -920,7 +938,7 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "Debashis Dey\n\n+919339619072"
+        "author": "Debashis Dey\n\n+918116945233"
       },
       "about": {
         "bot": {
@@ -929,12 +947,12 @@
         },
         "owner": {
           "nick": "+91 93396 19072",
-          "alias": "919339619072"
+          "alias": "918116945233"
         }
       }
     },
     "919735605354@s.whatsapp.net": {
-      "totalhit": 1,
+      "totalhit": 3,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -950,7 +968,7 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "Debashis Dey\n\n+919339619072"
+        "author": "Debashis Dey\n\n+918116945233"
       },
       "about": {
         "bot": {
@@ -959,7 +977,7 @@
         },
         "owner": {
           "nick": "Debashis Dee",
-          "alias": "919339619072"
+          "alias": "918116945233"
         }
       }
     }

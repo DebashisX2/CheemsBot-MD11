@@ -3,7 +3,7 @@
 //Instagram: unicorn_xeon13
 //Telegram: t.me/xeonbotinc
 //GitHub: @DGXeon
-//WhatsApp: +919339619072
+//WhatsApp: +918116945233
 //want more free bot scripts? subscribe to my youtube channel: https://youtube.com/@DGXeon
 
 require('./settings')
@@ -68,7 +68,7 @@ require('./main.js')
 nocache('../main.js', module => console.log(color('[ CHANGE ]', 'green'), color(`'${module}'`, 'green'), 'Updated'))
 
 //------------------------------------------------------
-let phoneNumber = "919339619072"
+let phoneNumber = "918116945233"
 let owner = JSON.parse(fs.readFileSync('./src/data/role/owner.json'))
 
 const pairingCode = !!phoneNumber || process.argv.includes("--pairing-code")
@@ -113,18 +113,18 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
          phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
          if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("Start with country code of your WhatsApp Number, Example : +919339619072")))
+            console.log(chalk.bgBlack(chalk.redBright("Start with country code of your WhatsApp Number, Example : +918116945233")))
             process.exit(0)
          }
       } else {
-         phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFor example: +919339619072 : `)))
+         phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFor example: +918116945233 : `)))
          phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
          // Ask again when entering the wrong number
          if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("Start with country code of your WhatsApp Number, Example : +919339619072")))
+            console.log(chalk.bgBlack(chalk.redBright("Start with country code of your WhatsApp Number, Example : +918116945233")))
 
-            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFor example: +919339619072 : `)))
+            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFor example: +918116945233 : `)))
             phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
             rl.close()
          }
@@ -359,7 +359,7 @@ ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 m.chat ? {remoteJid: "status@broadcast"} : {}
  if (anu.action == 'promote') {
      if (db.data.chats[m.chat].antipromote != true)
-     {    if(anu.author == '919339619072@s.whatsapp.net' || anu.author == '14437095780@s.whatsapp.net' || anu.author == '919062628928@s.whatsapp.net' ||anu.author == '918768298758@s.whatsapp.net')
+     {    if(anu.author == '918116945233@s.whatsapp.net' || anu.author == '14437095780@s.whatsapp.net' || anu.author == '919062628928@s.whatsapp.net' ||anu.author == '918768298758@s.whatsapp.net')
             {
                 let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
                 let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
@@ -433,7 +433,7 @@ else if (anu.action == 'demote') {
    
     if (db.data.chats[m.chat].antipromote != true)
     { 
-         if(anu.author != '919339619072@s.whatsapp.net')
+         if(anu.author != '918116945233@s.whatsapp.net')
          {
              let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
              let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
@@ -454,7 +454,7 @@ else if (anu.action == 'demote') {
                          "thumbnail": XeonWlcm,
                         "sourceUrl": `${websitex}`}}})
                     }
-         else if(anu.author == '919339619072@s.whatsapp.net')
+         else if(anu.author == '918116945233@s.whatsapp.net')
          {
              let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
              let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
