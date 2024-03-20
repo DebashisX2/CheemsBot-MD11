@@ -374,7 +374,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                      "title": ` ${global.botname}`,
                      "body": `${ownername}`,
                      "previewType": "PHOTO",
-                     "thumbnailUrl": ``,
+                     "thumbnailUrl": `https://telegra.ph/file/e833498b61709a766d1dc.jpg`,
                      "thumbnail": XeonWlcm,
                      "sourceUrl": `${websitex}`}
                                 }
@@ -395,7 +395,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                              "title": ` ${global.botname}`,
                              "body": `${ownername}`,
                              "previewType": "PHOTO",
-                            "thumbnailUrl": ``,
+                            "thumbnailUrl": `https://telegra.ph/file/e833498b61709a766d1dc.jpg`,
                             "thumbnail": XeonWlcm,
                              "sourceUrl": `${websitex}`}
                                 }
@@ -450,7 +450,7 @@ else if (anu.action == 'demote') {
                         "title": ` ${global.botname}`,
                          "body": `${ownername}`,
                          "previewType": "PHOTO",
-                         "thumbnailUrl": ``,
+                         "thumbnailUrl": `https://telegra.ph/file/e833498b61709a766d1dc.jpg`,
                          "thumbnail": XeonWlcm,
                         "sourceUrl": `${websitex}`}}})
                     }
@@ -469,7 +469,7 @@ else if (anu.action == 'demote') {
      "title": ` ${global.botname}`,
     "body": `${ownername}`,
      "previewType": "PHOTO",
-    "thumbnailUrl": ``,
+    "thumbnailUrl": `https://telegra.ph/file/e833498b61709a766d1dc.jpg`,
     "thumbnail": XeonWlcm,
     "sourceUrl": `${websitex}`}}})
  }  
