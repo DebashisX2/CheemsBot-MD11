@@ -1,12 +1,4 @@
 {
-  "sticker": {},
-  "database": {},
-  "game": {
-    "math": []
-  },
-  "others": {
-    "vote": []
-  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -416,6 +408,7 @@
       "totalLimit": 0
     }
   },
+  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -817,6 +810,9 @@
       "antilinkgc": false
     }
   },
+  "game": {
+    "math": []
+  },
   "settings": {
     "918798308154@s.whatsapp.net": {
       "totalhit": 432,
@@ -910,5 +906,9 @@
     }
   },
   "message": {},
-  "antipromote": {}
+  "antipromote": {},
+  "sticker": {},
+  "others": {
+    "vote": []
+  }
 }

