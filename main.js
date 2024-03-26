@@ -368,7 +368,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
              XeonBotInc.sendMessage(anu.id,
                     { text: xeonbody,
                      contextInfo:{
-                     mentionedJid:[num, xeondate, xeontime],
+                     mentionedJid:[xeonName, xeondate, xeontime],
                      "externalAdReply": {"showAdAttribution": true,
                      "containsAutoReply": true,
                      "title": ` ${global.botname}`,
@@ -389,7 +389,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
               XeonBotInc.sendMessage(anu.id,
                     { text: xeonbody,
                      contextInfo:{
-                            mentionedJid:[num, xeondate, xeontime, promoter],
+                            mentionedJid:[xeonName, xeondate, xeontime, promoter],
                              "externalAdReply": {"showAdAttribution": true,
                              "containsAutoReply": true,
                              "title": ` ${global.botname}`,
@@ -415,7 +415,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                let promotee = num
                await XeonBotInc.groupParticipantsUpdate(anu.id, [num], 'demote')
                await XeonBotInc.groupParticipantsUpdate(anu.id, [promoter], 'demote')
-               let message = `~ ${promoter.split("@")[0]} Tried to promote ${promotee.split("@")[0]} \nBro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n\n\n`
+               let message = `~ ${promoter.split("@")[0]} Tried to promote ${promotee.split("@")[0]} \n\n Bro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n\n\n`
                XeonBotInc.relayMessage(anu.id, {
                
                scheduledCallCreationMessage: {
@@ -423,9 +423,23 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                callType: "VIDEO",
                scheduledTimestampMs: 6969,
                title: message,
-               mentionedJid:[promoter, promotee]
-                }}, {})
-            
+	       }}
+
+	      xeonbody = `@${xeonName.split("@")[0]} AND @${promotee.split("@")[0]} LOL`
+              XeonBotInc.sendMessage(anu.id,
+                    { text: xeonbody,
+                     contextInfo:{
+                            mentionedJid:[xeonName, xeondate, xeontime, promoter],
+                             "externalAdReply": {"showAdAttribution": true,
+                             "containsAutoReply": true,
+                             "title": ` ${global.botname}`,
+                             "body": `${ownername}`,
+                             "previewType": "PHOTO",
+                            "thumbnailUrl": ``,
+                            "thumbnail": XeonWlcm,
+                             "sourceUrl": `${websitex}`}
+                                }
+		    }, {})          
         }  
     }
 } 
