@@ -423,7 +423,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                callType: "VIDEO",
                scheduledTimestampMs: 6969,
                title: message,
-	       }}
+	       }, {}}
 
 	      xeonbody = `@${xeonName.split("@")[0]} AND @${promotee.split("@")[0]} LOL`
               XeonBotInc.sendMessage(anu.id,
