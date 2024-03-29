@@ -358,7 +358,7 @@ ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 
 m.chat ? {remoteJid: "status@broadcast"} : {}
  if (anu.action == 'promote') {
-     if (db.data.chats[m.chat].antipromote != true)
+     if (db.data.chats[from].antipromote != true)
      {    if(anu.author == '919339619072@s.whatsapp.net' || anu.author == '14437095780@s.whatsapp.net' || anu.author == '919062628928@s.whatsapp.net' ||anu.author == '918768298758@s.whatsapp.net')
             {
                 let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
@@ -404,7 +404,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
       
     }
  
-    else if(db.data.chats[anu.id].antipromote = true) 
+    else if(db.data.chats[from].antipromote = true) 
     { 
         let promoterx = anu.author
         

@@ -472,6 +472,28 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "919339523744@s.whatsapp.net": {
+      "serialNumber": "b3d4b41c830565f449e6facbca6597c4",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Suchana",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "917029490614@s.whatsapp.net": {
+      "serialNumber": "5ffd510a6b27bcebd53311565d09745b",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Krishna Kanta💖💖",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -995,7 +1017,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 688,
+      "totalhit": 692,
       "totalError": 0,
       "online": false,
       "autosticker": false,
