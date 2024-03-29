@@ -406,6 +406,72 @@
       "premium": "false",
       "limit": 100,
       "totalLimit": 0
+    },
+    "919907134017@s.whatsapp.net": {
+      "serialNumber": "63bf0ad9a39da2fa02a47086cc506cac",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "🤍",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919907511401@s.whatsapp.net": {
+      "serialNumber": "a03b54cd34db33aa00e071db38ced63c",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "✨💫Ankit💫",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918101059575@s.whatsapp.net": {
+      "serialNumber": "d0ff3c9987881c7f07eedc7c9dc86a1c",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "イタチ⛄",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919123876692@s.whatsapp.net": {
+      "serialNumber": "203f76b7dd04bd35772770c82e9bb306",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "𝕴𝖙𝖘_𝖆𝖇𝖎𝖗",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "917718464327@s.whatsapp.net": {
+      "serialNumber": "1370a0152e95af8710058b8882bfbc4a",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "🥲Ambika🥲",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918768331712@s.whatsapp.net": {
+      "serialNumber": "b66a2e1d1e1981c7c14959afe7b037e5",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Beauty Mandal",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -808,6 +874,60 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false
+    },
+    "120363046514339274@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
+    },
+    "919144564031@s.whatsapp.net": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
+    },
+    "919907134017@s.whatsapp.net": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
     }
   },
   "game": {
@@ -875,7 +995,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 674,
+      "totalhit": 688,
       "totalError": 0,
       "online": false,
       "autosticker": false,

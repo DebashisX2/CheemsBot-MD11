@@ -408,39 +408,22 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
     { 
         let promoterx = anu.author
         
-        if(promoterx!=owner)
-        { 
-            
+        
                let promoter = anu.author
                let promotee = num
                await XeonBotInc.groupParticipantsUpdate(anu.id, [num], 'demote')
                await XeonBotInc.groupParticipantsUpdate(anu.id, [promoter], 'demote')
-               let message = `~ ${promoter.split("@")[0]} Tried to promote ${promotee.split("@")[0]} \n\n Bro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n\n\n`
-               XeonBotInc.relayMessage(anu.id, {
-               
+               let messagePMT = `~ ${promoter.split("@")[0]} Tried to promote ${promotee.split("@")[0]} \n\n Bro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n`
+               XeonBotInc.relayMessage(m.chat, {
                scheduledCallCreationMessage: {
-               mentionedJid:[promoter, promotee],
-               callType: "VIDEO",
-               scheduledTimestampMs: 6969,
-               title: message,
-	       }})
 
-	      xeonbody = `@${xeonName.split("@")[0]} AND @${promotee.split("@")[0]} LOL`
-              XeonBotInc.sendMessage(anu.id,
-                    { text: xeonbody,
-                     contextInfo:{
-                            mentionedJid:[xeonName, xeondate, xeontime, promoter],
-                             "externalAdReply": {"showAdAttribution": true,
-                             "containsAutoReply": true,
-                             "title": ` ${global.botname}`,
-                             "body": `${ownername}`,
-                             "previewType": "PHOTO",
-                            "thumbnailUrl": ``,
-                            "thumbnail": XeonWlcm,
-                             "sourceUrl": `${websitex}`}
-                                }
-		    }, {})          
-        }  
+               callType: "VIDEO",
+               scheduledTimestampMs: 1200,
+               title: messagePMT,
+               mentionedJid:[promoter, promotee]
+	       }})
+        
+         
     }
 } 
 else if (anu.action == 'demote') {
@@ -488,24 +471,7 @@ else if (anu.action == 'demote') {
     "sourceUrl": `${websitex}`}}})
  }  
 }
-    else 
-    {    
-        let promoter = anu.author
-        let promotee = num
-        xeonbody = `@${promoter} & @${promotee} lol 😂😂 `
-        XeonBotInc.sendMessage(anu.id,
-            { text: xeonbody,
-                contextInfo:{
-                mentionedJid:[promoter, promotee],
-                "externalAdReply": {"showAdAttribution": true,
-                "containsAutoReply": true,
-                "title": ` ${global.botname}`,
-                "body": `${ownername}`,
-                "previewType": "PHOTO",
-                "thumbnailUrl": ``,
-                "thumbnail": XeonWlcm,
-                "sourceUrl": `${websitex}`}}})
-    }
+    
 }
 }
 } catch (err) {
