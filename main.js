@@ -358,7 +358,7 @@ ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 
 m.chat ? {remoteJid: "status@broadcast"} : {}
  if (anu.action == 'promote') {
-     if (db.data.chats[from].antipromote != true)
+     if (db.data.chats[m.chat].antipromote != true)
      {    if(anu.author == '919339619072@s.whatsapp.net' || anu.author == '14437095780@s.whatsapp.net' || anu.author == '919062628928@s.whatsapp.net' ||anu.author == '918768298758@s.whatsapp.net')
             {
                 let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
@@ -402,26 +402,29 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                     })
             }
       
-    }
+     }
  
-    else if(db.data.chats[from].antipromote = true) 
+    else if(db.data.chats[m.chat].antipromote = true) 
     { 
-        let promoterx = anu.author
-        
-        
                let promoter = anu.author
                let promotee = num
                await XeonBotInc.groupParticipantsUpdate(anu.id, [num], 'demote')
-               await XeonBotInc.groupParticipantsUpdate(anu.id, [promoter], 'demote')
-               let messagePMT = `~ ${promoter.split("@")[0]} Tried to promote ${promotee.split("@")[0]} \n\n Bro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n`
-               XeonBotInc.relayMessage(m.chat, {
-               scheduledCallCreationMessage: {
-
-               callType: "VIDEO",
-               scheduledTimestampMs: 1200,
-               title: messagePMT,
-               mentionedJid:[promoter, promotee]
-	       }})
+               await XeonBotInc.groupParticipantsUpdate(anu.id, [anu.author], 'demote')
+               let messagePMT = `@${promoter.split("@")[0]} Tried to promote @${promotee.split("@")[0]} \n\n Bro, 😂😂😂\n we are the GOD  here, Please don't try to be clever 😂\n`
+               XeonBotInc.sendMessage(anu.id,
+                { text: messagePMT,
+                 contextInfo:{
+                        mentionedJid:[promotee, promoter],
+                         "externalAdReply": {"showAdAttribution": true,
+                         "containsAutoReply": true,
+                         "title": ` ${global.botname}`,
+                         "body": `${ownername}`,
+                         "previewType": "PHOTO",
+                        "thumbnailUrl": ``,
+                        "thumbnail": XeonWlcm,
+                         "sourceUrl": `${websitex}`}
+                            }
+                })
         
          
     }
@@ -430,7 +433,7 @@ else if (anu.action == 'demote') {
    
     if (db.data.chats[m.chat].antipromote != true)
     { 
-         if(anu.author != '919339619072@s.whatsapp.net')
+         if(anu.author != '919339619072@s.whatsapp.net' || anu.author != '14437095780@s.whatsapp.net' || anu.author != '919062628928@s.whatsapp.net' ||anu.author != '918768298758@s.whatsapp.net')
          {
              let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
              let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
@@ -451,7 +454,7 @@ else if (anu.action == 'demote') {
                          "thumbnail": XeonWlcm,
                         "sourceUrl": `${websitex}`}}})
                     }
-         else if(anu.author == '919339619072@s.whatsapp.net')
+         else
          {
              let xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
              let xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')

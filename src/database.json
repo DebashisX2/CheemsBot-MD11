@@ -494,6 +494,17 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "917044008607@s.whatsapp.net": {
+      "serialNumber": "e9c90c422ccff5910c28a45b2de836d6",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": ".",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -568,7 +579,8 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": false
     },
     "918787789781@s.whatsapp.net": {
       "badword": false,
@@ -658,7 +670,8 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": false
     },
     "14437095780@s.whatsapp.net": {
       "badword": false,
@@ -699,7 +712,7 @@
     },
     "120363167586531796@g.us": {
       "badword": false,
-      "antipromote": true,
+      "antipromote": false,
       "antiforeignnum": false,
       "antibot": false,
       "antiviewonce": false,
@@ -769,7 +782,7 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false,
-      "antipromote": true
+      "antipromote": false
     },
     "120363156369169899@g.us": {
       "badword": false,
@@ -950,6 +963,63 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false
+    },
+    "120363257188725428@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false,
+      "antipromote": false
+    },
+    "120363256563056288@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false,
+      "antipromote": false
+    },
+    "917605888159-1619669991@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false,
+      "antipromote": false
     }
   },
   "game": {
@@ -1017,7 +1087,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 692,
+      "totalhit": 719,
       "totalError": 0,
       "online": false,
       "autosticker": false,
