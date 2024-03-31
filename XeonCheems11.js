@@ -466,7 +466,7 @@ return arr[Math.floor(Math.random() * arr.length)]
                   if (!('antidocument' in chats)) chats.antidocument = false
                   if (!('antilink' in chats)) chats.antilink = false
                   if (!('antilinkgc' in chats)) chats.antilinkgc = false
-      
+                  if (!('antipromote' in chats)) chats.antipromote = false
                } else global.db.data.chats[from] = {
                   badword: false,
                   antiforeignnum: false,
@@ -483,7 +483,7 @@ return arr[Math.floor(Math.random() * arr.length)]
                   antidocument: false,
                   anticontact: false,
                   antilink: false,
-                
+                  antipromote: false,
                   antilinkgc: false
                }
             
