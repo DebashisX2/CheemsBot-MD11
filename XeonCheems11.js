@@ -6828,7 +6828,7 @@ if (typemenu === 'v1') {
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: websitex,
+                                sourceUrl: wagc,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
