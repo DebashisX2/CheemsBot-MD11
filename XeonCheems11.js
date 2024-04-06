@@ -6750,7 +6750,7 @@ case 'blur':
             let latensie = speed() - timestampe
             let a = db.data.users[sender]
             let me = m.sender
-            let xmenu_oh = `┌────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
+            let xmenu_oh = `┌────────❖A S T R O N A U T❖────────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
      │✑  ${xeonytimewisher} 😄
@@ -6774,7 +6774,8 @@ case 'blur':
 │ᴀᴜᴛᴏsᴛᴀᴛᴜs ᴠɪᴇᴡ : ${autoswview} 
 │ᴡᴇʟᴄᴏᴍᴇ sᴛᴀᴛᴜs : ${welcome}
 │ᴛᴏᴛᴀʟ ғᴇᴀᴛᴜʀᴇs : ${xeonfeature()}
-│
+│ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ: ${ytname}
+│ᴄʜᴀɴɴᴇʟ ʟɪɴᴋ: https://youtube.com/@prayasian17?si=mT6FS3UETqyUQKW5
 │
 └──❖ 𝐔𝐒𝐄𝐑 𝐈𝐍𝐅𝐎
 │ɴᴀᴍᴇ   ‌  : ${pushname}

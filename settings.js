@@ -14,24 +14,24 @@ const chalk = require('chalk')
 global.sessionid ='ur session id'
 
 //owmner v card
-global.ytname = "NO YT-Channel " //ur yt chanel name
-global.socialm = "GitHub: Debashis121212" //ur github or insta name
-global.location = "Nalhati, Birbhum, WB,INDIA  " //ur location
+global.ytname = "RICK SUNDAR SARKAR" //ur yt chanel name
+global.socialm = "" //ur github or insta name
+global.location = "" //ur location
 
 //new
-global.botname = '꧁﴿·⁎̩͙ ⁑̩͙̩͙ ⁂̩̩͙»✥«·-𝕯𝕯 𝕮𝖍𝖊𝖊𝖒𝖘-𝕭𝖔𝖙-·»✥«⁂̩̩͙͙ ⁑̩͙̩͙ ⁎̩͙.·﴾꧂' //ur bot name
-global.ownernumber = '919339619072' //ur owner number
-global.ownername = '꧁﴿☬✞ 𝔇𝔢𝔟𝔞𝔰𝔥𝔦𝔰 𝔇𝔢𝔶 ✞☬﴾꧂™' //ur owner name
-global.websitex = "https://www.facebook.com/sipra.dey.56863/"
+global.botname = 'A S T R O N A U T  B O T' //ur bot name
+global.ownernumber = '918327526811' //ur owner number
+global.ownername = '𝑺𝒍𝒆𝒆𝒑𝒊𝒏𝒈...' //ur owner name
+global.websitex = "https://www.facebook.com/LeonardorickCaprio"
 global.wagc = "https://chat.whatsapp.com/C4NU6KefgoLL9W8vpbhbEY"
 global.themeemoji = '📌'
-global.wm = "▂▃▅▇█▓▒░ 𝕯𝕯 𝕮𝖍𝖊𝖊𝖒𝖘 𝕸𝖚𝖑𝖙𝖎𝖉𝖊𝖛𝖎𝖈𝖊 𝕭𝖔𝖙 ░▒▓█▇▅▃▂ "
+global.wm = "A S T R O N A U T  B O T "
 global.botscript = 'https://github.com/Debashis121212/CheemsBot-MD11' //script link
 global.packname = "Sticker By"
-global.author = "Debashis Dey\n\n+919339619072"
-global.creator = "919339619072@s.whatsapp.net"
+global.author = "𝑺𝒍𝒆𝒆𝒑𝒊𝒏𝒈..."
+global.creator = "918327526811@s.whatsapp.net"
 global.xprefix = '.'
-global.premium = ["919339619072"] // Premium User
+global.premium = ["918327526811"] // Premium User
 global.hituet = 0
 
 //bot sett
