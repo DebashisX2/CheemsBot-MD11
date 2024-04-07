@@ -505,6 +505,17 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "917679173887@s.whatsapp.net": {
+      "serialNumber": "b38b8a53a3f4d70efd06e9ae82c256ac",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "A S T R O N A U T",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "database": {},
@@ -926,7 +937,8 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": false
     },
     "919144564031@s.whatsapp.net": {
       "badword": false,
@@ -1087,7 +1099,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 723,
+      "totalhit": 751,
       "totalError": 0,
       "online": false,
       "autosticker": false,
