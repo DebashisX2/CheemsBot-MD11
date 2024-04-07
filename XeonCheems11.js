@@ -4245,6 +4245,66 @@ XeonBotInc.sendMessage(from, {text: `Here @${teman.split("@")[0]}`, mentions: [t
 }, 9000)
 }
 break
+
+case 'family': {
+    if (!m.isGroup) return XeonStickGroup()
+    function getRandomPercentage() {
+        // Generate a random percentage between 1 and 100
+        return Math.floor(Math.random() * 100) + 1;
+    }
+    let ps = groupMetadata.participants.map(v => v.id);
+    a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+    
+    let b= ps[Math.floor(Math.random() * ps.length)]
+    let c= ps[Math.floor(Math.random() * ps.length)]
+    let d= ps[Math.floor(Math.random() * ps.length)]
+    let e= ps[Math.floor(Math.random() * ps.length)]
+    let f= ps[Math.floor(Math.random() * ps.length)]
+    let g= ps[Math.floor(Math.random() * ps.length)]
+    let h= ps[Math.floor(Math.random() * ps.length)]
+    let i= ps[Math.floor(Math.random() * ps.length)]
+    let k= ps[Math.floor(Math.random() * ps.length)]
+    let l= ps[Math.floor(Math.random() * ps.length)]
+    let n= ps[Math.floor(Math.random() * ps.length)]
+    let o= ps[Math.floor(Math.random() * ps.length)]
+    let p= ps[Math.floor(Math.random() * ps.length)]
+    let q= ps[Math.floor(Math.random() * ps.length)]
+    let j= ps[Math.floor(Math.random() * ps.length)]
+   
+
+    const percentage = getRandomPercentage();
+    xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
+বাবা:         @${g.split("@")[0]}👨\n
+মা :‌-        @${b.split("@")[0]}🫃
+বাবা :-       @${j.split("@")[0]}
+ভাই/বোন :-  @${c.split("@")[0]}💆
+বর/বউ :-    @${h.split("@")[0]}👫
+Bf/Gf :-     @${i.split("@")[0]} 👩‍❤‍💋‍👨
+Ex :-        @${d.split("@")[0]} 🤡
+বাড়িওয়ালা :-  @${e.split("@")[0]} 🏟
+শশুর :-      @${k.split("@")[0]}🧚
+শাশুরি:-      @${f.split("@")[0]} 🧚
+ক্রাশ :-      @${l.split("@")[0]}
+বাচ্চা:        ${percentage} টি \n
+@${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
+ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
+XeonWlcm = await getBuffer(ppuser)
+
+XeonBotInc.sendMessage(m.chat,
+    { text: xeonbody,
+    contextInfo:{
+    mentionedJid:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q],
+    externalAdReply: {
+        showAdAttribution: true,
+        title: botname,
+        body: ownername,
+        thumbnail: XeonWlcm,
+        sourceUrl: websitex,
+        mediaType: 1,
+        renderLargerThumbnail: true
+    }}})
+ }
+break
 case 'q': case 'quoted': {
 if (!m.quoted) return replygcxeon('Reply the Message!!')
 let xeonquotx= await XeonBotInc.serializeM(await m.getQuotedObj())

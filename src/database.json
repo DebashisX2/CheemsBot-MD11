@@ -1,4 +1,12 @@
 {
+  "sticker": {},
+  "database": {},
+  "game": {
+    "math": []
+  },
+  "others": {
+    "vote": []
+  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -161,7 +169,7 @@
       "badword": 0,
       "afkReason": "",
       "nick": "Nice",
-      "premium": "false",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     },
@@ -282,7 +290,7 @@
       "badword": 0,
       "afkReason": "",
       "nick": "꧁༺ꮇᴏᶶ⚘༻༺℘riya༻꧂",
-      "premium": "false",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     },
@@ -516,9 +524,74 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "917601852326@s.whatsapp.net": {
+      "serialNumber": "b632dcccec59f21d8ad80f1e6276afb7",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "[ プリタム ]",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "917908532554@s.whatsapp.net": {
+      "serialNumber": "f46e468e55187b3d5e2ec297af2c756f",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "🦚🦚🦚🦚🦚🦚Radhe Radhe 🦚🦚🦚🦚🦚🦚🦚",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919732915928@s.whatsapp.net": {
+      "serialNumber": "73699c82b9ca2e3a6f7c0664008a8302",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "suman jana",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919051385274@s.whatsapp.net": {
+      "serialNumber": "895b8c1814b035a1287bb6fbd85453ab",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Ashadeep Ghosh",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919339966524@s.whatsapp.net": {
+      "serialNumber": "fb20437b9e65cff5b7854b746605cb04",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Tanima Jana",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919734503885@s.whatsapp.net": {
+      "serialNumber": "2a1c94676329d0cf210a7832eb98d4c7",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Dr. Lover 😘💕",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
     }
   },
-  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -756,7 +829,8 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": false
     },
     "120363235177075261@g.us": {
       "badword": false,
@@ -1034,9 +1108,6 @@
       "antipromote": false
     }
   },
-  "game": {
-    "math": []
-  },
   "settings": {
     "918798308154@s.whatsapp.net": {
       "totalhit": 432,
@@ -1099,7 +1170,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 755,
+      "totalhit": 882,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -1129,10 +1200,6 @@
       }
     }
   },
-  "message": {},
   "antipromote": {},
-  "sticker": {},
-  "others": {
-    "vote": []
-  }
+  "message": {}
 }
