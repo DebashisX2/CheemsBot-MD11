@@ -444,7 +444,7 @@
       "badword": 0,
       "afkReason": "",
       "nick": "イタチ⛄",
-      "premium": "false",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     },
@@ -588,6 +588,28 @@
       "afkReason": "",
       "nick": "Dr. Lover 😘💕",
       "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918327058849@s.whatsapp.net": {
+      "serialNumber": "b4d59e96e7edcb48773198b01d920cdf",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "❤️ Puchku ❤️",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919073813406@s.whatsapp.net": {
+      "serialNumber": "3a32aab3dee658d3a5f54d423b0b381f",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Ishan",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     }
@@ -1106,6 +1128,25 @@
       "antilink": false,
       "antilinkgc": false,
       "antipromote": false
+    },
+    "919073813406@s.whatsapp.net": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antipromote": false,
+      "antilinkgc": false
     }
   },
   "settings": {
@@ -1170,7 +1211,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 882,
+      "totalhit": 962,
       "totalError": 0,
       "online": false,
       "autosticker": false,
