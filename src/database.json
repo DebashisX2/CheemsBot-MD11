@@ -612,6 +612,94 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "919382613861@s.whatsapp.net": {
+      "serialNumber": "f5ae64b10c187ab052dafe4bfded9cee",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "⚔️🔥🇦 ̀🇹 🇦 ̀🇳 ̃🇺 ̂🔥⚔️🦋",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918101923556@s.whatsapp.net": {
+      "serialNumber": "2734176ae7a2802491ac531a23ab505b",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "𝘋𝘦𝘷𝘰𝘵𝘦𝘦 𝘖𝘧 𝘔𝘢𝘢 𝘋𝘶𝘳𝘨𝘢🙏🧡",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "919475384518@s.whatsapp.net": {
+      "serialNumber": "3983b30209700ec0df45f1f205753650",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Vkbharatediting",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "916290240962@s.whatsapp.net": {
+      "serialNumber": "98823b34767279b7976dc8834d54928b",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "😇",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "15202238877@s.whatsapp.net": {
+      "serialNumber": "721e0e65ee2758d2bd70f4e970cc2fbf",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "ZNZ",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "916294516396@s.whatsapp.net": {
+      "serialNumber": "2cddba357665deda309add3bba5ed30f",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "🙃❤️",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "917001177237@s.whatsapp.net": {
+      "serialNumber": "cb75f5fdd9847916aa249ad7d6dbc27e",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "anowarshahid083",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918927935250@s.whatsapp.net": {
+      "serialNumber": "980610932e32ccec1d1eb07173b23106",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Nirban",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "chats": {
@@ -961,7 +1049,8 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": false
     },
     "919062628928@s.whatsapp.net": {
       "badword": false,
@@ -1015,7 +1104,8 @@
       "antidocument": false,
       "anticontact": false,
       "antilink": false,
-      "antilinkgc": false
+      "antilinkgc": false,
+      "antipromote": false
     },
     "120363046514339274@g.us": {
       "badword": false,
@@ -1147,6 +1237,25 @@
       "antilink": false,
       "antipromote": false,
       "antilinkgc": false
+    },
+    "120363283350782976@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antipromote": false,
+      "antilinkgc": false
     }
   },
   "settings": {
@@ -1211,7 +1320,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 962,
+      "totalhit": 1064,
       "totalError": 0,
       "online": false,
       "autosticker": false,

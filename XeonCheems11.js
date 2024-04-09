@@ -44,6 +44,7 @@ const scp2 = require('./lib/scraper2')
 const pkg = require('imgur')
 const { ImgurClient } = pkg
 const client = new ImgurClient({ clientId: "a0113354926015a" })
+
 const {
     exec,
     spawn,
@@ -2880,6 +2881,7 @@ break
             break
                 //bot status
             case 'ping': case 'botstatus': case 'statusbot': case 'p':
+                let fgg = { key: { fromMe: true, participant: `0@s.whatsapp.net`, remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: `꧁﴿.·»✥«·-𝕯𝕯 𝕮𝖍𝖊𝖊𝖒𝖘-𝕭𝖔𝖙-·»✥«.·﴾꧂\n 😎😎===================================😎😎\n Created by: ${ownername}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:'CHEEMS-BOT'\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
                 let timestampe = speed()
                 let latensie = speed() - timestampe
                  let ping = `> 📌 Hey there, 🤗
@@ -2889,10 +2891,12 @@ break
 > 📌 ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}⏰
 >  
 > 📌 ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} 👑`
+
                 XeonBotInc.sendMessage(m.chat, {
                     text: ping,
+                    renderLargerThumbnail: true
                 }, {
-                    quoted: m
+                    quoted: fgg
                 })
                 break
     case 'relay':
@@ -4274,15 +4278,15 @@ case 'family': {
     const percentage = getRandomPercentage();
     xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
 মা :‌-        @${b.split("@")[0]}🫃
-বাবা :-       @${j.split("@")[0]}💦
-ভাই/বোন :-  @${c.split("@")[0]}💆
-বর/বউ :-    @${h.split("@")[0]}👫
-Bf/Gf :-     @${i.split("@")[0]} 👩‍❤‍💋‍👨
-Ex :-        @${d.split("@")[0]} 🤡
-বাড়িওয়ালা :-  @${e.split("@")[0]} 🏟
-শশুর :-      @${k.split("@")[0]}🧚
-শাশুরি:-      @${f.split("@")[0]} 🧚
-ক্রাশ :-      @${l.split("@")[0]} 🥵
+বাবা :-       @${c.split("@")[0]}💦
+ভাই/বোন :-  @${d.split("@")[0]}💆
+বর/বউ :-    @${e.split("@")[0]}👫
+Bf/Gf :-     @${f.split("@")[0]} 👩‍❤‍💋‍👨
+Ex :-        @${g.split("@")[0]} 🤡
+বাড়িওয়ালা :-  @${h.split("@")[0]} 🏟
+শশুর :-      @${i.split("@")[0]}🧚
+শাশুরি:-      @${j.split("@")[0]} 🧚
+ক্রাশ :-      @${k.split("@")[0]} 🥵
 বাচ্চা:        ${percentage} টি \n
 @${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
 try {
@@ -4304,7 +4308,9 @@ XeonBotInc.sendMessage(m.chat,
         thumbnail: XeonWlcm,
         sourceUrl: websitex,
         mediaType: 1,
-    }}})
+    }}}, {
+        quoted: m
+    })
  }
 break
 case 'q': case 'quoted': {
