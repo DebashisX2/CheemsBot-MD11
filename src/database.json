@@ -700,6 +700,28 @@
       "premium": false,
       "limit": 100,
       "totalLimit": 0
+    },
+    "918653156125@s.whatsapp.net": {
+      "serialNumber": "fa1cb99297e89e85ad32508d81dd511b",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Çårêlêss BõY Tâîtøñ ❤️",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918207267308@s.whatsapp.net": {
+      "serialNumber": "a1311efe6a92978e3aa20be804ec37e3",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "saraswatijana96",
+      "premium": false,
+      "limit": 100,
+      "totalLimit": 0
     }
   },
   "chats": {
@@ -1320,7 +1342,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 1064,
+      "totalhit": 1126,
       "totalError": 0,
       "online": false,
       "autosticker": false,
