@@ -279,6 +279,21 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
         async function replyprem(teks) {
     replygcxeon(`This feature is for premium user, contact the owner to become premium user`)
 }
+        async function sendButtonReplyMessage(target, message, buttons) {
+            target = m.sender
+            // Construct message data
+            const messageData = {
+                to: target,
+                type: 'text',
+                text: message,
+                buttons: buttons
+            };
+        
+            // Replace with your code to send the message using the WhatsApp API
+            console.log('Sending message:', messageData);
+        }
+
+
         //script replier
         async function sendXeonBotIncMessage(chatId, message, options = {}){
     let generate = await generateWAMessage(chatId, message, options)
@@ -4272,6 +4287,20 @@ case 'u':
     }
     break
 
+    case 'buttons':
+        const axios = require('axios');
+        let buttons = [
+            { type: 'reply', title: 'menu', payload: 'menu' },
+            { type: 'reply', title: 'ping', payload: 'ping' },
+            { type: 'reply', title: 'owner', payload: 'owner' },
+            // Add more buttons as needed
+        ]
+        XeonBotInc.sendButtonReplyMessage(m.chat, {
+            text: 'select buttons from below',
+            buttons: buttons
+        }
+    )
+        break
 case 'family': {
     if (!m.isGroup) return XeonStickGroup()
     function getRandomPercentage() {

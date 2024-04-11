@@ -215,6 +215,7 @@ ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
 //welcome\\
 memb = metadata.participants.length
 XeonWlcm = await getBuffer(ppuser)
+let profilelink = `https://wa.me/${num}`
 XeonLft = await getBuffer(ppuser)
                 if (anu.action == 'add') {
                 const xeonbuffer = await getBuffer(ppuser)
@@ -222,17 +223,14 @@ XeonLft = await getBuffer(ppuser)
                 const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 	            const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 	            const xmembers = metadata.participants.length
-                xeonbody =  `┌──────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖──────────┐
+                xeonbody =  `┌────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
 │「 𝗛𝗶 👋 」
 └┬❖ 「  @${xeonName.split("@")[0]}  」
-   │✑  𝖂𝖊𝖑𝖈𝖔𝖒𝖊 𝕿𝖔 
-   │✑         ${metadata.subject}
-   │
-   │✑  𝕸𝖊𝖒𝖇𝖊𝖗 : 
-   │✑         ${xmembers}th
-    |
+   │✑  𝖂𝖊𝖑𝖈𝖔𝖒𝖊 𝕿𝖔 : ${metadata.subject}
+   │✑  𝕸𝖊𝖒𝖇𝖊𝖗 : ${xmembers}th
    │✑  𝕵𝖔𝖎𝖓𝖊𝖉 𝖔𝖓 : 
-   │✑         ${xtime} ${xdate} 
+   │✑        𝕯𝖆𝖙𝖊: ${xtime} 
+   │✑        𝕿𝖎𝖒𝖊: ${xdate} 
    │
     |✑ 𝕮𝖔𝖓𝖌𝖗𝖆𝖙𝖚𝖑𝖆𝖙𝖎𝖔𝖓𝖘
     |     @${xeonName.split("@")[0]} 𝘽𝙧𝙤/𝙎𝙞𝙨, 
@@ -240,7 +238,8 @@ XeonLft = await getBuffer(ppuser)
     | ${metadata.subject} 𝙁𝙖𝙢𝙞𝙡𝙮❤️🤝
     |
     |✑ 𝕲𝖗𝖔𝖚𝖕 𝕯𝖊𝖘𝖈𝖗𝖎𝖕𝖙𝖎𝖔𝖓:- 
-     ${metadata.desc} 
+    |  𝐑𝐄𝐀𝐃 𝐆𝐑𝐎𝐔𝐏 𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐓𝐈𝐎𝐍 𝐂𝐀𝐑𝐄𝐅𝐔𝐋𝐋𝐘 : 
+         *${metadata.desc}*
    └─┬──────────────────────┈ ⳹
          │
          │✑ ꧁𓊈𒆜•♣ 𝕯𝕯 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝕺𝕿 ♣•𒆜𓊉꧂
@@ -262,25 +261,26 @@ XeonBotInc.sendMessage(anu.id,
  "previewType": "PHOTO",
 "thumbnailUrl": ``,
 "thumbnail": XeonWlcm,
-"sourceUrl": `${wagc}`}}})
+"sourceUrl": `${profilelink}`}}})
                 } else if (anu.action == 'remove') {
                 	const xeonbuffer = await getBuffer(ppuser)
                     const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 	                const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
                 	let xeonName = num
                     const xeonmembers = metadata.participants.length
+                    const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
+                    const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+
+
                     xeonbody = `
-┌────────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖───────────┐
+┌────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
 │「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
 └┬❖ 「 @${xeonName.split("@")[0]}  」
-   │✑  𝕷𝖊𝖋𝖙 𝕱𝖗𝖔𝖒: 
-   │✑        ${metadata.subject}
-    |
-   │✑  𝕸𝖊𝖒𝖇𝖊𝖗 : 
-   │✑        ${xeonmembers}th
-    |
-   │✑  𝕷𝖊𝖋𝖙 𝕺𝖓 : 
-   │✑        ${xeontime} ${xeondate}
+   │✑  𝕷𝖊𝖋𝖙 𝕱𝖗𝖔𝖒: ${metadata.subject}
+   │✑  𝕸𝖊𝖒𝖇𝖊𝖗 :  ${xeonmembers}th
+    | 𝕷𝖊𝖋𝖙 𝕺𝖓 :
+   │✑        𝕯𝖆𝖙𝖊: ${xtime} 
+   │✑        𝕿𝖎𝖒𝖊: ${xdate} 
    │
    │✑  He/She is no more in this group 😔
    └┬─────────────────────┈ ⳹
@@ -304,7 +304,7 @@ XeonBotInc.sendMessage(anu.id,
  "previewType": "PHOTO",
 "thumbnailUrl": ``,
 "thumbnail": XeonLft,
-"sourceUrl": `${wagc}`}}})
+"sourceUrl": `${profilelink}`}}})
 }
 }
 } catch (err) {
