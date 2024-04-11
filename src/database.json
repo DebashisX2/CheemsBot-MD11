@@ -1,4 +1,12 @@
 {
+  "sticker": {},
+  "database": {},
+  "game": {
+    "math": []
+  },
+  "others": {
+    "vote": []
+  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -414,12 +422,11 @@
       "badword": 0,
       "afkReason": "",
       "nick": "╚»★ 𝓓𝓮𝓫𝓪𝓼𝓱𝓲𝓼 ★«╝",
-      "premium": "false",
+      "premium": false,
       "limit": 100,
       "totalLimit": 0
     }
   },
-  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -855,10 +862,25 @@
       "anticontact": false,
       "antilink": false,
       "antilinkgc": false
+    },
+    "120363263301018944@g.us": {
+      "badword": false,
+      "antiforeignnum": false,
+      "antibot": false,
+      "antiviewonce": false,
+      "antivirtex": false,
+      "antimedia": false,
+      "antiimage": false,
+      "antivideo": false,
+      "antiaudio": false,
+      "antipoll": false,
+      "antisticker": false,
+      "antilocation": false,
+      "antidocument": false,
+      "anticontact": false,
+      "antilink": false,
+      "antilinkgc": false
     }
-  },
-  "game": {
-    "math": []
   },
   "settings": {
     "918798308154@s.whatsapp.net": {
@@ -980,12 +1002,38 @@
           "alias": "918116945233"
         }
       }
+    },
+    "918016025906@s.whatsapp.net": {
+      "totalhit": 5,
+      "totalError": 0,
+      "online": false,
+      "autosticker": false,
+      "autobio": false,
+      "autoread": false,
+      "autoblocknum": false,
+      "onlyindia": false,
+      "onlyindo": false,
+      "onlygrub": false,
+      "onlypc": false,
+      "autorecordtype": false,
+      "autorecord": false,
+      "autotype": false,
+      "watermark": {
+        "packname": "Sticker By",
+        "author": "Debashis Dey\n\n+918116945233"
+      },
+      "about": {
+        "bot": {
+          "nick": "ritamjana73",
+          "alias": "RITAM BOT"
+        },
+        "owner": {
+          "nick": "+91 81169 45233",
+          "alias": "918116945233"
+        }
+      }
     }
   },
   "message": {},
-  "antipromote": {},
-  "sticker": {},
-  "others": {
-    "vote": []
-  }
+  "antipromote": {}
 }

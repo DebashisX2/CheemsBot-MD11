@@ -1207,6 +1207,143 @@ fs.writeFileSync('./src/data/role/user.json', JSON.stringify(xeonverifieduser, n
 }
         
         switch (isCommand) {
+            case 'family': {
+                if (!m.isGroup) return XeonStickGroup()
+                function getRandomPercentage() {
+                    return Math.floor(Math.random() * 100) + 1;
+                }
+                let ps = groupMetadata.participants.map(v => v.id);
+                a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+                
+                let b= ps[Math.floor(Math.random() * ps.length)]
+                let c= ps[Math.floor(Math.random() * ps.length)]
+                let d= ps[Math.floor(Math.random() * ps.length)]
+                let e= ps[Math.floor(Math.random() * ps.length)]
+                let f= ps[Math.floor(Math.random() * ps.length)]
+                let g= ps[Math.floor(Math.random() * ps.length)]
+                let h= ps[Math.floor(Math.random() * ps.length)]
+                let i= ps[Math.floor(Math.random() * ps.length)]
+                let j= ps[Math.floor(Math.random() * ps.length)]
+                let k= ps[Math.floor(Math.random() * ps.length)]
+                let l= ps[Math.floor(Math.random() * ps.length)]
+                let n= ps[Math.floor(Math.random() * ps.length)]
+                let o= ps[Math.floor(Math.random() * ps.length)]
+                let p= ps[Math.floor(Math.random() * ps.length)]
+                let q= ps[Math.floor(Math.random() * ps.length)]
+               
+            
+                const percentage = getRandomPercentage();
+                xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
+            মা :‌-        @${b.split("@")[0]}🫃
+            বাবা :-       @${c.split("@")[0]}💦
+            ভাই/বোন :-  @${d.split("@")[0]}💆
+            বর/বউ :-    @${e.split("@")[0]}👫
+            Bf/Gf :-     @${f.split("@")[0]} 👩‍❤‍💋‍👨
+            Ex :-        @${g.split("@")[0]} 🤡
+            বাড়িওয়ালা :-  @${h.split("@")[0]} 🏟
+            শশুর :-      @${i.split("@")[0]}🧚
+            শাশুরি:-      @${j.split("@")[0]} 🧚
+            ক্রাশ :-      @${k.split("@")[0]} 🥵
+            বাচ্চা:        ${percentage} টি \n
+            @${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
+            try {
+                    ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
+                } catch (err) {
+                ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
+                }
+            XeonWlcm = await getBuffer(ppuser)
+            
+            XeonBotInc.sendMessage(m.chat,
+                { text: xeonbody,
+                    image: XeonWlcm,
+                contextInfo:{
+                mentionedJid:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q],
+                externalAdReply: {
+                    showAdAttribution: true,
+                    title: botname,
+                    body: ownername,
+                    thumbnail: XeonWlcm,
+                    sourceUrl: websitex,
+                    mediaType: 1,
+                }}}, {
+                    quoted: m
+                })
+             }
+            break
+            case 'familymembers': {
+                if (!m.isGroup) return XeonStickGroup()
+                function getRandomPercentage() {
+                    return Math.floor(Math.random() * 100) + 1;
+                }
+                let ps = groupMetadata.participants.map(v => v.id);
+                a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+                
+                let b= ps[Math.floor(Math.random() * ps.length)]
+                let c= ps[Math.floor(Math.random() * ps.length)]
+                let d= ps[Math.floor(Math.random() * ps.length)]
+                let e= ps[Math.floor(Math.random() * ps.length)]
+                let f= ps[Math.floor(Math.random() * ps.length)]
+                let g= ps[Math.floor(Math.random() * ps.length)]
+                let h= ps[Math.floor(Math.random() * ps.length)]
+                let i= ps[Math.floor(Math.random() * ps.length)]
+                let j= ps[Math.floor(Math.random() * ps.length)]
+                let k= ps[Math.floor(Math.random() * ps.length)]
+                let l= ps[Math.floor(Math.random() * ps.length)]
+                let n= ps[Math.floor(Math.random() * ps.length)]
+                let o= ps[Math.floor(Math.random() * ps.length)]
+                let p= ps[Math.floor(Math.random() * ps.length)]
+                let q= ps[Math.floor(Math.random() * ps.length)]
+               
+            
+                const percentage = getRandomPercentage();
+                maa=XeonBotInc.getName(a),
+                baba=XeonBotInc.getName(b),
+                vai=XeonBotInc.getName(c),
+                bou=XeonBotInc.getName(d),
+                bf=XeonBotInc.getName(e),
+                bariwala=XeonBotInc.getName(f),
+                ex=XeonBotInc.getName(j),
+                sosur=XeonBotInc.getName(g),
+                sasuri=XeonBotInc.getName(h),
+                crush=XeonBotInc.getName(i),
+            
+                xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
+            মা :‌-        ${maa}🫃
+            বাবা :-       ${baba}💦
+            ভাই/বোন :-  ${vai}💆
+            বর/বউ :-    ${bou}👫
+            Bf/Gf :-     ${bf} 👩‍❤‍💋‍👨
+            Ex :-        ${ex} 🤡
+            বাড়িওয়ালা :-  ${bariwala} 🏟
+            শশুর :-      ${sosur}🧚
+            শাশুরি:-      ${sasuri} 🧚
+            ক্রাশ :-      ${crush} 🥵
+            বাচ্চা:        ${percentage} টি \n
+            @${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
+            try {
+                    ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
+                } catch (err) {
+                ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
+                }
+            XeonWlcm = await getBuffer(ppuser)
+            
+            XeonBotInc.sendMessage(m.chat,
+                { text: xeonbody,
+                    image: XeonWlcm,
+                contextInfo:{
+                mentionedJid:[a],
+                externalAdReply: {
+                    showAdAttribution: true,
+                    title: botname,
+                    body: ownername,
+                    thumbnail: XeonWlcm,
+                    sourceUrl: websitex,
+                    mediaType: 1,
+                }}}, {
+                    quoted: m
+                })
+             }
+            break
             case 'addbadword': case 'addbd':
                if (!XeonTheCreator) return XeonStickOwner()
                if (!groupAdmins) return replygcxeon(mess.admin)
@@ -2828,22 +2965,22 @@ break
                     })
             break
                 //bot status
-            case 'ping': case 'botstatus': case 'statusbot': case 'p':
-                let timestampe = speed()
-                let latensie = speed() - timestampe
-                 let ping = `> 📌 Hey there, 🤗
+                case 'ping': case 'botstatus': case 'statusbot': case 'p':
+                    let timestampe = speed()
+                    let latensie = speed() - timestampe
+                     let ping = `> 📌 Hey there, 🤗
 > ${botname} 
 > is online 📡🛰️
 > 📌 ʀᴇsᴘᴏɴsᴇ sᴘᴇᴇᴅ :  ${latensie.toFixed(4)} ms 🏃
 > 📌 ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}⏰
 >  
 > 📌 ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} 👑`
-                XeonBotInc.sendMessage(m.chat, {
-                    text: ping,
-                }, {
-                    quoted: m
-                })
-                break
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: ping,
+                    }, {
+                        quoted: m
+                    })
+                    break
     case 'relay':
     if (!isPremium) return replygcxeon(mess.premium)
        let message = q ? q : ''
@@ -4180,6 +4317,7 @@ case 'sound161':
 XeonBotInc_dev = await getBuffer(`https://github.com/DGXeon/Tiktokmusic-API/raw/master/tiktokmusic/${command}.mp3`)
 await XeonBotInc.sendMessage(m.chat, { audio: XeonBotInc_dev, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
 break
+
 case 'friend':
 case 'searchfriend':{
 await XeonStickWait()
