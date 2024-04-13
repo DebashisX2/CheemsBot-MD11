@@ -2792,21 +2792,12 @@ break
                     let timestampe = speed()
                     let latensie = speed() - timestampe
                      let ping = `> 📌 Hey there, 🤗
-<<<<<<< HEAD
-> ${botname} 
+> ${botname}
 > is online 📡🛰️
 > 📌 ʀᴇsᴘᴏɴsᴇ sᴘᴇᴇᴅ :  ${latensie.toFixed(4)} ms 🏃
 > 📌 ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}⏰
 >  
 > 📌 ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} 👑`
-=======
-    > ${botname} 
-    > is online 📡🛰️
-    > 📌 ʀᴇsᴘᴏɴsᴇ sᴘᴇᴇᴅ :  ${latensie.toFixed(4)} ms 🏃
-    > 📌 ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}⏰
-    >  
-    > 📌 ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} 👑`
->>>>>>> 743249f06d9396942e3d1820dbbd7e3e5cede073
                     XeonBotInc.sendMessage(m.chat, {
                         text: ping,
                     }, {
