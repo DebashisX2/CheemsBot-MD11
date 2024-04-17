@@ -275,26 +275,36 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
         let XeonStikRep = fs.readFileSync('./XeonMedia/theme/sticker_reply/private.webp')
         XeonBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m })
         }
+        
         //premium
         async function replyprem(teks) {
     replygcxeon(`This feature is for premium user, contact the owner to become premium user`)
 }
-        async function sendButtonReplyMessage(target, message, buttons) {
-            target = m.sender
+        // button reply message 
+ 
+        async function sendbuttonsResponseMessage()
+        {
             // Construct message data
+            target = m.chat,
+            message = 'select options from below'
+           buton = [
+                { type: 'reply', title: 'menu', payload: 'menu' },
+                { type: 'reply', title: 'ping', payload: 'ping' },
+            ]
             const messageData = {
                 to: target,
                 type: 'text',
                 text: message,
-                buttons: buttons
+                buttons: buton
             };
         
             // Replace with your code to send the message using the WhatsApp API
-            console.log('Sending message:', messageData);
+            return await sendbuttonsResponseMessage(messageData)
         }
 
 
         //script replier
+       
         async function sendXeonBotIncMessage(chatId, message, options = {}){
     let generate = await generateWAMessage(chatId, message, options)
     let type2 = getContentType(generate.message)
@@ -2909,7 +2919,6 @@ break
 
                 XeonBotInc.sendMessage(m.chat, {
                     text: ping,
-                    renderLargerThumbnail: true
                 }, {
                     quoted: fgg
                 })
@@ -4288,42 +4297,96 @@ case 'u':
     break
 
     case 'buttons':
-        const axios = require('axios');
-        let buttons = [
+
+        let button = [
             { type: 'reply', title: 'menu', payload: 'menu' },
             { type: 'reply', title: 'ping', payload: 'ping' },
             { type: 'reply', title: 'owner', payload: 'owner' },
             // Add more buttons as needed
         ]
-        XeonBotInc.sendButtonReplyMessage(m.chat, {
+       sendbuttonsResponseMessage(m.chat, {
             text: 'select buttons from below',
-            buttons: buttons
-        }
+            buttons: button
+           }
     )
         break
-case 'family': {
+case 'family': case 'fm' : {
     if (!m.isGroup) return XeonStickGroup()
     function getRandomPercentage() {
         return Math.floor(Math.random() * 100) + 1;
     }
     let ps = groupMetadata.participants.map(v => v.id);
+    let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
     a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    
-    let b= ps[Math.floor(Math.random() * ps.length)]
-    let c= ps[Math.floor(Math.random() * ps.length)]
-    let d= ps[Math.floor(Math.random() * ps.length)]
-    let e= ps[Math.floor(Math.random() * ps.length)]
-    let f= ps[Math.floor(Math.random() * ps.length)]
-    let g= ps[Math.floor(Math.random() * ps.length)]
-    let h= ps[Math.floor(Math.random() * ps.length)]
-    let i= ps[Math.floor(Math.random() * ps.length)]
-    let j= ps[Math.floor(Math.random() * ps.length)]
-    let k= ps[Math.floor(Math.random() * ps.length)]
-    let l= ps[Math.floor(Math.random() * ps.length)]
-    let n= ps[Math.floor(Math.random() * ps.length)]
-    let o= ps[Math.floor(Math.random() * ps.length)]
-    let p= ps[Math.floor(Math.random() * ps.length)]
-    let q= ps[Math.floor(Math.random() * ps.length)]
+    b= ps[Math.floor(Math.random() * ps.length)]
+    c= ps[Math.floor(Math.random() * ps.length)]
+    d= ps[Math.floor(Math.random() * ps.length)]
+    e= ps[Math.floor(Math.random() * ps.length)]
+    f= ps[Math.floor(Math.random() * ps.length)]
+    g= ps[Math.floor(Math.random() * ps.length)]
+    h= ps[Math.floor(Math.random() * ps.length)]
+    i= ps[Math.floor(Math.random() * ps.length)]
+    k= ps[Math.floor(Math.random() * ps.length)]
+    l= ps[Math.floor(Math.random() * ps.length)]
+    n= ps[Math.floor(Math.random() * ps.length)]
+    o= ps[Math.floor(Math.random() * ps.length)]
+    p= ps[Math.floor(Math.random() * ps.length)]
+    q= ps[Math.floor(Math.random() * ps.length)]
+
+
+        b= ps[Math.floor(Math.random() * ps.length)]
+    do {
+    b= ps[Math.floor(Math.random() * ps.length)]
+    } while (a==b);
+
+    do {
+     c= ps[Math.floor(Math.random() * ps.length)]
+    } while (c==b||c==a);
+
+    do{
+     d= ps[Math.floor(Math.random() * ps.length)]
+    } while (d==c||d==b||d==a);
+
+    do{
+     e= ps[Math.floor(Math.random() * ps.length)]
+    } while (e==d||e==c||e==b||e==a);
+
+    do{
+     f= ps[Math.floor(Math.random() * ps.length)]
+    } while (f==e||f==d||f==c||f==b||f==a);
+     
+    do{
+     g= ps[Math.floor(Math.random() * ps.length)]
+    } while (g==f||g==e||g==d||g==c||g==b||g==a);
+
+    do { 
+     h= ps[Math.floor(Math.random() * ps.length)]
+    } while (h==a||h==b||h==c||h==d||h==f||h==g);
+
+    do {
+     i= ps[Math.floor(Math.random() * ps.length)]
+    } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
+    do {
+     j= ps[Math.floor(Math.random() * ps.length)]
+    } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
+
+    do {
+     k= ps[Math.floor(Math.random() * ps.length)]
+    } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
+
+     do {
+     l= ps[Math.floor(Math.random() * ps.length)]
+     } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
+     
+     do {
+     n= ps[Math.floor(Math.random() * ps.length)]
+    } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
+
+    do {
+     o= ps[Math.floor(Math.random() * ps.length)]
+    } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
+     p= ps[Math.floor(Math.random() * ps.length)]
+     q= ps[Math.floor(Math.random() * ps.length)]
    
 
     const percentage = getRandomPercentage();
@@ -4334,11 +4397,13 @@ case 'family': {
 বর/বউ :-    @${e.split("@")[0]}👫
 Bf/Gf :-     @${f.split("@")[0]} 👩‍❤‍💋‍👨
 Ex :-        @${g.split("@")[0]} 🤡
-বাড়িওয়ালা :-  @${h.split("@")[0]} 🏟
+ঘটক :-       @${h.split("@")[0]} 😁
 শশুর :-      @${i.split("@")[0]}🧚
 শাশুরি:-      @${j.split("@")[0]} 🧚
 ক্রাশ :-      @${k.split("@")[0]} 🥵
 বাচ্চা:        ${percentage} টি \n
+1st বাচ্চা:    @${l.split("@")[0]}👶🏼
+
 @${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
 try {
         ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
@@ -4364,29 +4429,83 @@ XeonBotInc.sendMessage(m.chat,
     })
  }
 break
-case 'familymembers': {
+case 'familymembers': case 'family2' : {
     if (!m.isGroup) return XeonStickGroup()
     function getRandomPercentage() {
         return Math.floor(Math.random() * 100) + 1;
     }
     let ps = groupMetadata.participants.map(v => v.id);
+    let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
     a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    
-    let b= ps[Math.floor(Math.random() * ps.length)]
-    let c= ps[Math.floor(Math.random() * ps.length)]
-    let d= ps[Math.floor(Math.random() * ps.length)]
-    let e= ps[Math.floor(Math.random() * ps.length)]
-    let f= ps[Math.floor(Math.random() * ps.length)]
-    let g= ps[Math.floor(Math.random() * ps.length)]
-    let h= ps[Math.floor(Math.random() * ps.length)]
-    let i= ps[Math.floor(Math.random() * ps.length)]
-    let j= ps[Math.floor(Math.random() * ps.length)]
-    let k= ps[Math.floor(Math.random() * ps.length)]
-    let l= ps[Math.floor(Math.random() * ps.length)]
-    let n= ps[Math.floor(Math.random() * ps.length)]
-    let o= ps[Math.floor(Math.random() * ps.length)]
-    let p= ps[Math.floor(Math.random() * ps.length)]
-    let q= ps[Math.floor(Math.random() * ps.length)]
+    b= ps[Math.floor(Math.random() * ps.length)]
+    c= ps[Math.floor(Math.random() * ps.length)]
+    d= ps[Math.floor(Math.random() * ps.length)]
+    e= ps[Math.floor(Math.random() * ps.length)]
+    f= ps[Math.floor(Math.random() * ps.length)]
+    g= ps[Math.floor(Math.random() * ps.length)]
+    h= ps[Math.floor(Math.random() * ps.length)]
+    i= ps[Math.floor(Math.random() * ps.length)]
+    k= ps[Math.floor(Math.random() * ps.length)]
+    l= ps[Math.floor(Math.random() * ps.length)]
+    n= ps[Math.floor(Math.random() * ps.length)]
+    o= ps[Math.floor(Math.random() * ps.length)]
+    p= ps[Math.floor(Math.random() * ps.length)]
+    q= ps[Math.floor(Math.random() * ps.length)]
+
+
+        b= ps[Math.floor(Math.random() * ps.length)]
+    do {
+    b= ps[Math.floor(Math.random() * ps.length)]
+    } while (a==b);
+
+    do {
+     c= ps[Math.floor(Math.random() * ps.length)]
+    } while (c==b||c==a);
+
+    do{
+     d= ps[Math.floor(Math.random() * ps.length)]
+    } while (d==c||d==b||d==a);
+
+    do{
+     e= ps[Math.floor(Math.random() * ps.length)]
+    } while (e==d||e==c||e==b||e==a);
+
+    do{
+     f= ps[Math.floor(Math.random() * ps.length)]
+    } while (f==e||f==d||f==c||f==b||f==a);
+     
+    do{
+     g= ps[Math.floor(Math.random() * ps.length)]
+    } while (g==f||g==e||g==d||g==c||g==b||g==a);
+
+    do { 
+     h= ps[Math.floor(Math.random() * ps.length)]
+    } while (h==a||h==b||h==c||h==d||h==f||h==g);
+
+    do {
+     i= ps[Math.floor(Math.random() * ps.length)]
+    } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
+    do {
+     j= ps[Math.floor(Math.random() * ps.length)]
+    } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
+
+    do {
+     k= ps[Math.floor(Math.random() * ps.length)]
+    } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
+
+     do {
+     l= ps[Math.floor(Math.random() * ps.length)]
+     } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
+     
+     do {
+     n= ps[Math.floor(Math.random() * ps.length)]
+    } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
+
+    do {
+     o= ps[Math.floor(Math.random() * ps.length)]
+    } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
+     p= ps[Math.floor(Math.random() * ps.length)]
+     q= ps[Math.floor(Math.random() * ps.length)]
    
 
     const percentage = getRandomPercentage();
