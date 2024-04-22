@@ -40,7 +40,7 @@ global.typereply = 'v2' // reply type 'v1' => 'v3'
 global.autoblocknumber = '92' //set autoblock country code
 global.antiforeignnumber = '91' //set anti foreign number country code
 global.welcome = true //welcome/left in groups
-global.anticall = true //bot blocks user when called
+global.anticall = false //bot blocks user when called
 global.autoswview = true //auto status/story view
 global.adminevent = true //show promote/demote message
 global.groupevent = true //show update messages in group chat
