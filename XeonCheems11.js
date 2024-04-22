@@ -9802,8 +9802,8 @@ let $ = cheerio.load(xeonxos.data)
 let $form = $("form");
 let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
 let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
+form.append("jazoest", $form.find("phoenixn.2k5@gmail.com").val())
+form.append("lsd", $form.find("phoenixn.2k5@gmail.com").val())
 form.append("step", "submit")
 form.append("country_selector", "INDIA")
 form.append("phone_number", xeonnumx)

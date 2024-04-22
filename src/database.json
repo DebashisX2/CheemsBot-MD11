@@ -1,12 +1,4 @@
 {
-  "sticker": {},
-  "database": {},
-  "game": {
-    "math": []
-  },
-  "others": {
-    "vote": []
-  },
   "users": {
     "918798308154@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
@@ -1118,8 +1110,31 @@
       "premium": "false",
       "limit": 100,
       "totalLimit": 0
+    },
+    "919088552688@s.whatsapp.net": {
+      "serialNumber": "a72b9673b7946d29ebc71421b3c63121",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "👑Jeet✨",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
+    },
+    "918910921084@s.whatsapp.net": {
+      "serialNumber": "122184a663d0a33421ab8b04db1a12d3",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Joy🖤🌙",
+      "premium": "false",
+      "limit": 100,
+      "totalLimit": 0
     }
   },
+  "database": {},
   "chats": {
     "120363047626537933@g.us": {
       "badword": false,
@@ -1753,6 +1768,9 @@
       "antilinkgc": false
     }
   },
+  "game": {
+    "math": []
+  },
   "settings": {
     "918798308154@s.whatsapp.net": {
       "totalhit": 432,
@@ -1815,7 +1833,7 @@
       }
     },
     "918768298758@s.whatsapp.net": {
-      "totalhit": 1265,
+      "totalhit": 1267,
       "totalError": 0,
       "online": false,
       "autosticker": false,
@@ -1845,6 +1863,10 @@
       }
     }
   },
+  "message": {},
   "antipromote": {},
-  "message": {}
+  "sticker": {},
+  "others": {
+    "vote": []
+  }
 }
