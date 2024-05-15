@@ -376,7 +376,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                      "previewType": "PHOTO",
                      "thumbnailUrl": ``,
                      "thumbnail": XeonWlcm,
-                     "sourceUrl": `${websitex}`}
+                     "sourceUrl": `${profilelink}`}
                                 }
                     })
             }  
@@ -397,7 +397,7 @@ m.chat ? {remoteJid: "status@broadcast"} : {}
                              "previewType": "PHOTO",
                             "thumbnailUrl": ``,
                             "thumbnail": XeonWlcm,
-                             "sourceUrl": `${websitex}`}
+                             "sourceUrl": `${profilelink}`}
                                 }
                     })
             }
